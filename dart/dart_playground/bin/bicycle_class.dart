@@ -27,8 +27,6 @@ void main() {
   //instantiate
   //optional new keyword:
   var bike = Bicycle(2, 1);
-  //bike.gear =5;
+  // bike.gear =5;
   print(bike);
-
-
 }
