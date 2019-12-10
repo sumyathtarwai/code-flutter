@@ -12,6 +12,13 @@ class Bicycle {
   //constructor has no body, which is valid in Dart.
   Bicycle(this.cadence, this.gear);
 
+  // named constructor
+  Bicycle.specialBike() {
+    cadence = 100;
+    gear = 10;
+    _speed = 200;
+  }
+
 //string interpolation, ${expression}
 //fat arrow (=>) for one line function
   @override
@@ -29,4 +36,7 @@ void main() {
   var bike = Bicycle(2, 1);
   // bike.gear =5;
   print(bike);
+
+  // named constructor invoke
+  print(Bicycle.specialBike());
 }
