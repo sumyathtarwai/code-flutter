@@ -4,4 +4,4 @@ This project is tutorial work from [building layouts in Flutter](https://flutter
 
 - lake_demo.dart build the layout for the following:
 
-![lake](lake_final_look.png)
+<img src='lake_final_look.png' width="30%" alt='lake'>
