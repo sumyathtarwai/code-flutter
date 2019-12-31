@@ -1,4 +1,4 @@
-package com.example.layout_startup
+package com.example.layout_demo
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
