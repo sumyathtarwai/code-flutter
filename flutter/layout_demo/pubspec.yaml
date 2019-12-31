@@ -21,7 +21,7 @@ flutter:
   fonts:
     - family: Dancing
       fonts:
-        - asset: fonts/DancingScript-Bold.ttf
+        - asset: assets/fonts/DancingScript-Bold.ttf
     - family: Source Sans Pro
       fonts:
-        - asset: fonts/SourceSansPro-Regular.ttf
+        - asset: assets/fonts/SourceSansPro-Regular.ttf
