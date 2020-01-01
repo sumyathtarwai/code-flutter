@@ -26,22 +26,14 @@ class _DiceState extends State<DiceWidget> {
             children: <Widget>[
               Expanded(
                 child: FlatButton(
-                  onPressed: () {
-                    setState(
-                      () => _dice(),
-                    );
-                  },
                   child: Image.asset('assets/$_leftDice.png'),
+                  onPressed: () => _diceState(),
                 ),
               ),
               Expanded(
                 child: FlatButton(
                   child: Image.asset('assets/$_rightDice.png'),
-                  onPressed: () {
-                    setState(
-                      () => _dice(),
-                    );
-                  },
+                  onPressed: () => _diceState(),
                 ),
               ),
             ],
@@ -51,8 +43,10 @@ class _DiceState extends State<DiceWidget> {
     );
   }
 
-  void _dice() {
-    _leftDice = Random().nextInt(6) + 1;
-    _rightDice = Random().nextInt(6) + 1;
+  void _diceState() {
+    setState(() {
+      _leftDice = Random().nextInt(6) + 1;
+      _rightDice = Random().nextInt(6) + 1;
+    });
   }
 }
