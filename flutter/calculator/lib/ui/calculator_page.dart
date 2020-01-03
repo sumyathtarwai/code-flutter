@@ -16,21 +16,15 @@ class _KeyState extends State<CalculatorPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.grey.shade400,
-        body: SafeArea(
-            child: Container(
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                _displayWidget(),
-                _keyFirstColumn(),
-                _keySecondColumn(),
-              ]),
-        )),
-      ),
+    return Container(
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            _displayWidget(),
+            _keyFirstColumn(),
+            _keySecondColumn(),
+          ]),
     );
   }
 

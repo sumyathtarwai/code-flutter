@@ -1,4 +1,4 @@
-import 'package:calculator/ui/calculator_page.dart';
+import 'package:calculator/ui/home_page.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(CalculatorPage());
+void main() => runApp(App());
