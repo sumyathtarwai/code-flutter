@@ -12,7 +12,7 @@ abstract class Keys {
   static const key9 = '9';
   static const keyClear = 'C';
   static const keyDel = 'del';
-  static const keyModulus = '%';
+  static const keyPercent = '%';
   static const keyDivide = '÷';
   static const keyMultiply = 'x';
   static const keyMinus = '-';
@@ -32,7 +32,7 @@ abstract class Keys {
     key2,
   ];
   static const thirdColumn = [
-    keyModulus,
+    keyPercent,
     key9,
     key6,
     key3,
@@ -43,4 +43,8 @@ abstract class Keys {
     keyMinus,
     keyPlus,
   ];
+}
+
+abstract class Constants {
+  static const max = 10;
 }

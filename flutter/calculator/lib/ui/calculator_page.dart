@@ -8,11 +8,15 @@ class CalculatorPage extends StatefulWidget {
 }
 
 class _KeyState extends State<CalculatorPage> {
-  String _input = '0';
+  String _displayText = '';
+  String _num1 = '';
+  String _num2 = '';
 
   final fontColor = Colors.white;
   final btnColor = Colors.grey.shade700;
   final btnBorder = Colors.amber.shade900;
+
+  String _operator = '';
 
   @override
   Widget build(BuildContext context) {
@@ -21,98 +25,144 @@ class _KeyState extends State<CalculatorPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            _displayWidget(),
-            _keyFirstColumn(),
-            _keySecondColumn(),
+            Expanded(
+              flex: 1,
+              child: _firstColumnWidget(),
+            ),
+            Expanded(
+              flex: 0,
+              child: _secondColumnKey(),
+            ),
+            Expanded(
+              flex: 0,
+              child: _thirdColumnKey(),
+            ),
           ]),
     );
   }
 
-  Widget _displayWidget() {
-    return Container(
-      //color: Colors.red,
-      padding: EdgeInsets.only(right: 40),
-      margin: EdgeInsets.only(
-        top: 130.0,
-      ),
-      child: Text(
-        _input,
-        textAlign: TextAlign.right,
-        style: TextStyle(
-          fontFamily: 'Source Sans Pro',
-          fontSize: 60.0,
-          color: Colors.white,
-        ),
-      ),
+  Widget _firstColumnWidget() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        Expanded(
+          child: Text(
+            //FIXME
+            (_num1.isNotEmpty && _displayText.isEmpty)
+                ? _num1
+                : _displayText.isEmpty ? '0' : _displayText,
+            textAlign: TextAlign.right,
+            style: TextStyle(
+              fontFamily: 'Source Sans Pro',
+              fontSize: 60.0,
+              color: Colors.white,
+            ),
+          ),
+        )
+      ],
     );
   }
 
-  Widget _keyFirstColumn() {
+  Widget _secondColumnKey() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        _buildButtonBulk(Keys.firstColumn),
-        _buildButtonBulk(Keys.secondColumn),
-        _buildButtonBulk(Keys.thirdColumn),
-        _buildButtonBulk(
-          Keys.fourthColumn,
-          fontColor: fontColor,
-          btnColor: btnColor,
-          btnBorder: btnBorder,
+        Expanded(
+          child: _buildButtonBulk(Keys.firstColumn),
+        ),
+        Expanded(
+          child: _buildButtonBulk(Keys.secondColumn),
+        ),
+        Expanded(
+          child: _buildButtonBulk(Keys.thirdColumn),
+        ),
+        Expanded(
+          child: _buildButtonBulk2(
+            Keys.fourthColumn,
+            fontColor: fontColor,
+            btnColor: btnColor,
+            btnBorder: btnBorder,
+          ),
         ),
       ],
     );
   }
 
-  Widget _keySecondColumn() {
+  Widget _thirdColumnKey() {
     return Row(
+      //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        _buildButton(Keys.keyZero),
-        _buildButton(Keys.keyDecimal),
-        _buildButton(
-          Keys.keyEqual,
-          fontColor: fontColor,
-          btnColor: btnColor,
-          btnBorder: btnBorder,
-          width: 190.0,
+        Expanded(
+          child: _buildButton(Keys.keyZero),
+        ),
+        Expanded(
+          child: _buildButton(Keys.keyDecimal),
+        ),
+        Expanded(
+          flex: 2,
+          //FIXME
+          child: _buildButton3(
+            Keys.keyEqual,
+            fontColor: fontColor,
+            btnColor: btnColor,
+            btnBorder: btnBorder,
+            // width: 180.0,
+          ),
         ),
       ],
     );
   }
 
-  Widget _buildButton(String key,
-      {Color fontColor = Colors.black,
-      Color btnColor = Colors.white,
-      Color btnBorder = Colors.black,
-      double width = 80.0}) {
+  Widget _buildButton(
+    String key, {
+    Color fontColor = Colors.black,
+    Color btnColor = Colors.white,
+    Color btnBorder = Colors.black,
+  }) {
+    // keypad text
+    var keyText = Text(
+      key,
+      style: TextStyle(
+        fontFamily: 'Source Sans Pro',
+        fontSize: 26.0,
+        color: fontColor,
+      ),
+    );
     return Container(
-      margin: const EdgeInsets.all(10),
-      width: width,
+      margin: const EdgeInsets.all(10.0),
+      width: 85.0,
       height: 85.0,
-      child: FlatButton(
-        textColor: fontColor,
-        color: btnColor,
+      child: FloatingActionButton(
+        backgroundColor: btnColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
           side: BorderSide(
             color: btnBorder,
-            width: 1.2,
           ),
         ),
-        child: Text(
-          key,
-          style: TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        child: keyText,
         onPressed: () {
-          if (Process.isNum(key)) {
-            setState(() {
-              _input = key;
-            });
-          }
+          setState(() {
+            //FIXME
+
+            //TODO handle key
+            if (key == Keys.keyClear) {
+              _displayText = '';
+            } else if (key == Keys.keyDel) {
+              if (_displayText != '0' && _displayText.isNotEmpty) {
+                _displayText =
+                    _displayText.substring(0, _displayText.length - 1);
+              }
+            } else if (Process.isNum(key) &&
+                _displayText.length < Constants.max) {
+              _displayText += Process.display(_displayText, key);
+            } else {
+              //TODO calculate num1 and num2
+
+            }
+          });
         },
       ),
     );
@@ -134,6 +184,115 @@ class _KeyState extends State<CalculatorPage> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: buttons,
+    );
+  }
+
+//FIXME Need to fix to share state
+  Widget _buildButtonBulk2(List<String> keys,
+      {Color fontColor = Colors.black,
+      Color btnColor = Colors.white,
+      Color btnBorder = Colors.black}) {
+    List<Widget> buttons = [];
+    for (var key in keys) {
+      buttons.add(_buildButton2(
+        key,
+        fontColor: fontColor,
+        btnColor: btnColor,
+        btnBorder: btnBorder,
+      ));
+    }
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: buttons,
+    );
+  }
+
+  Widget _buildButton2(
+    String key, {
+    Color fontColor = Colors.black,
+    Color btnColor = Colors.white,
+    Color btnBorder = Colors.black,
+  }) {
+    // keypad text
+    var keyText = Text(
+      key,
+      style: TextStyle(
+        fontFamily: 'Source Sans Pro',
+        fontSize: 26.0,
+        color: fontColor,
+      ),
+    );
+    return Container(
+      margin: const EdgeInsets.all(10.0),
+      width: 85.0,
+      height: 85.0,
+      child: FloatingActionButton(
+        backgroundColor: btnColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+          side: BorderSide(
+            color: btnBorder,
+          ),
+        ),
+        child: keyText,
+        onPressed: () {
+          print(key);
+          setState(() {
+            if (_num1.isEmpty) {
+              _num1 = _displayText;
+              // reset
+              _displayText = '';
+            }
+            _operator = key;
+            print('op $_num1 $_operator');
+          });
+        },
+      ),
+    );
+  }
+
+//FIXME
+  Widget _buildButton3(
+    String key, {
+    Color fontColor = Colors.black,
+    Color btnColor = Colors.white,
+    Color btnBorder = Colors.black,
+  }) {
+    // keypad text
+    var keyText = Text(
+      key,
+      style: TextStyle(
+        fontFamily: 'Source Sans Pro',
+        fontSize: 26.0,
+        color: fontColor,
+      ),
+    );
+    return Container(
+      margin: const EdgeInsets.all(10.0),
+      width: 85.0,
+      height: 85.0,
+      child: FloatingActionButton(
+        backgroundColor: btnColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+          side: BorderSide(
+            color: btnBorder,
+          ),
+        ),
+        child: keyText,
+        onPressed: () {
+          print(key);
+          setState(() {
+            _num2 = _displayText;
+            print('op $_num1 $_operator $_num2');
+            // reset
+            _displayText = Process.calculate(_num1, _num2, _operator);
+            _num1 = '';
+            _num2 = '';
+            _operator = '';
+          });
+        },
+      ),
     );
   }
 }
