@@ -37,11 +37,19 @@ class WalletHome extends StatelessWidget {
           children: <Widget>[
             // detail summary
             Container(
+              margin: EdgeInsets.only(
+                top: 260.0,
+              ),
               width: double.infinity,
               height: double.infinity,
-              color: Colors.red,
+              // color: Colors.red,
               //grey.shade200,
-              child: DetailSummaryPage(sendAmount: "\$10"),
+              child: DetailSummaryPage(
+                sendAmount: '\$80.5',
+                payAmount: '\$150.15',
+                topUpAmount: '\$60.32',
+                requestAmount: '\$90.20',
+              ),
             ),
             // background
             Container(

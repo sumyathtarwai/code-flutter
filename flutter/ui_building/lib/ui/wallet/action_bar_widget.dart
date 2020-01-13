@@ -31,8 +31,4 @@ class ActionBar extends StatelessWidget {
   }
 }
 
-//payment
-//receipt
-//input
-//send
-//system update
+
