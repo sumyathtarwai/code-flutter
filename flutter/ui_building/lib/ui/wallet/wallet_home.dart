@@ -1,0 +1,69 @@
+import 'package:flutter/material.dart';
+import 'package:ui_building/ui/wallet/action_bar_widget.dart';
+import 'package:ui_building/ui/wallet/bottom_widget.dart';
+import 'package:ui_building/ui/wallet/custom_card_widget.dart';
+import 'package:ui_building/ui/wallet/detail_summary_page.dart';
+
+class WalletHome extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.grey.shade100,
+      appBar: AppBar(
+        // removed default box shadow
+        elevation: 0.0,
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(
+              right: 10.0,
+            ),
+            child: ActionBar(),
+          ),
+        ],
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(
+            75.0,
+          ),
+          child: BottomWidget(
+            title: 'Your Wallet',
+            balance: '\$9,750.50',
+            balancePercent: '25%',
+          ),
+        ),
+      ),
+      body: Container(
+        child: Stack(
+          fit: StackFit.passthrough,
+          children: <Widget>[
+            // detail summary
+            Container(
+              width: double.infinity,
+              height: double.infinity,
+              color: Colors.red,
+              //grey.shade200,
+              child: DetailSummaryPage(sendAmount: "\$10"),
+            ),
+            // background
+            Container(
+              width: double.infinity,
+              height: 140.0,
+              color: Colors.teal.shade700,
+            ),
+            // card
+            Positioned(
+              top: 40.0,
+              left: 20.0,
+              right: 20.0,
+              child: CustomCard(
+                indicator: '100',
+                title: 'Excellent Financial',
+                subTitle: 'Your financial condition is excellent',
+                link: 'View Statistic',
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

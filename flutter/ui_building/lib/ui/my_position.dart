@@ -27,7 +27,7 @@ class MyPosition extends StatelessWidget {
         ));
   }
 
-  Container buildContainer({double width = 100.0, double height = 100.0}) {
+  Widget buildContainer({double width = 100.0, double height = 100.0}) {
     return Container(
       width: width,
       height: height,
