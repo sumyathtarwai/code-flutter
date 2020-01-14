@@ -45,8 +45,8 @@ class DetailSummaryPage extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => SendMoneyPage(
-                        from: 'John Crawford',
-                        fromEmail: 'johncrawford@gmail.com',
+                        from: 'John Doe ',
+                        fromEmail: 'unknown@gmail.com',
                         to: 'Lela Crawford',
                         amount: '\$100.00',
                       ),
