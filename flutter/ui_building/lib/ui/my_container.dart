@@ -3,14 +3,6 @@ import 'package:flutter/material.dart';
 class MyContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var borderRadius = BorderRadius.only(
-      topLeft: Radius.circular(
-        100.0,
-      ),
-      bottomRight: Radius.circular(
-        100.0,
-      ),
-    );
     return Scaffold(
       appBar: AppBar(),
       body: Container(
