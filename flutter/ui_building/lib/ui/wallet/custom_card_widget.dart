@@ -1,34 +1,36 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class CustomCard extends StatelessWidget {
-  final indicator;
+  final percent;
   final title;
   final subTitle;
   final link;
 
-  const CustomCard({this.indicator, this.title, this.subTitle, this.link});
+  const CustomCard({this.percent, this.title, this.subTitle, this.link});
 
   @override
   Widget build(BuildContext context) {
-    final indicatorCircle = Container(
-      width: 100.0,
-      height: 60.0,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: Colors.teal,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(18.0),
-        child: Text(
-          indicator,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 20.0,
-            color: Colors.white,
-          ),
-        ),
-      ),
-    );
+    // final indicatorCircle = Container(
+    //   width: 100.0,
+    //   height: 60.0,
+    //   decoration: BoxDecoration(
+    //     shape: BoxShape.circle,
+    //     color: Colors.teal,
+    //   ),
+    //   child: Padding(
+    //     padding: const EdgeInsets.all(18.0),
+    //     child: Text(
+    //       '$percent',
+    //       textAlign: TextAlign.center,
+    //       style: TextStyle(
+    //         fontSize: 20.0,
+    //         color: Colors.white,
+    //       ),
+    //     ),
+    //   ),
+    // );
 
     const divider = Divider(
       indent: 20.0,
@@ -87,7 +89,36 @@ class CustomCard extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                indicatorCircle,
+                // indicatorCircle,
+                Container(
+                  width: 110.0,
+                  height: 65.0,
+                  child: CustomPaint(
+                    foregroundPainter: _IndicatorPainter(
+                      backgroundColor: Colors.grey,
+                      foregroundColor: Colors.deepOrange.shade400,
+                      percent: percent,
+                    ),
+                    child: Container(
+                      margin: EdgeInsets.all(4.0),
+                      padding: EdgeInsets.all(16.0),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Color(
+                          0xFF416D6C,
+                        ),
+                      ),
+                      child: Text(
+                        '$percent',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
@@ -95,7 +126,7 @@ class CustomCard extends StatelessWidget {
                     titleText,
                     subTitleText,
                   ],
-                )
+                ),
               ],
             ),
           ),
@@ -115,5 +146,51 @@ class CustomCard extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class _IndicatorPainter extends CustomPainter {
+  var percent;
+  var backgroundColor;
+  var foregroundColor;
+
+  _IndicatorPainter({this.percent, this.foregroundColor, this.backgroundColor});
+  @override
+  void paint(Canvas canvas, Size size) {
+    var paint = Paint();
+    paint.color = backgroundColor;
+    paint.style = PaintingStyle.stroke;
+    paint.strokeWidth = 2.5;
+
+    var center = Offset(size.width / 2, size.height / 2);
+    var radius = min(size.width / 2, size.height / 2);
+
+    // dreaw circle
+    canvas.drawCircle(center, radius, paint);
+
+    var arcPaint = Paint();
+    arcPaint.color = foregroundColor;
+    arcPaint.style = PaintingStyle.stroke;
+    arcPaint.strokeCap = StrokeCap.square;
+    arcPaint.strokeWidth = 2.5;
+
+// 2 * pi -> complete unit of circle
+    var sweepAngle = 2 * pi * (percent / 100);
+    // (percent / 100);
+    canvas.drawArc(
+        Rect.fromCenter(
+          center: center,
+          width: min(size.width, size.height),
+          height: min(size.width, size.height),
+        ),
+        -pi / 2,
+        sweepAngle,
+        false,
+        arcPaint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return false;
   }
 }

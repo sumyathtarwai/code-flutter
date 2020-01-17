@@ -48,7 +48,7 @@ class DetailSummaryPage extends StatelessWidget {
                         from: 'John Doe ',
                         fromEmail: 'unknown@gmail.com',
                         to: 'Lela Crawford',
-                        amount: '\$100.00',
+                        amount: sendAmount,
                       ),
                     ),
                   )

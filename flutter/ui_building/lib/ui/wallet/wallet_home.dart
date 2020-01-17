@@ -63,7 +63,7 @@ class WalletHome extends StatelessWidget {
               left: 20.0,
               right: 20.0,
               child: CustomCard(
-                indicator: '100',
+                percent: 80,
                 title: 'Excellent Financial',
                 subTitle: 'Your financial condition is excellent',
                 link: 'View Statistic',
