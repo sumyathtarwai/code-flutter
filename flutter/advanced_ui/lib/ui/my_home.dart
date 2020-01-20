@@ -74,6 +74,7 @@ class _SubTitleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('_SubTitleWidget');
     return Container(
       width: double.infinity,
       height: 200,
@@ -95,6 +96,7 @@ class _TitleWidget extends StatelessWidget {
   const _TitleWidget();
   @override
   Widget build(BuildContext context) {
+    print('_TitleWidget');
     return FirstStateWidget();
   }
 }
