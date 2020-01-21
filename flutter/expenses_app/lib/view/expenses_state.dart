@@ -25,6 +25,36 @@ class _ExpenseState extends State<Expense> {
       amount: 10.9,
       date: DateTime.now(),
     ),
+    Transaction(
+      id: '${DateFormat('dMyyyyHms').format(DateTime.now())}${DateTime.now().millisecond}',
+      title: 'Shopping',
+      amount: 10.9,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: '${DateFormat('dMyyyyHms').format(DateTime.now())}${DateTime.now().millisecond}',
+      title: 'CD',
+      amount: 1.9,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: '${DateFormat('dMyyyyHms').format(DateTime.now())}${DateTime.now().millisecond}',
+      title: 'Book',
+      amount: 10.9,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: '${DateFormat('dMyyyyHms').format(DateTime.now())}${DateTime.now().millisecond}',
+      title: 'Movie',
+      amount: 10.9,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: '${DateFormat('dMyyyyHms').format(DateTime.now())}${DateTime.now().millisecond}',
+      title: 'Donation',
+      amount: 100.0,
+      date: DateTime.now(),
+    ),
   ];
   @override
   void initState() {

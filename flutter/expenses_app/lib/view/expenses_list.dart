@@ -9,10 +9,13 @@ class ExpensesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('[redraw] ExpensesList');
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: transactionList.map(
-        (t) {
+    return Container(
+      //FIXME depend on media
+      //[!] ListView must has container height
+      // ListView is alternative of SingleChildScrollView
+      height: 550.0,
+      child: ListView.builder(
+        itemBuilder: (_, index) {
           return Card(
             color: Color.fromRGBO(109, 114, 119, 0.5),
             child: Row(
@@ -43,7 +46,7 @@ class ExpensesList extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        '\$${t.amount}',
+                        '\$${transactionList[index].amount}',
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -71,7 +74,7 @@ class ExpensesList extends StatelessWidget {
                             vertical: 6.0,
                           ),
                           child: Text(
-                            t.title,
+                            transactionList[index].title,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -88,7 +91,7 @@ class ExpensesList extends StatelessWidget {
                             // intl package
                             DateFormat('E dd, MMM yyyy')
                                 .add_jm()
-                                .format(t.date),
+                                .format(transactionList[index].date),
                             style: TextStyle(
                               color: Colors.grey,
                             ),
@@ -102,7 +105,8 @@ class ExpensesList extends StatelessWidget {
             ),
           );
         },
-      ).toList(),
+        itemCount: transactionList.length,
+      ),
     );
   }
 }

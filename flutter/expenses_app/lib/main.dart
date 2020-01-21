@@ -9,6 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         canvasColor: Color(0xff212121),
         primaryColor: Color(0xff212121),
@@ -27,6 +28,8 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //[!] on screen keyboard overflow fixed
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(),
       body: Column(
         mainAxisSize: MainAxisSize.min,
@@ -45,7 +48,11 @@ class MyHomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () => '',
+        onPressed: () {
+          showDialog(
+            context: context,
+          );
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
