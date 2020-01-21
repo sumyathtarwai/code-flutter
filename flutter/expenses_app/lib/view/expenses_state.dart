@@ -31,7 +31,7 @@ class _ExpenseState extends State<Expense> {
     super.initState();
   }
 
-  Function _add(Transaction tx) {
+  void _add(Transaction tx) {
     setState(() => _transaction.add(tx));
   }
 
@@ -39,22 +39,11 @@ class _ExpenseState extends State<Expense> {
   Widget build(BuildContext context) {
     print('[redraw] Expense');
     return Column(
-      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Container(
-          width: double.infinity,
-          child: Card(
-            color: Colors.blue,
-            child: Text('Chart'),
-            elevation: 5.0,
-          ),
-        ),
         // input data
         ExpensesInput(callBack: _add),
         // list of data
-        ExpensesList(
-          transactionList: _transaction,
-        ),
+        ExpensesList(transactionList: _transaction),
       ],
     );
   }
