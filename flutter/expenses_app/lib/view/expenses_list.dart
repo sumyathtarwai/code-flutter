@@ -2,31 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class ExpensesList extends StatelessWidget {
-  var transactionList = [];
+  final transactionList;
 
-  // final List<Transaction> _transaction = [
-  //   Transaction(
-  //     id: 1,
-  //     title: 'Breakfast',
-  //     amount: 5.9,
-  //     date: DateTime.now(),
-  //   ),
-  //   Transaction(
-  //     id: 2,
-  //     title: 'Transportation',
-  //     amount: 10.9,
-  //     date: DateTime.now(),
-  //   ),
-  //   Transaction(
-  //     id: 3,
-  //     title: 'Shopping',
-  //     amount: 83.6,
-  //     date: DateTime.now(),
-  //   ),
-  // ];
   ExpensesList({this.transactionList});
   @override
   Widget build(BuildContext context) {
+    print('[redraw] ExpensesList');
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[

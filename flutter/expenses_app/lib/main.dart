@@ -1,5 +1,5 @@
-import 'package:expenses_app/view/expenses_state.dart';
 import 'package:flutter/material.dart';
+import './view/expenses_state.dart';
 
 void main() => runApp(MyApp());
 

@@ -1,18 +1,17 @@
-import 'package:expenses_app/model/transaction_model.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import '../model/transaction_model.dart';
 
 class ExpensesInput extends StatelessWidget {
   final TextEditingController _titleCtrl = TextEditingController();
   final TextEditingController _amountCtrl = TextEditingController();
-
-  Function callBack;
-
-  int _count = 0;
+  final Function callBack;
 
   ExpensesInput({this.callBack});
 
   @override
   Widget build(BuildContext context) {
+    print('[redraw] ExpensesInput');
     return Card(
       color: Colors.grey.shade100,
       elevation: 5.0,
@@ -53,7 +52,7 @@ class ExpensesInput extends StatelessWidget {
               ),
               controller: _amountCtrl,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10.0,
             ),
             OutlineButton(
@@ -65,12 +64,12 @@ class ExpensesInput extends StatelessWidget {
               highlightedBorderColor: Colors.white,
               child: Icon(Icons.save_alt),
               onPressed: () {
-                print('[+] ${_amountCtrl.text} for ${_titleCtrl.text} ');
+                print('[+] ${_amountCtrl.text} for ${_titleCtrl.text}');
                 callBack(
                   Transaction(
-                    id: _count++,
+                    id: '${DateFormat('dMyyyyHms').format(DateTime.now())}${DateTime.now().millisecond}',
                     title: _titleCtrl.text,
-                    amount: double.tryParse(_amountCtrl.text),
+                    amount: double.tryParse(_amountCtrl.text) ?? 0.0,
                     date: DateTime.now(),
                   ),
                 );
