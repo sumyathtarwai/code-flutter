@@ -48,11 +48,7 @@ class MyHomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () {
-          showDialog(
-            context: context,
-          );
-        },
+        onPressed: () => null,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );

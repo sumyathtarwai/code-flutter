@@ -10,6 +10,7 @@ class WalletHome extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
+        backgroundColor: Colors.teal.shade700,
         // removed default box shadow
         elevation: 0.0,
         actions: <Widget>[
