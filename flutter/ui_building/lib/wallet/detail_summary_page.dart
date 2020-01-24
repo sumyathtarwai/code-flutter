@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ui_building/ui/wallet/detail_send_money.dart';
+
+import 'detail_send_money.dart';
 
 class DetailSummaryPage extends StatelessWidget {
   final sendAmount;

@@ -12,26 +12,6 @@ class CustomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final indicatorCircle = Container(
-    //   width: 100.0,
-    //   height: 60.0,
-    //   decoration: BoxDecoration(
-    //     shape: BoxShape.circle,
-    //     color: Colors.teal,
-    //   ),
-    //   child: Padding(
-    //     padding: const EdgeInsets.all(18.0),
-    //     child: Text(
-    //       '$percent',
-    //       textAlign: TextAlign.center,
-    //       style: TextStyle(
-    //         fontSize: 20.0,
-    //         color: Colors.white,
-    //       ),
-    //     ),
-    //   ),
-    // );
-
     const divider = Divider(
       indent: 20.0,
       endIndent: 20.0,

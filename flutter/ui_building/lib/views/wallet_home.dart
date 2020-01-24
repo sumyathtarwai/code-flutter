@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ui_building/ui/wallet/action_bar_widget.dart';
-import 'package:ui_building/ui/wallet/bottom_widget.dart';
-import 'package:ui_building/ui/wallet/custom_card_widget.dart';
-import 'package:ui_building/ui/wallet/detail_summary_page.dart';
+
+import 'wallet/action_bar_widget.dart';
+import 'wallet/bottom_widget.dart';
+import 'wallet/custom_card_widget.dart';
+import 'wallet/detail_summary_page.dart';
 
 class WalletHome extends StatelessWidget {
   @override

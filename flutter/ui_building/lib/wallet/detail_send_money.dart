@@ -28,6 +28,7 @@ class SendMoneyPage extends StatelessWidget {
     );
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.teal.shade700,
         elevation: 0.0,
       ),
       backgroundColor: Colors.teal.shade700,

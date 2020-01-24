@@ -19,7 +19,13 @@ class ButtonHome extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             OutlineButton(
-              child: Text('OUTLINE [Rectangle Border]'),
+              child: Text(
+                'OUTLINE [Rectangle Border]',
+                style: TextStyle(
+                  fontFamily: "MyanmarNayone",
+                  fontSize: 20.0,
+                ),
+              ),
               borderSide: BorderSide(
                 color: Colors.redAccent,
                 width: 1.5,
