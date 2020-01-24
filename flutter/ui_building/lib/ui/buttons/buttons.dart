@@ -1,20 +1,23 @@
+import 'package:backdrop/backdrop.dart';
 import 'package:flutter/material.dart';
+import 'package:ui_building/constants.dart';
+import 'package:widget_with_codeview/source_code_view.dart';
 
 class ButtonHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Buttons Widgets အမျိုးအမျိုး',
-          style: TextStyle(
-            fontFamily: "MyanmarNayone",
-            fontSize: 20.0,
-          ),
+    return BackdropScaffold(
+      title: Text(
+        'Buttons Widgets အမျိုးအမျိုး',
+        style: TextStyle(
+          fontFamily: "MyanmarNayone",
+          fontSize: 20.0,
         ),
       ),
-      backgroundColor: Colors.indigo.shade100,
-      body: Container(
+      iconPosition: BackdropIconPosition.action,
+      headerHeight: 0.0,
+      frontLayerBorderRadius: BorderRadius.only(),
+      frontLayer: Container(
         margin: EdgeInsets.all(12.0),
         child: ListView(
           children: <Widget>[
@@ -115,22 +118,26 @@ class ButtonHome extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(10.0),
             ),
-            _myDropDown(),
+            _MyDropDown(),
           ],
         ),
+      ),
+      backLayer: SourceCodeView(
+        filePath: BUTTON_PATH,
+        codeLinkPrefix: GIT_PATH,
       ),
     );
   }
 }
 
-class _myDropDown extends StatefulWidget {
-  _myDropDown({Key key}) : super(key: key);
+class _MyDropDown extends StatefulWidget {
+  _MyDropDown({Key key}) : super(key: key);
 
   @override
-  _myDropDownState createState() => _myDropDownState();
+  _MyDropDownState createState() => _MyDropDownState();
 }
 
-class _myDropDownState extends State<_myDropDown> {
+class _MyDropDownState extends State<_MyDropDown> {
   String _dropDownValue;
 
   @override

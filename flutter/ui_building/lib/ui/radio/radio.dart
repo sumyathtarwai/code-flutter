@@ -1,4 +1,8 @@
+import 'package:backdrop/backdrop.dart';
 import 'package:flutter/material.dart';
+import 'package:widget_with_codeview/source_code_view.dart';
+
+import '../../constants.dart';
 
 class RadioButtonHome extends StatelessWidget {
   const RadioButtonHome({Key key}) : super(key: key);
@@ -87,12 +91,12 @@ class __SimpleRadioState extends State<_SimpleRadio> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.indigo.shade100,
-      appBar: AppBar(
-        title: Text('Radio Buttons Widgets အမျိုးအမျိုး'),
-      ),
-      body: ListView(
+    return BackdropScaffold(
+      title: Text('Radio ပါ'),
+      iconPosition: BackdropIconPosition.action,
+      headerHeight: 0.0,
+      frontLayerBorderRadius: BorderRadius.only(),
+      frontLayer: ListView(
         children: <Widget>[
           ListTile(
             title: const Text('Summer'),
@@ -141,6 +145,10 @@ class __SimpleRadioState extends State<_SimpleRadio> {
           ),
         ],
       ),
+      backLayer: SourceCodeView(
+        filePath: Radio_PATH,
+        codeLinkPrefix: GIT_PATH,
+      ),
     );
   }
 }
@@ -158,9 +166,8 @@ class __TileRadioState extends State<_TileRadio> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.indigo.shade100,
       appBar: AppBar(
-        title: Text('Radio Buttons Widgets အမျိုးအမျိုး'),
+        title: Text('RadioListTile ပါ'),
       ),
       body: Column(
         mainAxisSize: MainAxisSize.min,
@@ -211,9 +218,8 @@ class _ImageRadioState extends State<_ImageRadio> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.indigo.shade100,
       appBar: AppBar(
-        title: Text('Radio Buttons Widgets အမျိုးအမျိုး'),
+        title: Text('Radio + InkWell ပါ'),
       ),
       body: ListView(
         children: <Widget>[

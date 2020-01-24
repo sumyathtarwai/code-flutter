@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ui_building/radio/radio.dart';
-import 'buttons/buttons.dart';
+import 'package:ui_building/ui/alertbox/alertbox.dart';
+import 'package:ui_building/ui/buttons/buttons.dart';
+import 'package:ui_building/ui/radio/radio.dart';
+import 'package:ui_building/views/wallet_home.dart';
+import 'package:ui_building/views/widgets_home.dart';
 
-import 'alertbox/alertbox.dart';
-import 'views/wallet_home.dart';
-import 'views/widgets_home.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: Colors.indigo,
+        canvasColor: Colors.indigo.shade100,
       ),
       initialRoute: '/',
       routes: {
