@@ -23,6 +23,7 @@ flutter:
     - lib/ui/alertbox/
     - lib/ui/buttons/
     - lib/ui/radio/
+    - lib/ui/checkbox/
     - lib/ui/wallet/
 
   fonts:

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ui_building/ui/alertbox/alertbox.dart';
 import 'package:ui_building/ui/buttons/buttons.dart';
+import 'package:ui_building/ui/radio/custom_radio.dart';
 import 'package:ui_building/ui/radio/radio.dart';
+import 'package:ui_building/ui/radio/simple_radio.dart';
+import 'package:ui_building/ui/radio/tile_radio.dart';
 import 'package:ui_building/views/wallet_home.dart';
 import 'package:ui_building/views/widgets_home.dart';
 
@@ -22,6 +25,10 @@ class MyApp extends StatelessWidget {
         '/button': (context) => ButtonHome(),
         '/alert': (context) => AlertBoxHome(),
         '/radio': (context) => RadioButtonHome(),
+        '/radio/simple': (context) => SimpleRadio(),
+        '/radio/tile': (context) => TileRadio(),
+        '/radio/custom': (context) => CustomRadio(),
+        // '/checkbox': (context) => CheckboxHome(),
         '/wallet': (context) => WalletHome(),
       },
     );
