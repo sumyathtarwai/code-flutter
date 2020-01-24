@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => WidgetsHome(),
         '/button': (context) => ButtonHome(),
-        '/allert': (context) => AlertBoxHome(),
+        '/alert': (context) => AlertBoxHome(),
         '/radio': (context) => RadioButtonHome(),
         '/wallet': (context) => WalletHome(),
       },
