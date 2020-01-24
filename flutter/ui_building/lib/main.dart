@@ -5,7 +5,6 @@ import 'package:ui_building/ui/radio/radio.dart';
 import 'package:ui_building/views/wallet_home.dart';
 import 'package:ui_building/views/widgets_home.dart';
 
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {

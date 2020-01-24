@@ -1,21 +1,25 @@
+import 'package:backdrop/backdrop.dart';
 import 'package:flutter/material.dart';
+import 'package:ui_building/constants.dart';
+import 'package:widget_with_codeview/source_code_view.dart';
 
 class AlertBoxHome extends StatelessWidget {
   const AlertBoxHome({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Alert Dialog Widgets အမျိုးအမျိုး',
-          style: TextStyle(
-            fontFamily: "MyanmarNayone",
-            fontSize: 20.0,
-          ),
+    return BackdropScaffold(
+      title: Text(
+        'Alert Dialog Widgets အမျိုးအမျိုး',
+        style: TextStyle(
+          fontFamily: "MyanmarNayone",
+          fontSize: 20.0,
         ),
       ),
-      body: Container(
+      iconPosition: BackdropIconPosition.action,
+      headerHeight: 0.0,
+      frontLayerBorderRadius: BorderRadius.only(),
+      frontLayer: Container(
         margin: EdgeInsets.all(12.0),
         child: ListView(
           children: <Widget>[
@@ -91,6 +95,10 @@ class AlertBoxHome extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      backLayer: SourceCodeView(
+        filePath: ALERT_PATH,
+        codeLinkPrefix: GIT_PATH,
       ),
     );
   }

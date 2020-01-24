@@ -1,26 +1,25 @@
 import 'package:backdrop/backdrop.dart';
 import 'package:flutter/material.dart';
+import 'package:ui_building/constants.dart';
 import 'package:widget_with_codeview/source_code_view.dart';
-
-import '../../constants.dart';
 
 class RadioButtonHome extends StatelessWidget {
   const RadioButtonHome({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.indigo.shade100,
-      appBar: AppBar(
-        title: Text(
-          'Radio Buttons Widgets အမျိုးအမျိုး',
-          style: TextStyle(
-            fontFamily: "MyanmarNayone",
-            fontSize: 20.0,
-          ),
+    return BackdropScaffold(
+      title: Text(
+        'Radio Buttons Widgets အမျိုးအမျိုး',
+        style: TextStyle(
+          fontFamily: "MyanmarNayone",
+          fontSize: 20.0,
         ),
       ),
-      body: Container(
+      iconPosition: BackdropIconPosition.action,
+      headerHeight: 0.0,
+      frontLayerBorderRadius: BorderRadius.only(),
+      frontLayer: Container(
         margin: EdgeInsets.all(12.0),
         child: ListView(
           children: <Widget>[
@@ -69,6 +68,11 @@ class RadioButtonHome extends StatelessWidget {
           ],
         ),
       ),
+      backLayer: SourceCodeView(
+        filePath: RADIO_PATH,
+        codeLinkPrefix: GIT_PATH,
+      ),
+      
     );
   }
 }
@@ -91,12 +95,11 @@ class __SimpleRadioState extends State<_SimpleRadio> {
 
   @override
   Widget build(BuildContext context) {
-    return BackdropScaffold(
-      title: Text('Radio ပါ'),
-      iconPosition: BackdropIconPosition.action,
-      headerHeight: 0.0,
-      frontLayerBorderRadius: BorderRadius.only(),
-      frontLayer: ListView(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Radio ပါ'),
+      ),
+      body: ListView(
         children: <Widget>[
           ListTile(
             title: const Text('Summer'),
@@ -144,10 +147,6 @@ class __SimpleRadioState extends State<_SimpleRadio> {
             ),
           ),
         ],
-      ),
-      backLayer: SourceCodeView(
-        filePath: Radio_PATH,
-        codeLinkPrefix: GIT_PATH,
       ),
     );
   }
