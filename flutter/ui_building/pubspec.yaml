@@ -24,6 +24,7 @@ flutter:
     - lib/ui/buttons/
     - lib/ui/radio/
     - lib/ui/checkbox/
+    - lib/ui/input/
     - lib/ui/wallet/
 
   fonts:

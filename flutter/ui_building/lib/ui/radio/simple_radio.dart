@@ -12,7 +12,7 @@ class SimpleRadio extends StatefulWidget {
 
 class _SimpleRadioState extends State<SimpleRadio> {
   var _selected;
-  final List options = ['Summer', 'Rainy', 'Winter'];
+  final List _options = ['Summer', 'Rainy', 'Winter'];
   @override
   void initState() {
     _selected = 1;
@@ -38,6 +38,7 @@ class _SimpleRadioState extends State<SimpleRadio> {
                 setState(
                   () {
                     _selected = value;
+                    print(_selected);
                   },
                 );
               },
@@ -53,6 +54,7 @@ class _SimpleRadioState extends State<SimpleRadio> {
                 setState(
                   () {
                     _selected = value;
+                    print(_selected);
                   },
                 );
               },
@@ -73,6 +75,14 @@ class _SimpleRadioState extends State<SimpleRadio> {
               },
             ),
           ),
+          Center(
+            child: Text(
+              'Your selected data is $_selected:${_options[_selected - 1]}',
+              style: TextStyle(
+                color: Colors.red,
+              ),
+            ),
+          )
         ],
       ),
       backLayer: SourceCodeView(

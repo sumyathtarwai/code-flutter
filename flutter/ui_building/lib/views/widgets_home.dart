@@ -101,7 +101,7 @@ class WidgetsHome extends StatelessWidget {
                   ),
                 ),
                 onPressed: () => Navigator.of(context).pushNamed(
-                  '/buttons',
+                  '/input',
                 ),
               ),
             ),
