@@ -26,36 +26,42 @@ class _CustomCheckboxState extends State<CustomCheckbox> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      body: BackdropScaffold(
-        actions: <Widget>[],
-        title: Text('Custom Checkbox ပါ'),
-        iconPosition: BackdropIconPosition.action,
-        headerHeight: 0.0,
-        frontLayerBorderRadius: BorderRadius.only(),
-        frontLayer: ListView.builder(
-          itemBuilder: (_, i) {
-            return Container(
-              height: 80.0,
-              child: Card(
-                  child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Checkbox(
-                    value: _check[i],
-                    onChanged: (val) => _change(val, i),
-                  ),
-                  Text(_options[i]),
-                ],
-              )),
-            );
-          },
-          itemCount: _options.length,
-        ),
-        backLayer: SourceCodeView(
-          filePath: CHECKBOX_CUSTOM_PATH,
-          codeLinkPrefix: GIT_PATH,
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pop(context);
+        return false;
+      },
+      child: Scaffold(
+        key: _scaffoldKey,
+        body: BackdropScaffold(
+          actions: <Widget>[],
+          title: Text('Custom Checkbox ပါ'),
+          iconPosition: BackdropIconPosition.action,
+          headerHeight: 0.0,
+          frontLayerBorderRadius: BorderRadius.only(),
+          frontLayer: ListView.builder(
+            itemBuilder: (_, i) {
+              return Container(
+                height: 80.0,
+                child: Card(
+                    child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Checkbox(
+                      value: _check[i],
+                      onChanged: (val) => _change(val, i),
+                    ),
+                    Text(_options[i]),
+                  ],
+                )),
+              );
+            },
+            itemCount: _options.length,
+          ),
+          backLayer: SourceCodeView(
+            filePath: CHECKBOX_CUSTOM_PATH,
+            codeLinkPrefix: GIT_PATH,
+          ),
         ),
       ),
     );

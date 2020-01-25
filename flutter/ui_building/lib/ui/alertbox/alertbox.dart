@@ -8,97 +8,103 @@ class AlertBoxHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BackdropScaffold(
-      title: Text(
-        'Alert Dialog Widgets အမျိုးအမျိုး',
-        style: TextStyle(
-          fontFamily: "MyanmarNayone",
-          fontSize: 20.0,
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pop(context);
+        return false;
+      },
+      child: BackdropScaffold(
+        title: Text(
+          'Alert Dialog Widgets အမျိုးအမျိုး',
+          style: TextStyle(
+            fontFamily: "MyanmarNayone",
+            fontSize: 20.0,
+          ),
         ),
-      ),
-      iconPosition: BackdropIconPosition.action,
-      headerHeight: 0.0,
-      frontLayerBorderRadius: BorderRadius.only(),
-      frontLayer: Container(
-        margin: EdgeInsets.all(12.0),
-        child: ListView(
-          children: <Widget>[
-            OutlineButton(
-              child: Text(
-                'Open Simple Dialog [With SimpleDialogOption]',
+        iconPosition: BackdropIconPosition.action,
+        headerHeight: 0.0,
+        frontLayerBorderRadius: BorderRadius.only(),
+        frontLayer: Container(
+          margin: EdgeInsets.all(12.0),
+          child: ListView(
+            children: <Widget>[
+              OutlineButton(
+                child: Text(
+                  'Open Simple Dialog [With SimpleDialogOption]',
+                ),
+                onPressed: () {
+                  showDialog<int>(
+                    context: context,
+                    builder: (_) => _buildSimpleDialog(context),
+                  );
+                },
               ),
-              onPressed: () {
-                showDialog<int>(
-                  context: context,
-                  builder: (_) => _buildSimpleDialog(context),
-                );
-              },
-            ),
-            Padding(
-              padding: EdgeInsets.all(10.0),
-            ),
-            OutlineButton(
-              child: Text(
-                'Open Alert Dialog',
+              Padding(
+                padding: EdgeInsets.all(10.0),
               ),
-              onPressed: () {
-                showDialog(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (_) => _buildAlertDialog(context),
-                );
-              },
-            ),
-            Padding(
-              padding: EdgeInsets.all(10.0),
-            ),
-            OutlineButton(
-              child: Text(
-                'Open Alert Circle Dialog',
+              OutlineButton(
+                child: Text(
+                  'Open Alert Dialog',
+                ),
+                onPressed: () {
+                  showDialog(
+                    barrierDismissible: false,
+                    context: context,
+                    builder: (_) => _buildAlertDialog(context),
+                  );
+                },
               ),
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (_) => _buildAlertCircle(context),
-                );
-              },
-            ),
-            Padding(
-              padding: EdgeInsets.all(10.0),
-            ),
-            OutlineButton(
-              child: Text(
-                'Open Alert Dialog [OK & Cancel]',
+              Padding(
+                padding: EdgeInsets.all(10.0),
               ),
-              onPressed: () {
-                showDialog(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (_) => _buildAlert(context),
-                );
-              },
-            ),
-            Padding(
-              padding: EdgeInsets.all(10.0),
-            ),
-            OutlineButton(
-              child: Text(
-                'Open Alert Dialog [With Text Field]',
+              OutlineButton(
+                child: Text(
+                  'Open Alert Circle Dialog',
+                ),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => _buildAlertCircle(context),
+                  );
+                },
               ),
-              onPressed: () {
-                showDialog(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (_) => _buildAlertInput(context),
-                );
-              },
-            ),
-          ],
+              Padding(
+                padding: EdgeInsets.all(10.0),
+              ),
+              OutlineButton(
+                child: Text(
+                  'Open Alert Dialog [OK & Cancel]',
+                ),
+                onPressed: () {
+                  showDialog(
+                    barrierDismissible: false,
+                    context: context,
+                    builder: (_) => _buildAlert(context),
+                  );
+                },
+              ),
+              Padding(
+                padding: EdgeInsets.all(10.0),
+              ),
+              OutlineButton(
+                child: Text(
+                  'Open Alert Dialog [With Text Field]',
+                ),
+                onPressed: () {
+                  showDialog(
+                    barrierDismissible: false,
+                    context: context,
+                    builder: (_) => _buildAlertInput(context),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
-      ),
-      backLayer: SourceCodeView(
-        filePath: ALERT_PATH,
-        codeLinkPrefix: GIT_PATH,
+        backLayer: SourceCodeView(
+          filePath: ALERT_PATH,
+          codeLinkPrefix: GIT_PATH,
+        ),
       ),
     );
   }

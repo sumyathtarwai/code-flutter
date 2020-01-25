@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
         '/checkbox/simple': (context) => SimpleCheckbox(),
         '/checkbox/tile': (context) => TileCheckbox(),
         '/checkbox/custom': (context) => CustomCheckbox(),
-         '/input': (context) => InputHome(),
+        '/input': (context) => InputHome(),
         '/wallet': (context) => WalletHome(),
       },
     );

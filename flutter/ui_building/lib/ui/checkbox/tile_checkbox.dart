@@ -26,58 +26,64 @@ class _TileCheckboxState extends State<TileCheckbox> {
 
   @override
   Widget build(BuildContext context) {
-    return BackdropScaffold(
-      title: Text('CheckboxListTile ပါ'),
-      iconPosition: BackdropIconPosition.action,
-      headerHeight: 0.0,
-      frontLayerBorderRadius: BorderRadius.only(),
-      frontLayer: ListView(
-        children: <Widget>[
-          CheckboxListTile(
-            value: _check[0],
-            title: Text(_options[0]),
-            subtitle: Text(_options[0]),
-            secondary: Icon(Icons.directions_boat),
-            activeColor: Colors.green,
-            onChanged: (val) => _change(val, 0),
-          ),
-          CheckboxListTile(
-            value: _check[1],
-            title: Text(_options[1]),
-            subtitle: Text(_options[1]),
-            secondary: Icon(Icons.directions_bus),
-            activeColor: Colors.green,
-            onChanged: (val) => _change(val, 1),
-          ),
-          CheckboxListTile(
-            value: _check[2],
-            title: Text(_options[2]),
-            subtitle: Text(_options[2]),
-            secondary: Icon(Icons.directions_railway),
-            activeColor: Colors.green,
-            onChanged: (val) => _change(val, 2),
-          ),
-          CheckboxListTile(
-            value: _check[3],
-            title: Text(_options[3]),
-            subtitle: Text(_options[3]),
-            secondary: Icon(Icons.local_airport),
-            activeColor: Colors.green,
-            onChanged: (val) => _change(val, 3),
-          ),
-          Center(
-            child: Text(
-              'Your selected data is $_checkVal',
-              style: TextStyle(
-                color: Colors.red,
-              ),
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pop(context);
+        return false;
+      },
+      child: BackdropScaffold(
+        title: Text('CheckboxListTile ပါ'),
+        iconPosition: BackdropIconPosition.action,
+        headerHeight: 0.0,
+        frontLayerBorderRadius: BorderRadius.only(),
+        frontLayer: ListView(
+          children: <Widget>[
+            CheckboxListTile(
+              value: _check[0],
+              title: Text(_options[0]),
+              subtitle: Text(_options[0]),
+              secondary: Icon(Icons.directions_boat),
+              activeColor: Colors.green,
+              onChanged: (val) => _change(val, 0),
             ),
-          )
-        ],
-      ),
-      backLayer: SourceCodeView(
-        filePath: CHECKBOX_TILE_PATH,
-        codeLinkPrefix: GIT_PATH,
+            CheckboxListTile(
+              value: _check[1],
+              title: Text(_options[1]),
+              subtitle: Text(_options[1]),
+              secondary: Icon(Icons.directions_bus),
+              activeColor: Colors.green,
+              onChanged: (val) => _change(val, 1),
+            ),
+            CheckboxListTile(
+              value: _check[2],
+              title: Text(_options[2]),
+              subtitle: Text(_options[2]),
+              secondary: Icon(Icons.directions_railway),
+              activeColor: Colors.green,
+              onChanged: (val) => _change(val, 2),
+            ),
+            CheckboxListTile(
+              value: _check[3],
+              title: Text(_options[3]),
+              subtitle: Text(_options[3]),
+              secondary: Icon(Icons.local_airport),
+              activeColor: Colors.green,
+              onChanged: (val) => _change(val, 3),
+            ),
+            Center(
+              child: Text(
+                'Your selected data is $_checkVal',
+                style: TextStyle(
+                  color: Colors.red,
+                ),
+              ),
+            )
+          ],
+        ),
+        backLayer: SourceCodeView(
+          filePath: CHECKBOX_TILE_PATH,
+          codeLinkPrefix: GIT_PATH,
+        ),
       ),
     );
   }

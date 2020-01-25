@@ -26,70 +26,76 @@ class _SimpleCheckboxState extends State<SimpleCheckbox> {
 
   @override
   Widget build(BuildContext context) {
-    return BackdropScaffold(
-      title: Text('Checkbox ပါ'),
-      iconPosition: BackdropIconPosition.action,
-      headerHeight: 0.0,
-      frontLayerBorderRadius: BorderRadius.only(),
-      frontLayer: ListView(
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Checkbox(
-                  value: _check[0],
-                  activeColor: Colors.green,
-                  onChanged: (val) => _change(val, 0)),
-              Text(
-                _options[0],
-              ),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              Checkbox(
-                  value: _check[1],
-                  activeColor: Colors.green,
-                  onChanged: (val) => _change(val, 1)),
-              Text(
-                _options[1],
-              ),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              Checkbox(
-                  value: _check[2],
-                  activeColor: Colors.green,
-                  onChanged: (val) => _change(val, 2)),
-              Text(
-                _options[2],
-              ),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              Checkbox(
-                  value: _check[3],
-                  activeColor: Colors.green,
-                  onChanged: (val) => _change(val, 3)),
-              Text(
-                _options[3],
-              ),
-            ],
-          ),
-          Center(
-            child: Text(
-              'Your selected data is $_checkVal',
-              style: TextStyle(
-                color: Colors.red,
-              ),
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pop(context);
+        return false;
+      },
+      child: BackdropScaffold(
+        title: Text('Checkbox ပါ'),
+        iconPosition: BackdropIconPosition.action,
+        headerHeight: 0.0,
+        frontLayerBorderRadius: BorderRadius.only(),
+        frontLayer: ListView(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Checkbox(
+                    value: _check[0],
+                    activeColor: Colors.green,
+                    onChanged: (val) => _change(val, 0)),
+                Text(
+                  _options[0],
+                ),
+              ],
             ),
-          )
-        ],
-      ),
-      backLayer: SourceCodeView(
-        filePath: CHECKBOX_SIMPLE_PATH,
-        codeLinkPrefix: GIT_PATH,
+            Row(
+              children: <Widget>[
+                Checkbox(
+                    value: _check[1],
+                    activeColor: Colors.green,
+                    onChanged: (val) => _change(val, 1)),
+                Text(
+                  _options[1],
+                ),
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                Checkbox(
+                    value: _check[2],
+                    activeColor: Colors.green,
+                    onChanged: (val) => _change(val, 2)),
+                Text(
+                  _options[2],
+                ),
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                Checkbox(
+                    value: _check[3],
+                    activeColor: Colors.green,
+                    onChanged: (val) => _change(val, 3)),
+                Text(
+                  _options[3],
+                ),
+              ],
+            ),
+            Center(
+              child: Text(
+                'Your selected data is $_checkVal',
+                style: TextStyle(
+                  color: Colors.red,
+                ),
+              ),
+            )
+          ],
+        ),
+        backLayer: SourceCodeView(
+          filePath: CHECKBOX_SIMPLE_PATH,
+          codeLinkPrefix: GIT_PATH,
+        ),
       ),
     );
   }
