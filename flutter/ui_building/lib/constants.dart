@@ -9,3 +9,6 @@ const CHECKBOX_SIMPLE_PATH = 'lib/ui/checkbox/simple_checkbox.dart';
 const CHECKBOX_TILE_PATH = 'lib/ui/checkbox/tile_checkbox.dart';
 const CHECKBOX_CUSTOM_PATH = 'lib/ui/checkbox/custom_checkbox.dart';
 const INPUT_PATH = 'lib/ui/input/input.dart';
+const APPBAR_SIMPLE_PATH = 'lib/ui/appbar/simple_appbar.dart';
+const APPBAR_ACTION_PATH = 'lib/ui/appbar/action_appbar.dart';
+const APPBAR_SEARCH_PATH = 'lib/ui/appbar/search_appbar.dart';

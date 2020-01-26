@@ -25,9 +25,13 @@ flutter:
     - lib/ui/radio/
     - lib/ui/checkbox/
     - lib/ui/input/
+    - lib/ui/appbar/
     - lib/ui/wallet/
 
   fonts:
     - family: MyanmarNayone
       fonts:
         - asset: assets/fonts/MyanmarNayone.ttf
+    - family: Bebas Neue
+      fonts:
+        - asset: assets/fonts/BebasNeue-Regular.ttf

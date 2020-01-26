@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ui_building/ui/alertbox/alertbox.dart';
+import 'package:ui_building/ui/appbar/action_appbar.dart';
+import 'package:ui_building/ui/appbar/appbar_home.dart';
+import 'package:ui_building/ui/appbar/search_appbar.dart';
+import 'package:ui_building/ui/appbar/simple_appbar.dart';
 import 'package:ui_building/ui/buttons/buttons.dart';
 import 'package:ui_building/ui/checkbox/checkbox.dart';
 import 'package:ui_building/ui/checkbox/custom_checkbox.dart';
@@ -38,6 +42,10 @@ class MyApp extends StatelessWidget {
         '/checkbox/tile': (context) => TileCheckbox(),
         '/checkbox/custom': (context) => CustomCheckbox(),
         '/input': (context) => InputHome(),
+        '/appbar': (context) => AppBarHome(),
+        '/appbar/simple': (context) => SimpleAppbar(title: 'Goal'),
+        '/appbar/action': (context) => ActionAppBar(title: 'Goal'),
+        '/appbar/search': (context) => SearchAppBar(title: 'Goal'),
         '/wallet': (context) => WalletHome(),
       },
     );
