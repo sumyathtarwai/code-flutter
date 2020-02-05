@@ -12,11 +12,11 @@ class PlayerListView extends StatefulWidget {
 class _PlayerListViewState extends State<PlayerListView> {
   @override
   Widget build(BuildContext context) {
-    final playerNotifier = Provider.of<PlayerNotifier>(context);
+    final playerNotifier = Provider.of<PlayerNotifier>(context, listen: false);
     final players = playerNotifier.players;
 
     return Container(
-      height: MediaQuery.of(context).size.height * 0.5,
+      height: MediaQuery.of(context).size.height * 0.56,
       child: ListView.builder(
         itemCount: players.length,
         itemBuilder: (context, i) {
