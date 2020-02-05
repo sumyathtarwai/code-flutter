@@ -55,11 +55,14 @@ class Home extends StatelessWidget {
                 ),
               ),
             ),
-            ListView.builder(
-              itemCount: 1,
-              itemBuilder: (context, index) {
-                return;
-              },
+            Container(
+              height: MediaQuery.of(context).size.height * 0.5,
+              child: ListView.builder(
+                itemCount: 1,
+                itemBuilder: (context, index) {
+                  return;
+                },
+              ),
             ),
           ],
         ));
