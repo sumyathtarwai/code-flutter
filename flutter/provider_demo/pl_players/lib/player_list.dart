@@ -12,13 +12,18 @@ class PlayerListView extends StatefulWidget {
 class _PlayerListViewState extends State<PlayerListView> {
   @override
   Widget build(BuildContext context) {
-    final playerNotifier = Provider.of<PlayerNotifier>(context, listen: false);
+    final playerNotifier = Provider.of<PlayerNotifier>(context);
     final players = playerNotifier.players;
 
     return Container(
       height: MediaQuery.of(context).size.height * 0.56,
-      child: ListView.builder(
+      child: ListView.separated(
         itemCount: players.length,
+        separatorBuilder: (_, i) => Divider(
+          indent: 20.0,
+          endIndent: 20.0,
+          color: Colors.cyanAccent,
+        ),
         itemBuilder: (context, i) {
           return ListTile(
             leading: Text('${i + 1}'),
