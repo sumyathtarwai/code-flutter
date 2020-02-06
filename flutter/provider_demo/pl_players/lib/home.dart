@@ -30,7 +30,7 @@ class PlayerForm extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    final playerNotifier = Provider.of<PlayerNotifier>(context, listen: false);
+    final playerNotifier = Provider.of<PlayerNotifier>(context);
     final player = Player();
     return Form(
       key: _formKey,
