@@ -1,16 +1,34 @@
 # ui_building
 
-A new Flutter project.
+Tried the taste of flutter.
+In this project, tried out following widgets.
 
-## Getting Started
+* buttons
+* pull down
+* radio
+* checkbox
+* input
+* alert box
+* app bar
+* Your Wallet Design (inspired from google search result, hope they won't mind for using their design)
 
-This project is a starting point for a Flutter application.
+```
+dependencies:
+  flutter:
+  backdrop: ^0.2.8
+  widget_with_codeview: ^1.0.3
+``` 
 
-A few resources to get you started if this is your first Flutter project:
+```
+  fonts:
+    - family: MyanmarNayone
+      fonts:
+        - asset: assets/fonts/MyanmarNayone.ttf
+    - family: Bebas Neue
+      fonts:
+        - asset: assets/fonts/BebasNeue-Regular.ttf
+```
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<div>
+<img src='screenshot/ui_building.gif' width="15%" alt='ui'> 
+</div>
