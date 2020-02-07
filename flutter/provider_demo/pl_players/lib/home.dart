@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pl_players/model/player.dart';
 import 'package:pl_players/player_list.dart';
 import 'package:provider/provider.dart';
-import 'package:pl_players/player_notifier.dart';
+import 'package:pl_players/provider/player_notifier.dart';
 
 class Home extends StatelessWidget {
   @override

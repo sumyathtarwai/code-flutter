@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pl_players/home.dart';
-import 'package:pl_players/player_notifier.dart';
+import 'package:pl_players/provider/player_notifier.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(
