@@ -1,16 +1,21 @@
 # book_moor
 
-A new Flutter project.
+Used Moor as persistence library.
+Simple CRUD operation done on Category Model.
 
-## Getting Started
+```
+dependencies:
+  flutter:
+  moor: ^2.3.0
+  moor_flutter: ^2.0.0
+  path_provider: ^1.6.0
 
-This project is a starting point for a Flutter application.
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  moor_generator: ^2.3.1
+```
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<div>
+<img src='screenshot/category_moor.gif' width="15%" alt='category'> 
+</div>
