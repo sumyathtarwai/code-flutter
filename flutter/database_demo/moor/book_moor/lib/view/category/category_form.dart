@@ -29,9 +29,10 @@ class _CategoryFormState extends State<CategoryForm> {
           TextFormField(
             decoration: const InputDecoration(
               hintText: 'Enter category name',
-            //  prefixIcon: Icon(Icons.label_outline),
+              //  prefixIcon: Icon(Icons.label_outline),
               contentPadding: const EdgeInsets.all(15.0),
             ),
+           // autofocus: true,
             controller: controller,
             validator: (value) {
               if (value.isEmpty) {

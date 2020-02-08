@@ -11,37 +11,96 @@ class CategoryList extends StatefulWidget {
 
 class _CategoryListState extends State<CategoryList> {
   AppDatabase _db;
-  final _formKey = GlobalKey<FormState>();
-  List<TextEditingController> _controller;
-  List<FocusNode> _editFocus;
-  List<bool> _enable;
+  TextEditingController _controller;
+  FocusNode _editFocus;
+  bool _enable;
+  int _index;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: _categoryList(),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _editFocus.dispose();
+    super.dispose();
+  }
+
   @override
   void initState() {
     _db = DatabaseHelper().db;
-    _enable = [];
-    _editFocus = [];
-    _controller = [];
+    _editFocus = FocusNode();
+    _controller = TextEditingController();
     super.initState();
+  }
+
+  void reset() {
+    setState(() {
+      _enable = false;
+    });
+  }
+
+  Text _buildCount(int i) {
+    return Text(
+      '${i + 1} ',
+      style: TextStyle(
+        color: Colors.blueGrey,
+        fontSize: 20.0,
+      ),
+      overflow: TextOverflow.ellipsis,
+    );
+  }
+
+  Text _buildText(Category cat) {
+    return Text(
+      cat.categoryName,
+      style: TextStyle(
+        color: Colors.blueGrey,
+        fontSize: 20.0,
+      ),
+    );
+  }
+
+  Widget _buildTypeInput(Category cat) {
+    return TextFormField(
+      enabled: _enable,
+      controller: _controller,
+      focusNode: _editFocus,
+      autofocus: true,
+      validator: (value) {
+        if (value.isEmpty) {
+          return 'Name cannot be empty!';
+        } else if (value.length < 2) {
+          return 'Please enter minimium 2 words!';
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        border: InputBorder.none,
+        suffixIcon: _confirmUpdate(cat),
+      ),
+      style: TextStyle(
+        color: Colors.blueGrey,
+        fontSize: 20.0,
+      ),
+    );
   }
 
   StreamBuilder<List<Category>> _categoryList() {
     final borderStyle = Expanded(
       flex: 0,
       child: Container(
-        width: 10.0,
+        width: 20.0,
         decoration: BoxDecoration(
           border: Border(
             left: BorderSide(
               color: Colors.redAccent.shade400,
-              width: 3.0,
+              width: 5.0,
             ),
           ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black12,
-              offset: Offset(0, 0),
-            )
-          ],
         ),
       ),
     );
@@ -51,21 +110,13 @@ class _CategoryListState extends State<CategoryList> {
       stream: _db.categoryDao.watchAllCategories(),
       builder: (context, AsyncSnapshot<List<Category>> snapshot) {
         final categories = snapshot.data ?? List();
-        // rest data
-        _controller = [];
-        _editFocus = [];
-
         return ListView.builder(
           itemCount: categories.length,
           itemBuilder: (_, i) {
             final cat = categories[i];
-            _controller.add(TextEditingController(text: cat.categoryName));
-            _editFocus.add(FocusNode());
-            _enable.add(false);
-            // print('$i ${_controller[i].text}, ${_enable[i]}');
             return Container(
-              height: 60.0,
-              padding: EdgeInsets.only(left: 2.0),
+              height: MediaQuery.of(context).size.height * 0.06,
+              padding: EdgeInsets.only(left: 6.0),
               color: _getColor(i),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -73,42 +124,14 @@ class _CategoryListState extends State<CategoryList> {
                   borderStyle,
                   Expanded(
                     flex: 0,
-                    child: Text(
-                      '${i + 1} ',
-                      style: TextStyle(
-                        color: Colors.blueGrey,
-                        fontSize: 20.0,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                    child: _buildCount(i),
                   ),
                   SizedBox(width: 10.0),
                   Expanded(
                     flex: 2,
-                    child: TextFormField(
-                      enabled: _enable[i],
-                      controller: _controller[i],
-                      focusNode: _editFocus[i],
-                      autofocus: true,
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Name cannot be empty!';
-                        } else if (value.length < 2) {
-                          return 'Please enter minimium 2 words!';
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        suffixIcon: _enable[i] == true
-                            ? editButton(i, cat)
-                            : SizedBox(),
-                      ),
-                      style: TextStyle(
-                        color: Colors.blueGrey,
-                        fontSize: 20.0,
-                      ),
-                    ),
+                    child: _enable == true && i == _index
+                        ? _buildTypeInput(cat)
+                        : _buildText(cat),
                   ),
                   // update
                   Expanded(
@@ -119,15 +142,7 @@ class _CategoryListState extends State<CategoryList> {
                         Icons.edit,
                         color: Colors.deepOrange,
                       ),
-                      onPressed: () {
-                        //  print('edit1 ${_controller[i].text}, ${_enable[i]}');
-                        // focus to edit text
-                        FocusScope.of(context).requestFocus(_editFocus[i]);
-                        setState(() {
-                          _enable[i] = true;
-                        });
-                        // print('edit2 ${_controller[i].text}, ${_enable[i]}');
-                      },
+                      onPressed: () => _editEnable(context, cat, i),
                     ),
                   ),
                   //delete
@@ -139,9 +154,7 @@ class _CategoryListState extends State<CategoryList> {
                         Icons.delete_outline,
                         color: Colors.deepOrange,
                       ),
-                      onPressed: () {
-                        _db.categoryDao.deleteCategory(cat);
-                      },
+                      onPressed: () => _db.categoryDao.deleteCategory(cat),
                     ),
                   ),
                 ],
@@ -153,15 +166,17 @@ class _CategoryListState extends State<CategoryList> {
     );
   }
 
-  IconButton editButton(int i, Category cat) {
+  IconButton _confirmUpdate(Category cat) {
     return IconButton(
       icon: Icon(Icons.check),
       onPressed: () {
-        editEnable(i, false);
+        reset();
+        // if nothing change do nothing
+        if (_controller.text == cat.categoryName) return;
 
         _db.categoryDao.updateCategory(
           cat.copyWith(
-            categoryName: _controller[i].text,
+            categoryName: _controller.text,
             id: null,
           ),
         );
@@ -169,30 +184,19 @@ class _CategoryListState extends State<CategoryList> {
     );
   }
 
-  void editEnable(int i, bool enable) {
-    setState(() {
-      _enable[i] = enable;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 600.0,
-      child: _categoryList(),
-    );
-  }
-
-  @override
-  void dispose() {
-    _controller.forEach((c) => c.dispose());
-    //_controller = [];
-    _editFocus.forEach((e) => e.dispose());
-    // _editFocus = [];
-    super.dispose();
-  }
-
   Color _getColor(int i) {
     return i % 2 == 0 ? Colors.red.shade50 : Colors.red.shade100;
+  }
+
+  void _editEnable(BuildContext context, Category cat, int i) {
+    // focus to edit text
+    FocusScope.of(context).requestFocus(_editFocus);
+    setState(() {
+      // repaint to textfield
+      _enable = true;
+      // mark which item need to repaint
+      _index = i;
+      _controller.text = cat.categoryName;
+    });
   }
 }

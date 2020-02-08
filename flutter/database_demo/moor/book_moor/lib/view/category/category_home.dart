@@ -19,6 +19,7 @@ class CategoryHome extends StatelessWidget {
             ),
           ),
           Expanded(child: CategoryList()),
+          SizedBox(height: 20.0),
         ],
       ),
     );
