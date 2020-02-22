@@ -1,6 +1,6 @@
 import 'package:book_moor/data/database.dart';
-import 'package:book_moor/util/helper.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CategoryForm extends StatefulWidget {
   CategoryForm({Key key}) : super(key: key);
@@ -21,6 +21,7 @@ class _CategoryFormState extends State<CategoryForm> {
 
   @override
   Widget build(BuildContext context) {
+    final AppDatabase db = Provider.of<AppDatabase>(context);
     return Form(
       key: _formKey,
       child: Column(
@@ -32,7 +33,7 @@ class _CategoryFormState extends State<CategoryForm> {
               //  prefixIcon: Icon(Icons.label_outline),
               contentPadding: const EdgeInsets.all(15.0),
             ),
-           // autofocus: true,
+            // autofocus: true,
             controller: controller,
             validator: (value) {
               if (value.isEmpty) {
@@ -54,10 +55,12 @@ class _CategoryFormState extends State<CategoryForm> {
                 // the form is invalid.
                 if (_formKey.currentState.validate()) {
                   // Process data
-                  AppDatabase db = DatabaseHelper().db;
+
+                  // AppDatabase db = DatabaseHelper().db;
                   db.categoryDao.insertCategory(
                     Category(categoryName: controller.text, id: null),
                   );
+
                   print(controller.text);
                   controller.clear();
                 }

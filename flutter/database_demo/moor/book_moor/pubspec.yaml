@@ -12,13 +12,23 @@ dependencies:
 
   cupertino_icons: ^0.1.2
   flutter_stetho: ^0.5.2
+  # db
   moor: ^2.3.0
   moor_flutter: ^2.0.0
+  # path
   path_provider: ^1.6.0
+  # state management
+  provider: ^4.0.3
+  # date format
+  intl: ^0.16.1
+  # date picker
+  # UI Kit
+  getflutter: ^1.0.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+    # db
   moor_generator: ^2.3.1
   build_runner: ^1.7.3
 
@@ -26,3 +36,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Regular.ttf

@@ -3,6 +3,10 @@
 Used Moor as persistence library.
 Simple CRUD operation done on Category Model.
 
+* DrawerWidget
+* Form
+* Form Validation with RegExp
+
 ```
 dependencies:
   flutter:

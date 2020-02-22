@@ -1,6 +1,6 @@
 import 'package:book_moor/data/database.dart';
-import 'package:book_moor/util/helper.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CategoryList extends StatefulWidget {
   CategoryList({Key key}) : super(key: key);
@@ -10,13 +10,14 @@ class CategoryList extends StatefulWidget {
 }
 
 class _CategoryListState extends State<CategoryList> {
-  AppDatabase _db;
+  AppDatabase db;
   TextEditingController _controller;
   FocusNode _editFocus;
   bool _enable;
   int _index;
   @override
   Widget build(BuildContext context) {
+    db = Provider.of<AppDatabase>(context);
     return Container(
       child: _categoryList(),
     );
@@ -31,7 +32,8 @@ class _CategoryListState extends State<CategoryList> {
 
   @override
   void initState() {
-    _db = DatabaseHelper().db;
+    // _db = DatabaseHelper().db;
+
     _editFocus = FocusNode();
     _controller = TextEditingController();
     super.initState();
@@ -107,7 +109,7 @@ class _CategoryListState extends State<CategoryList> {
 
     return StreamBuilder(
       // select
-      stream: _db.categoryDao.watchAllCategories(),
+      stream: db.categoryDao.watchAllCategories(),
       builder: (context, AsyncSnapshot<List<Category>> snapshot) {
         final categories = snapshot.data ?? List();
         return ListView.builder(
@@ -154,7 +156,7 @@ class _CategoryListState extends State<CategoryList> {
                         Icons.delete_outline,
                         color: Colors.deepOrange,
                       ),
-                      onPressed: () => _db.categoryDao.deleteCategory(cat),
+                      onPressed: () => db.categoryDao.deleteCategory(cat),
                     ),
                   ),
                 ],
@@ -174,7 +176,7 @@ class _CategoryListState extends State<CategoryList> {
         // if nothing change do nothing
         if (_controller.text == cat.categoryName) return;
 
-        _db.categoryDao.updateCategory(
+        db.categoryDao.updateCategory(
           cat.copyWith(
             categoryName: _controller.text,
             id: null,

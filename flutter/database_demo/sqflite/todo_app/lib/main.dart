@@ -29,33 +29,56 @@ class AppHome extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.yellow,
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          // mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Container(
-              width: double.infinity,
-              height: 50.0,
-              alignment: Alignment.centerLeft,
-              padding: EdgeInsets.all(15.0),
-              color: Colors.blue.shade50,
-              child: Text(users.length.toString()),
-            ),
-            Container(
-              height: 500.0,
-              child: ListView.builder(
-                itemBuilder: (_, i) {
-                  return Container(
-                    color: _getColor(i),
-                    child: ListTile(
-                      title: Text(users[i].name),
-                    ),
-                  );
-                },
-                itemCount: users.length,
-              ),
-            )
-          ],
+        body: Container(
+          height: 500.0,
+          child: ListView.builder(
+            itemBuilder: (_, i) {
+              return Container(
+                margin: EdgeInsets.all(8.0),
+                child: Card(
+                  elevation: 5.0,
+                  color: _getColor(i),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Expanded(
+                        flex: 0,
+                        child: Container(
+                          margin: EdgeInsets.only(right: 40.0),
+                          width: 10.0,
+                          height:
+                              100.0, //FIXME calculate height flutter_staggered_grid_view 0.3.0
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.red.shade400,
+                                Colors.redAccent.shade400,
+                              ],
+                              begin: Alignment.bottomRight,
+                              end: Alignment.topRight,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(users[i].name),
+                            Text(users[i].password),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+            itemCount: users.length,
+          ),
         ),
       ),
     );

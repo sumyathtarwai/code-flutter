@@ -609,6 +609,7 @@ class User extends DataClass implements Insertable<User> {
   final int id;
   final String userName;
   final String password;
+  final DateTime dob;
   final String address;
   final String phone;
   final bool valid;
@@ -617,15 +618,17 @@ class User extends DataClass implements Insertable<User> {
       {@required this.id,
       @required this.userName,
       @required this.password,
+      this.dob,
       @required this.address,
       @required this.phone,
-      @required this.valid,
+      this.valid,
       @required this.role});
   factory User.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
     final intType = db.typeSystem.forDartType<int>();
     final stringType = db.typeSystem.forDartType<String>();
+    final dateTimeType = db.typeSystem.forDartType<DateTime>();
     final boolType = db.typeSystem.forDartType<bool>();
     return User(
       id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
@@ -633,6 +636,7 @@ class User extends DataClass implements Insertable<User> {
           .mapFromDatabaseResponse(data['${effectivePrefix}user_name']),
       password: stringType
           .mapFromDatabaseResponse(data['${effectivePrefix}password']),
+      dob: dateTimeType.mapFromDatabaseResponse(data['${effectivePrefix}dob']),
       address:
           stringType.mapFromDatabaseResponse(data['${effectivePrefix}address']),
       phone:
@@ -648,6 +652,7 @@ class User extends DataClass implements Insertable<User> {
       id: serializer.fromJson<int>(json['id']),
       userName: serializer.fromJson<String>(json['userName']),
       password: serializer.fromJson<String>(json['password']),
+      dob: serializer.fromJson<DateTime>(json['dob']),
       address: serializer.fromJson<String>(json['address']),
       phone: serializer.fromJson<String>(json['phone']),
       valid: serializer.fromJson<bool>(json['valid']),
@@ -661,6 +666,7 @@ class User extends DataClass implements Insertable<User> {
       'id': serializer.toJson<int>(id),
       'userName': serializer.toJson<String>(userName),
       'password': serializer.toJson<String>(password),
+      'dob': serializer.toJson<DateTime>(dob),
       'address': serializer.toJson<String>(address),
       'phone': serializer.toJson<String>(phone),
       'valid': serializer.toJson<bool>(valid),
@@ -678,6 +684,7 @@ class User extends DataClass implements Insertable<User> {
       password: password == null && nullToAbsent
           ? const Value.absent()
           : Value(password),
+      dob: dob == null && nullToAbsent ? const Value.absent() : Value(dob),
       address: address == null && nullToAbsent
           ? const Value.absent()
           : Value(address),
@@ -693,6 +700,7 @@ class User extends DataClass implements Insertable<User> {
           {int id,
           String userName,
           String password,
+          DateTime dob,
           String address,
           String phone,
           bool valid,
@@ -701,6 +709,7 @@ class User extends DataClass implements Insertable<User> {
         id: id ?? this.id,
         userName: userName ?? this.userName,
         password: password ?? this.password,
+        dob: dob ?? this.dob,
         address: address ?? this.address,
         phone: phone ?? this.phone,
         valid: valid ?? this.valid,
@@ -712,6 +721,7 @@ class User extends DataClass implements Insertable<User> {
           ..write('id: $id, ')
           ..write('userName: $userName, ')
           ..write('password: $password, ')
+          ..write('dob: $dob, ')
           ..write('address: $address, ')
           ..write('phone: $phone, ')
           ..write('valid: $valid, ')
@@ -728,9 +738,11 @@ class User extends DataClass implements Insertable<User> {
           $mrjc(
               password.hashCode,
               $mrjc(
-                  address.hashCode,
-                  $mrjc(phone.hashCode,
-                      $mrjc(valid.hashCode, role.hashCode)))))));
+                  dob.hashCode,
+                  $mrjc(
+                      address.hashCode,
+                      $mrjc(phone.hashCode,
+                          $mrjc(valid.hashCode, role.hashCode))))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
@@ -738,6 +750,7 @@ class User extends DataClass implements Insertable<User> {
           other.id == this.id &&
           other.userName == this.userName &&
           other.password == this.password &&
+          other.dob == this.dob &&
           other.address == this.address &&
           other.phone == this.phone &&
           other.valid == this.valid &&
@@ -748,6 +761,7 @@ class UsersCompanion extends UpdateCompanion<User> {
   final Value<int> id;
   final Value<String> userName;
   final Value<String> password;
+  final Value<DateTime> dob;
   final Value<String> address;
   final Value<String> phone;
   final Value<bool> valid;
@@ -756,6 +770,7 @@ class UsersCompanion extends UpdateCompanion<User> {
     this.id = const Value.absent(),
     this.userName = const Value.absent(),
     this.password = const Value.absent(),
+    this.dob = const Value.absent(),
     this.address = const Value.absent(),
     this.phone = const Value.absent(),
     this.valid = const Value.absent(),
@@ -765,6 +780,7 @@ class UsersCompanion extends UpdateCompanion<User> {
     this.id = const Value.absent(),
     @required String userName,
     @required String password,
+    this.dob = const Value.absent(),
     @required String address,
     @required String phone,
     this.valid = const Value.absent(),
@@ -778,6 +794,7 @@ class UsersCompanion extends UpdateCompanion<User> {
       {Value<int> id,
       Value<String> userName,
       Value<String> password,
+      Value<DateTime> dob,
       Value<String> address,
       Value<String> phone,
       Value<bool> valid,
@@ -786,6 +803,7 @@ class UsersCompanion extends UpdateCompanion<User> {
       id: id ?? this.id,
       userName: userName ?? this.userName,
       password: password ?? this.password,
+      dob: dob ?? this.dob,
       address: address ?? this.address,
       phone: phone ?? this.phone,
       valid: valid ?? this.valid,
@@ -825,6 +843,18 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
         minTextLength: 2, maxTextLength: 100);
   }
 
+  final VerificationMeta _dobMeta = const VerificationMeta('dob');
+  GeneratedDateTimeColumn _dob;
+  @override
+  GeneratedDateTimeColumn get dob => _dob ??= _constructDob();
+  GeneratedDateTimeColumn _constructDob() {
+    return GeneratedDateTimeColumn(
+      'dob',
+      $tableName,
+      true,
+    );
+  }
+
   final VerificationMeta _addressMeta = const VerificationMeta('address');
   GeneratedTextColumn _address;
   @override
@@ -848,7 +878,7 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
   @override
   GeneratedBoolColumn get valid => _valid ??= _constructValid();
   GeneratedBoolColumn _constructValid() {
-    return GeneratedBoolColumn('valid', $tableName, false,
+    return GeneratedBoolColumn('valid', $tableName, true,
         defaultValue: Constant(true));
   }
 
@@ -863,7 +893,7 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
 
   @override
   List<GeneratedColumn> get $columns =>
-      [id, userName, password, address, phone, valid, role];
+      [id, userName, password, dob, address, phone, valid, role];
   @override
   $UsersTable get asDslTable => this;
   @override
@@ -888,6 +918,9 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
           password.isAcceptableValue(d.password.value, _passwordMeta));
     } else if (isInserting) {
       context.missing(_passwordMeta);
+    }
+    if (d.dob.present) {
+      context.handle(_dobMeta, dob.isAcceptableValue(d.dob.value, _dobMeta));
     }
     if (d.address.present) {
       context.handle(_addressMeta,
@@ -933,6 +966,9 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
     }
     if (d.password.present) {
       map['password'] = Variable<String, StringType>(d.password.value);
+    }
+    if (d.dob.present) {
+      map['dob'] = Variable<DateTime, DateTimeType>(d.dob.value);
     }
     if (d.address.present) {
       map['address'] = Variable<String, StringType>(d.address.value);

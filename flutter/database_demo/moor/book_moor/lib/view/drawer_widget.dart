@@ -1,3 +1,4 @@
+import 'package:book_moor/animation/scale_route.dart';
 import 'package:flutter/material.dart';
 
 class DrawerWidget extends StatelessWidget {
@@ -24,15 +25,19 @@ class DrawerWidget extends StatelessWidget {
                 ),
               ),
             ),
-            buildListTile(context,
+            _buildNavi(context,
                 icon: Icons.library_books, title: 'Category', routeName: '/'),
-            buildListTile(context,
+            // TODO
+            _buildNavi(context,
                 icon: Icons.supervised_user_circle,
                 title: 'Author',
                 routeName: '/'),
-            buildListTile(context,
-                icon: Icons.person_pin_circle, title: 'User', routeName: '/'),
-            buildListTile(context,
+            _buildNavi(context,
+                icon: Icons.person_pin_circle,
+                title: 'User',
+                routeName: '/user'),
+            // TODO
+            _buildNavi(context,
                 icon: Icons.book, title: 'Book', routeName: '/'),
             SizedBox(),
             Divider(),
@@ -42,8 +47,8 @@ class DrawerWidget extends StatelessWidget {
     );
   }
 
-  Widget buildListTile(BuildContext context,
-      {IconData icon, String title, String routeName}) {
+  Widget _buildNavi(BuildContext context,
+      {IconData icon, String title, String routeName, Widget page}) {
     return ListTile(
       leading: Icon(
         icon,
@@ -57,8 +62,9 @@ class DrawerWidget extends StatelessWidget {
         ),
       ),
       onTap: () {
-        Navigator.pushReplacementNamed(context, routeName);
-        //Navigator.of(context).pushNamed('/');
+        routeName != null
+            ? Navigator.pushReplacementNamed(context, routeName)
+            : Navigator.push(context, ScaleRoute(page: page));
       },
     );
   }
