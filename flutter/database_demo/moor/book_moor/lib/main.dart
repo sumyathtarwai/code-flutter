@@ -1,4 +1,5 @@
 import 'package:book_moor/data/database.dart';
+import 'package:book_moor/view/author/author_home.dart';
 import 'package:book_moor/view/category/category_home.dart';
 import 'package:book_moor/view/user/user_form.dart';
 import 'package:book_moor/view/user/user_home.dart';
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Provider(
       create: (_) => AppDatabase(),
-       dispose: (_, db) => db.close(),
+      dispose: (_, db) => db.close(),
       child: MaterialApp(
         // title: 'Moor Demo',
         theme: ThemeData(
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
           '/': (_) => CategoryHome(),
           '/user': (_) => UserHome(),
           '/user/form': (_) => UserForm(),
+          '/author': (_) => AuthorHome(),
         },
       ),
     );

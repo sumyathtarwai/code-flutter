@@ -27,11 +27,11 @@ class DrawerWidget extends StatelessWidget {
             ),
             _buildNavi(context,
                 icon: Icons.library_books, title: 'Category', routeName: '/'),
-            // TODO
+
             _buildNavi(context,
                 icon: Icons.supervised_user_circle,
                 title: 'Author',
-                routeName: '/'),
+                routeName: '/author'),
             _buildNavi(context,
                 icon: Icons.person_pin_circle,
                 title: 'User',
