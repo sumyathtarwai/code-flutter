@@ -110,7 +110,9 @@ class _MyHomeState extends State<MyHome> {
         children: <Widget>[
           //FIXME provider
           BarChart(_recentTransaction),
-          TransactionList(_transaction, _deleteTransaction),
+          Expanded(
+            child: TransactionList(_transaction, _deleteTransaction),
+          ),
         ],
       ),
       resizeToAvoidBottomInset: false,
@@ -125,7 +127,11 @@ class _MyHomeState extends State<MyHome> {
   void _showInput(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      builder: (_) => InputTransaction(_addTransaction),
+      builder: (modalCtx) => GestureDetector(
+        onTap: () => FocusScope.of(modalCtx).unfocus(),
+        behavior: HitTestBehavior.opaque,
+        child: InputTransaction(_addTransaction),
+      ),
     );
   }
 

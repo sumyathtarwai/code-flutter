@@ -106,6 +106,7 @@ class _InputTransactionState extends State<InputTransaction> {
   }
 
   void _showDate() {
+    FocusScope.of(context).unfocus();
     showDatePicker(
       context: context,
       initialDate: DateTime.now(),
