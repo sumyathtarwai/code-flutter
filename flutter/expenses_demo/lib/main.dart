@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.amber,
         accentColor: Colors.amber.shade600,
+        primaryColorLight: Colors.lightGreenAccent,
         fontFamily: 'Quicksand',
         textTheme: ThemeData.light().textTheme.copyWith(
               headline6: TextStyle(
@@ -50,31 +51,31 @@ class _MyHomeState extends State<MyHome> {
       id: 'tx1',
       title: 'Book',
       amount: 1,
-      date: DateTime.parse('2020-04-01'),
+      date: DateTime.now().subtract(Duration(days: 30)),
     ),
     Transaction(
       id: 'tx2',
       title: 'Electricity Bill',
-      amount: 9.9,
-      date: DateTime.parse('2020-05-27'),
+      amount: 3.0,
+      date: DateTime.now().subtract(Duration(days: 1)),
     ),
     Transaction(
       id: 'tx3',
       title: 'Snack',
       amount: 3.0,
-      date: DateTime.parse('2020-05-28'),
+      date: DateTime.now().subtract(Duration(days: 1)),
     ),
     Transaction(
       id: 'tx4',
-      title: 'Snack',
-      amount: 3.3,
-      date: DateTime.parse('2020-05-28'),
+      title: 'Night out',
+      amount: 40.0,
+      date: DateTime.now().subtract(Duration(days: 2)),
     ),
     Transaction(
       id: 'tx5',
       title: 'edu',
-      amount: 40.30,
-      date: DateTime.parse('2020-05-29'),
+      amount: 50.30,
+      date: DateTime.now().subtract(Duration(days: 4)),
     )
   ];
   final List<Transaction> _transaction = [..._dummy];

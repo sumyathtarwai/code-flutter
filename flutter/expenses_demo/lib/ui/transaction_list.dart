@@ -25,45 +25,36 @@ class TransactionList extends StatelessWidget {
               itemCount: _tx.length,
               itemBuilder: (_, index) {
                 return Card(
-                  color: Theme.of(context).cardColor,
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 15,
+                  child: ListTile(
+                    contentPadding: EdgeInsets.all(8),
+                    leading: Container(
+                      width: 100,
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Theme.of(context).primaryColorDark,
+                          width: 1.5,
                         ),
-                        padding: EdgeInsets.all(
-                          10,
-                        ),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Theme.of(context).primaryColorDark,
-                          ),
-                        ),
+                      ),
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
                         child: Text(
                           '${_tx[index].amount.toStringAsFixed(2)}\$',
                           style: Theme.of(context).textTheme.headline5,
                         ),
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            _tx[index].title,
-                            style: Theme.of(context).textTheme.headline6,
+                    ),
+                    title: Text(
+                      _tx[index].title,
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    subtitle: Text(
+                      DateFormat.yMMMd().format(_tx[index].date),
+                      style: Theme.of(context).textTheme.headline6.copyWith(
+                            fontSize: 14,
+                            color: Colors.black26,
                           ),
-                          Text(
-                            DateFormat.yMMMd().format(_tx[index].date),
-                            style:
-                                Theme.of(context).textTheme.headline6.copyWith(
-                                      fontSize: 14,
-                                      color: Colors.black26,
-                                    ),
-                          ),
-                        ],
-                      ),
-                    ],
+                    ),
                   ),
                 );
               },

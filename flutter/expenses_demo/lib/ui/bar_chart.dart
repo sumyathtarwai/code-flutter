@@ -7,7 +7,7 @@ class BarChart extends StatelessWidget {
 
   BarChart(this._transaction);
 
-  List<Map<String, Object>> get weeklySpendData {
+  List<Map<Object, Object>> get weeklySpendData {
     return List.generate(
       7,
       (index) {
@@ -25,7 +25,7 @@ class BarChart extends StatelessWidget {
         //  print(DateFormat.E().format(currentDate));
         //  print(total);
         return {
-          'day': DateFormat.E().format(currentDate),
+          'day': currentDate,
           'amount': total,
         };
       },
@@ -41,8 +41,12 @@ class BarChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // get map data and order
+    var weekly = weeklySpendData.reversed.toList();
+
     return Card(
-      elevation: 8,
+      color: Colors.grey.shade300,
+      elevation: 15,
       margin: EdgeInsets.all(10),
       child: Column(
         children: <Widget>[
@@ -57,11 +61,11 @@ class BarChart extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: weeklySpendData.map((e) {
+              children: weekly.map((e) {
                 return Flexible(
                   fit: FlexFit.tight,
                   child: Chart(
-                    label: e['day'],
+                    label: DateFormat.E().format(e['day']),
                     amount: e['amount'],
                     spendRange: weeklySpendTotal == 0.0
                         ? 0.0
@@ -87,7 +91,6 @@ class Chart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
         FittedBox(
           child: Text('\$ ${amount.toStringAsFixed(0)}'),
@@ -104,6 +107,12 @@ class Chart extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.black12,
                   borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      offset: Offset(2, 1),
+                    ),
+                  ],
                   border: Border.all(
                     color: Colors.grey,
                   ),
@@ -113,9 +122,12 @@ class Chart extends StatelessWidget {
                 heightFactor: spendRange,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Theme.of(context).accentColor,
+                    color: Colors.lightGreenAccent,
                     boxShadow: [
-                      BoxShadow(color: Colors.black12, offset: Offset(1, 2)),
+                      BoxShadow(
+                        color: Colors.black12,
+                        offset: Offset(1, 2),
+                      ),
                     ],
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(
