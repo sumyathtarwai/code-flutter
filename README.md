@@ -2,7 +2,7 @@
 
 # 🎨 Layout and Design
 
-## layout_demo
+## layout_demo [Basic Layout Learning]
 
 layout_demo project is tutorial work of layout. In the project, build the layout for the following:
 
@@ -71,4 +71,15 @@ dependencies:
 
 <div>
 <img src='flutter/database_demo/moor/book_moor/screenshot/category_moor.gif' width="15%" alt='category'> 
+</div>
+
+# 💭 Demo
+
+## expenses_demo
+
+Weekly spend tracking demo with in memory data storage.
+
+<div>
+<img src='flutter/expenses_demo/screenshots/main.png' width="15%" alt='main'> 
+<img src='flutter/expenses_demo/screenshots/modal.png' width="15%" alt='main'> 
 </div>
