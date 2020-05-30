@@ -53,7 +53,7 @@ class BarChart extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(10),
             child: Text(
-              'THIS WEEK',
+              'WEEKLY SPEND',
               style: Theme.of(context).textTheme.headline5,
             ),
           ),

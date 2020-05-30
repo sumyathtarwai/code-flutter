@@ -130,12 +130,12 @@ class _MyHomeState extends State<MyHome> {
   }
 
   //FIXME use provider
-  void _addTransaction(String title, double amount) {
+  void _addTransaction(String title, double amount, DateTime date) {
     final newTx = Transaction(
       id: DateTime.now().toString(),
       title: title,
       amount: amount,
-      date: DateTime.now(),
+      date: date,
     );
 
     setState(
