@@ -108,9 +108,9 @@ class _MyHomeState extends State<MyHome> {
       ),
       body: Column(
         children: <Widget>[
-          BarChart(_recentTransaction),
           //FIXME provider
-          TransactionList(_transaction),
+          BarChart(_recentTransaction),
+          TransactionList(_transaction, _deleteTransaction),
         ],
       ),
       resizeToAvoidBottomInset: false,
@@ -143,5 +143,11 @@ class _MyHomeState extends State<MyHome> {
         _transaction.add(newTx);
       },
     );
+  }
+
+  void _deleteTransaction(String id) {
+    setState(() {
+      _transaction.removeWhere((el) => el.id == id);
+    });
   }
 }
