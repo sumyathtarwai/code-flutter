@@ -46,39 +46,7 @@ class MyHome extends StatefulWidget {
 }
 
 class _MyHomeState extends State<MyHome> {
-  static final List<Transaction> _dummy = [
-    Transaction(
-      id: 'tx1',
-      title: 'Book',
-      amount: 1,
-      date: DateTime.now().subtract(Duration(days: 30)),
-    ),
-    Transaction(
-      id: 'tx2',
-      title: 'Electricity Bill',
-      amount: 3.0,
-      date: DateTime.now().subtract(Duration(days: 1)),
-    ),
-    Transaction(
-      id: 'tx3',
-      title: 'Snack',
-      amount: 3.0,
-      date: DateTime.now().subtract(Duration(days: 1)),
-    ),
-    Transaction(
-      id: 'tx4',
-      title: 'Night out',
-      amount: 40.0,
-      date: DateTime.now().subtract(Duration(days: 2)),
-    ),
-    Transaction(
-      id: 'tx5',
-      title: 'edu',
-      amount: 50.30,
-      date: DateTime.now().subtract(Duration(days: 4)),
-    )
-  ];
-  final List<Transaction> _transaction = [..._dummy];
+  final List<Transaction> _transaction = [..._dummyData()];
 
   List<Transaction> get _recentTransaction {
     return _transaction.where(
@@ -156,5 +124,40 @@ class _MyHomeState extends State<MyHome> {
     setState(() {
       _transaction.removeWhere((el) => el.id == id);
     });
+  }
+
+  static List<Transaction> _dummyData() {
+    return [
+      Transaction(
+        id: 'tx1',
+        title: 'Book',
+        amount: 1,
+        date: DateTime.now().subtract(Duration(days: 30)),
+      ),
+      Transaction(
+        id: 'tx2',
+        title: 'Electricity Bill',
+        amount: 3.0,
+        date: DateTime.now().subtract(Duration(days: 1)),
+      ),
+      Transaction(
+        id: 'tx3',
+        title: 'Snack',
+        amount: 3.0,
+        date: DateTime.now().subtract(Duration(days: 1)),
+      ),
+      Transaction(
+        id: 'tx4',
+        title: 'Night out',
+        amount: 40.0,
+        date: DateTime.now().subtract(Duration(days: 2)),
+      ),
+      Transaction(
+        id: 'tx5',
+        title: 'edu',
+        amount: 50.30,
+        date: DateTime.now().subtract(Duration(days: 4)),
+      )
+    ];
   }
 }

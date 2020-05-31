@@ -18,87 +18,102 @@ class _InputTransactionState extends State<InputTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Container(
-        color: Theme.of(context).primaryColor.withOpacity(0.1),
-        padding: EdgeInsets.all(20),
+    return Container(
+      height: 500,
+      width: double.infinity,
+      color: Theme.of(context).primaryColor.withOpacity(0.1),
+      padding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+      child: Form(
+        key: _formKey,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
-              child: TextFormField(
-                decoration: InputDecoration(
-                  icon: Icon(Icons.textsms),
-                  labelText: 'Title',
-                  border: OutlineInputBorder(),
+            Expanded(
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    icon: Icon(Icons.textsms),
+                    labelText: 'Title',
+                    border: OutlineInputBorder(),
+                  ),
+                  controller: _titleCtrl,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Please enter Title!';
+                    }
+                    return null;
+                  },
                 ),
-                controller: _titleCtrl,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Please enter Title!';
-                  }
-                  return null;
-                },
-                // onChanged: (val) => null,
               ),
-              padding: EdgeInsets.all(5),
             ),
-            Container(
-              child: TextFormField(
-                decoration: InputDecoration(
-                  icon: Icon(Icons.attach_money),
-                  labelText: 'Amount',
-                  border: OutlineInputBorder(),
+            Expanded(
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                //  width: 500,
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    icon: Icon(Icons.attach_money),
+                    labelText: 'Amount',
+                    border: OutlineInputBorder(),
+                  ),
+                  controller: _amountCtrl,
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  validator: (value) {
+                    if (value.isEmpty || double.parse(value) <= 0) {
+                      return 'Please enter amount';
+                    }
+                    return null;
+                    // android => TextInputType.number,
+                  },
                 ),
-                controller: _amountCtrl,
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
-                validator: (value) {
-                  if (value.isEmpty || double.parse(value) <= 0) {
-                    return 'Please enter amount';
-                  }
-                  return null;
-                  // android => TextInputType.number,
-                  // onChanged: (val) => null,
-                },
               ),
-              padding: EdgeInsets.all(5),
             ),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: Text(
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Text(
                     _date == null
                         ? 'No date is selected yet!'
                         : 'Selected: ${DateFormat.yMEd().format(_date)}',
                   ),
-                ),
-                FlatButton(
-                  textColor: Theme.of(context).primaryColorDark,
-                  onPressed: _showDate,
-                  child: Text('SELECT DATE'),
-                )
-              ],
+                  FlatButton(
+                    textColor: Theme.of(context).primaryColorDark,
+                    onPressed: _showDate,
+                    child: Text('SELECT DATE'),
+                  )
+                ],
+              ),
             ),
-            FlatButton(
-              color: Theme.of(context).primaryColor,
-              child: Text('SAVE'),
-              onPressed: () {
-                if (_formKey.currentState.validate() && _date != null) {
-                  // hide keyboard
-                  FocusScope.of(context).unfocus();
-                  // hide modal
-                  Navigator.of(context).pop();
-                  // change state
-                  //access statefull widget vai widget prop
-                  widget.addTransaction(
-                    _titleCtrl.text,
-                    double.parse(_amountCtrl.text),
-                    _date,
-                  );
-                }
-              },
-            )
+            Expanded(
+              flex: 2,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  FlatButton(
+                    color: Theme.of(context).primaryColor,
+                    child: Text('SAVE'),
+                    onPressed: () {
+                      if (_formKey.currentState.validate() && _date != null) {
+                        // hide keyboard
+                        FocusScope.of(context).unfocus();
+                        // hide modal
+                        Navigator.of(context).pop();
+                        // change state
+                        //access statefull widget vai widget prop
+                        widget.addTransaction(
+                          _titleCtrl.text,
+                          double.parse(_amountCtrl.text),
+                          _date,
+                        );
+                      }
+                    },
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
