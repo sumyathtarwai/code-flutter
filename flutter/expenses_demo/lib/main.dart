@@ -127,6 +127,7 @@ class _MyHomeState extends State<MyHome> {
   void _showInput(BuildContext context) {
     showModalBottomSheet(
       context: context,
+      // wrap with guesture to hide number keyboard when tap
       builder: (modalCtx) => GestureDetector(
         onTap: () => FocusScope.of(modalCtx).unfocus(),
         behavior: HitTestBehavior.opaque,

@@ -22,8 +22,6 @@ class BarChart extends StatelessWidget {
             total += _transaction[i].amount;
           }
         }
-        //  print(DateFormat.E().format(currentDate));
-        //  print(total);
         return {
           'day': currentDate,
           'amount': total,
@@ -118,20 +116,23 @@ class Chart extends StatelessWidget {
                   ),
                 ),
               ),
-              FractionallySizedBox(
-                heightFactor: spendRange,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.lightGreenAccent,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black12,
-                        offset: Offset(1, 2),
+              Positioned(
+                child: FractionallySizedBox(
+                  heightFactor: spendRange,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.lightGreenAccent,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          offset: Offset(1, 2),
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: Colors.grey,
+                        width: 0.2,
                       ),
-                    ],
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      color: Colors.grey,
                     ),
                   ),
                 ),

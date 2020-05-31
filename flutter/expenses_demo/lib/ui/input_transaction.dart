@@ -106,10 +106,12 @@ class _InputTransactionState extends State<InputTransaction> {
   }
 
   void _showDate() {
+    // hide keyboard if opened
     FocusScope.of(context).unfocus();
     showDatePicker(
       context: context,
       initialDate: DateTime.now(),
+      // allowale past date
       firstDate: DateTime(DateTime.now().year - 1),
       lastDate: DateTime.now(),
     ).then(
