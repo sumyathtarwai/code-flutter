@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import './ui/input_transaction.dart';
 import './models/transaction.dart';
@@ -11,30 +14,33 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.amber,
-        accentColor: Colors.amber.shade600,
-        primaryColorLight: Colors.lightGreenAccent,
-        fontFamily: 'Quicksand',
+    var themeData = ThemeData(
+      primarySwatch: Colors.amber,
+      accentColor: Colors.amber.shade600,
+      primaryColorLight: Colors.lightGreenAccent,
+      fontFamily: 'Quicksand',
+      textTheme: ThemeData.light().textTheme.copyWith(
+            headline6: TextStyle(
+              fontFamily: 'Quicksand',
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+              color: Colors.amber.shade700,
+            ),
+          ),
+      appBarTheme: AppBarTheme(
         textTheme: ThemeData.light().textTheme.copyWith(
               headline6: TextStyle(
-                fontFamily: 'Quicksand',
+                fontFamily: 'OpenSans',
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
-                fontSize: 18,
-                color: Colors.amber.shade700,
               ),
             ),
-        appBarTheme: AppBarTheme(
-          textTheme: ThemeData.light().textTheme.copyWith(
-                headline6: TextStyle(
-                  fontFamily: 'OpenSans',
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-        ),
       ),
+    );
+
+    //TODO CupertinoApp replacement
+    return MaterialApp(
+      theme: themeData,
       home: MyHome(),
     );
   }
@@ -64,18 +70,31 @@ class _MyHomeState extends State<MyHome> {
 
   @override
   Widget build(BuildContext context) {
-    final appBar = AppBar(
-      title: Text('Expenses Demo'),
-      actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.add_box),
-          onPressed: () {
-            _showInput(context);
-          },
-        ),
-      ],
-    );
-    final media = MediaQuery.of(context);
+    final ObstructingPreferredSizeWidget appBar = Platform.isIOS
+        ? CupertinoNavigationBar(
+            middle: Text(
+              'Expenses Demo',
+            ),
+            trailing: CupertinoButton(
+              padding: EdgeInsets.zero,
+              child: Icon(
+                CupertinoIcons.add,
+                color: CupertinoColors.darkBackgroundGray,
+              ),
+              onPressed: () => _showInput(context),
+            ),
+          )
+        : AppBar(
+            elevation: 0,
+            title: Text('Expenses Demo'),
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.add_box),
+                onPressed: () => _showInput(context),
+              ),
+            ],
+          );
+    MediaQueryData media = MediaQuery.of(context);
     // check orientation
     bool isLandscape = media.orientation == Orientation.landscape;
 
@@ -87,7 +106,10 @@ class _MyHomeState extends State<MyHome> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text('Show Chart'),
+          Text(
+            'Show Chart',
+            style: Theme.of(context).textTheme.subtitle1,
+          ),
           Switch.adaptive(
             value: _showChart,
             onChanged: (val) {
@@ -104,9 +126,8 @@ class _MyHomeState extends State<MyHome> {
           0.6,
       child: TransactionList(_transaction, _deleteTransaction),
     );
-    return Scaffold(
-      appBar: appBar,
-      body: Column(
+    var body = SafeArea(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           //FIXME provider
@@ -136,13 +157,23 @@ class _MyHomeState extends State<MyHome> {
             transactionList,
         ],
       ),
-      resizeToAvoidBottomInset: false,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).accentColor,
-        child: Icon(Icons.add),
-        onPressed: () => _showInput(context),
-      ),
     );
+
+    return Platform.isIOS
+        ? CupertinoPageScaffold(
+            navigationBar: appBar,
+            child: body,
+          )
+        : Scaffold(
+            appBar: appBar,
+            body: body,
+            resizeToAvoidBottomInset: false,
+            floatingActionButton: FloatingActionButton(
+              backgroundColor: Theme.of(context).accentColor,
+              child: Icon(Icons.add),
+              onPressed: () => _showInput(context),
+            ),
+          );
   }
 
   void _showInput(BuildContext context) {
