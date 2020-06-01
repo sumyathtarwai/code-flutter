@@ -72,6 +72,7 @@ class _InputTransactionState extends State<InputTransaction> {
             Expanded(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Text(
                     _date == null

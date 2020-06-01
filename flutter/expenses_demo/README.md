@@ -2,6 +2,10 @@
 
 Weekly expense tracking demo project.
 
+- Responsive (MediaQuery, LayoutBuilder) apply
+- Landscape / Portrait mode control
+- Device platform control
+
 ## UI
 
 <div>

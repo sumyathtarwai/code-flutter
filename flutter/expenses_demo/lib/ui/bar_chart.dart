@@ -13,7 +13,6 @@ class BarChart extends StatelessWidget {
       (index) {
         final currentDate = DateTime.now().subtract(Duration(days: index));
         var total = 0.0;
-
         for (var i = 0; i < _transaction.length; i++) {
           var txDate = _transaction[i].date;
           if (currentDate.day == txDate.day &&
@@ -46,34 +45,43 @@ class BarChart extends StatelessWidget {
       color: Colors.grey.shade300,
       elevation: 15,
       margin: EdgeInsets.all(10),
-      child: Column(
-        children: <Widget>[
-          Container(
-            padding: const EdgeInsets.all(10),
-            child: Text(
-              'WEEKLY SPEND',
-              style: Theme.of(context).textTheme.headline5,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: weekly.map((e) {
-                return Flexible(
-                  fit: FlexFit.tight,
-                  child: Chart(
-                    label: DateFormat.E().format(e['day']),
-                    amount: e['amount'],
-                    spendRange: weeklySpendTotal == 0.0
-                        ? 0.0
-                        : (e['amount'] as double) / weeklySpendTotal,
+      child: LayoutBuilder(
+        builder: (ctx, constraints) {
+          return Column(
+            children: <Widget>[
+              Container(
+                height: constraints.maxHeight * 0.2,
+                padding: const EdgeInsets.all(10),
+                child: FittedBox(
+                  child: Text(
+                    'WEEKLY SPEND',
+                    style: Theme.of(context).textTheme.headline5,
                   ),
-                );
-              }).toList(),
-            ),
-          ),
-        ],
+                ),
+              ),
+              Container(
+                height: constraints.maxHeight * 0.8,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: weekly.map(
+                    (e) {
+                      return Flexible(
+                        fit: FlexFit.tight,
+                        child: Chart(
+                          label: DateFormat.E().format(e['day']),
+                          amount: e['amount'],
+                          spendRange: weeklySpendTotal == 0.0
+                              ? 0.0
+                              : (e['amount'] as double) / weeklySpendTotal,
+                        ),
+                      );
+                    },
+                  ).toList(),
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
@@ -88,60 +96,75 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        FittedBox(
-          child: Text('\$ ${amount.toStringAsFixed(0)}'),
-        ),
-        SizedBox(
-          height: 5,
-        ),
-        Container(
-          height: 100,
-          width: 20,
-          child: Stack(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.black12,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      offset: Offset(2, 1),
-                    ),
-                  ],
-                  border: Border.all(
-                    color: Colors.grey,
-                  ),
-                ),
+    return LayoutBuilder(
+      builder: (ctx, constraints) {
+        return Column(
+          children: <Widget>[
+            Container(
+              height: constraints.maxHeight * 0.10,
+              child: FittedBox(
+                child: Text('\$ ${amount.toStringAsFixed(0)}'),
               ),
-              Positioned(
-                child: FractionallySizedBox(
-                  heightFactor: spendRange,
-                  child: Container(
+            ),
+            SizedBox(
+              height: constraints.maxHeight * 0.05,
+            ),
+            Container(
+              height: constraints.maxHeight * 0.6,
+              width: constraints.maxWidth * 0.3,
+              child: Stack(
+                children: <Widget>[
+                  Container(
                     decoration: BoxDecoration(
-                      color: Colors.lightGreenAccent,
+                      color: Colors.black12,
+                      borderRadius: BorderRadius.circular(10),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black12,
-                          offset: Offset(1, 2),
+                          offset: Offset(2, 1),
                         ),
                       ],
-                      borderRadius: BorderRadius.circular(10),
                       border: Border.all(
                         color: Colors.grey,
-                        width: 0.2,
                       ),
                     ),
                   ),
-                ),
+                  Positioned(
+                    child: FractionallySizedBox(
+                      heightFactor: spendRange,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.lightGreenAccent,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black12,
+                              offset: Offset(1, 2),
+                            ),
+                          ],
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                            color: Colors.grey,
+                            width: 0.2,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
-        Text('$label'),
-      ],
+            ),
+            SizedBox(
+              height: constraints.maxHeight * 0.05,
+            ),
+            Container(
+              height: constraints.maxHeight * 0.10,
+              child: FittedBox(
+                child: Text('$label'),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

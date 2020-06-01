@@ -62,23 +62,35 @@ class _MyHomeState extends State<MyHome> {
 
   @override
   Widget build(BuildContext context) {
+    var appBar = AppBar(
+      title: Text('Expenses Demo'),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.add_box),
+          onPressed: () {
+            _showInput(context);
+          },
+        ),
+      ],
+    );
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Expenses Demo'),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.add_box),
-            onPressed: () {
-              _showInput(context);
-            },
-          ),
-        ],
-      ),
+      appBar: appBar,
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           //FIXME provider
-          BarChart(_recentTransaction),
-          Expanded(
+          Container(
+            height: (MediaQuery.of(context).size.height -
+                    appBar.preferredSize.height -
+                    MediaQuery.of(context).padding.top) *
+                0.35,
+            child: BarChart(_recentTransaction),
+          ),
+          Container(
+            height: (MediaQuery.of(context).size.height -
+                    appBar.preferredSize.height -
+                    MediaQuery.of(context).padding.top) *
+                0.6,
             child: TransactionList(_transaction, _deleteTransaction),
           ),
         ],
