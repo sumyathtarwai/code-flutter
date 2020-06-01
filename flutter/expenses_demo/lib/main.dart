@@ -48,6 +48,8 @@ class MyHome extends StatefulWidget {
 class _MyHomeState extends State<MyHome> {
   final List<Transaction> _transaction = [..._dummyData()];
 
+  bool _showChart = false;
+
   List<Transaction> get _recentTransaction {
     return _transaction.where(
       (el) {
@@ -62,7 +64,7 @@ class _MyHomeState extends State<MyHome> {
 
   @override
   Widget build(BuildContext context) {
-    var appBar = AppBar(
+    final appBar = AppBar(
       title: Text('Expenses Demo'),
       actions: <Widget>[
         IconButton(
@@ -73,26 +75,65 @@ class _MyHomeState extends State<MyHome> {
         ),
       ],
     );
+    final media = MediaQuery.of(context);
+    // check orientation
+    bool isLandscape = media.orientation == Orientation.landscape;
+
+    Widget switchContainer = Container(
+      height: (media.size.height -
+              appBar.preferredSize.height -
+              media.padding.top) *
+          0.2,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text('Show Chart'),
+          Switch.adaptive(
+            value: _showChart,
+            onChanged: (val) {
+              setState(() => _showChart = val);
+            },
+          ),
+        ],
+      ),
+    );
+    Widget transactionList = Container(
+      height: (media.size.height -
+              appBar.preferredSize.height -
+              media.padding.top) *
+          0.6,
+      child: TransactionList(_transaction, _deleteTransaction),
+    );
     return Scaffold(
       appBar: appBar,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           //FIXME provider
-          Container(
-            height: (MediaQuery.of(context).size.height -
-                    appBar.preferredSize.height -
-                    MediaQuery.of(context).padding.top) *
-                0.35,
-            child: BarChart(_recentTransaction),
-          ),
-          Container(
-            height: (MediaQuery.of(context).size.height -
-                    appBar.preferredSize.height -
-                    MediaQuery.of(context).padding.top) *
-                0.6,
-            child: TransactionList(_transaction, _deleteTransaction),
-          ),
+          // landscape mode either chart or list
+          if (isLandscape && _transaction.isNotEmpty)
+            switchContainer,
+          if (isLandscape && _showChart)
+            Container(
+              height: (media.size.height -
+                      appBar.preferredSize.height -
+                      media.padding.top) *
+                  0.6,
+              child: BarChart(_recentTransaction),
+            ),
+          if (isLandscape && !_showChart)
+            transactionList,
+          // portrait mode both chart and list
+          if (!isLandscape)
+            Container(
+              height: (media.size.height -
+                      appBar.preferredSize.height -
+                      media.padding.top) *
+                  0.35,
+              child: BarChart(_recentTransaction),
+            ),
+          if (!isLandscape)
+            transactionList,
         ],
       ),
       resizeToAvoidBottomInset: false,
@@ -125,17 +166,11 @@ class _MyHomeState extends State<MyHome> {
       date: date,
     );
 
-    setState(
-      () {
-        _transaction.add(newTx);
-      },
-    );
+    setState(() => _transaction.add(newTx));
   }
 
   void _deleteTransaction(String id) {
-    setState(() {
-      _transaction.removeWhere((el) => el.id == id);
-    });
+    setState(() => _transaction.removeWhere((el) => el.id == id));
   }
 
   static List<Transaction> _dummyData() {

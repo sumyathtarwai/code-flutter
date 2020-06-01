@@ -11,17 +11,29 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.center,
       margin: EdgeInsets.all(10),
       child: _tx.isEmpty
-          ? Column(
-              children: <Widget>[
-                Text(
-                  'Oops!',
-                  style: Theme.of(context).textTheme.headline1,
-                ),
-                Image.asset('assets/images/nodata.png', fit: BoxFit.cover),
-              ],
-            )
+          ? LayoutBuilder(builder: (cxt, constraints) {
+              return Column(
+                children: <Widget>[
+                  Container(
+                    height: constraints.maxHeight * 0.3,
+                    child: FittedBox(
+                      child: Text(
+                        'Oops!',
+                        style: Theme.of(context).textTheme.headline1,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: constraints.maxHeight * 0.67,
+                    child: Image.asset('assets/images/nodata.png',
+                        fit: BoxFit.cover),
+                  ),
+                ],
+              );
+            })
           : ListView.builder(
               itemCount: _tx.length,
               itemBuilder: (_, index) {
