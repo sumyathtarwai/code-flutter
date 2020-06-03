@@ -8,9 +8,24 @@ Weekly expense tracking demo project.
 
 ## UI
 
+> Android Look
+
 <div>
 <img src='./screenshots/main.png' width="20%" alt='main'> 
 <img src='./screenshots/modal.png' width="20%" alt='modal'> 
+</div>
+
+> IOS Look
+
+<div>
+<img src='./screenshots/ios.png' width="20%" alt='main'> 
+</div>
+
+> Landscape
+
+<div>
+<img src='./screenshots/landscape1.png' width="50%" alt='main'> 
+<img src='./screenshots/landscape2.png' width="50%" alt='modal'> 
 </div>
 
 ---

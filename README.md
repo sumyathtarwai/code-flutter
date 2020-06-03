@@ -82,4 +82,5 @@ Weekly spend tracking demo with in memory data storage.
 <div>
 <img src='flutter/expenses_demo/screenshots/main.png' width="15%" alt='main'> 
 <img src='flutter/expenses_demo/screenshots/modal.png' width="15%" alt='main'> 
+<img src='flutter/expenses_demo/screenshots/landscape1.png' width="50%" alt='main'> 
 </div>
