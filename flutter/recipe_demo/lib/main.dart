@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_demo/const.dart';
 
+import 'models/category.dart';
+
 void main() {
   runApp(MyApp());
 }
 
 const MaterialColor themeColor = const MaterialColor(0xFF9686FF, defaultTheme);
+
 final ThemeData themeData = ThemeData(
   primarySwatch: themeColor,
   buttonColor: btnColor,
@@ -84,13 +87,13 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Container(
-        child: FlatButton(
-          color: Theme.of(context).buttonColor,
-          textColor: Theme.of(context).textTheme.button.color,
-          onPressed: () => {},
-          child: Text('data'),
-        ),
-      ),
+          // child: FlatButton(
+          //   color: Theme.of(context).buttonColor,
+          //   textColor: Theme.of(context).textTheme.button.color,
+          //   onPressed: () => {},
+          //   child: Text('data'),
+          // ),
+          ),
     );
   }
 }
