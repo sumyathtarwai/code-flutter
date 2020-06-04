@@ -1,5 +1,5 @@
 # recipe_demo
 
+- GridView
 - Navigation
-- 6 Screen
 - Drawer

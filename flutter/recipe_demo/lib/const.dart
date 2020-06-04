@@ -20,7 +20,7 @@ const fontName = 'Raleway';
 const MaterialColor themeColor = const MaterialColor(0xFF9686FF, defaultTheme);
 final ThemeData themeData = ThemeData(
   primarySwatch: themeColor,
-  accentColor: Color.fromRGBO(52, 73, 85, 1),
+  accentColor: Color.fromARGB(255, 3, 218, 197),
   canvasColor: themeColor.shade300,
   fontFamily: fontName,
   buttonColor: btnColor,
@@ -61,7 +61,6 @@ final ThemeData themeData = ThemeData(
       color: Colors.white,
     ),
   ),
-  
   visualDensity: VisualDensity.adaptivePlatformDensity,
 );
 

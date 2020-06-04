@@ -63,6 +63,7 @@ const dummyRecipe = const [
     categories: [
       'c1',
       'c2',
+      'c3',
     ],
     title: 'Spaghetti with Tomato Sauce',
     affordability: Affordability.Affordable,
@@ -124,7 +125,6 @@ const dummyRecipe = const [
     id: 'm3',
     categories: [
       'c2',
-      'c3',
     ],
     title: 'Classic Hamburger',
     affordability: Affordability.Pricey,
