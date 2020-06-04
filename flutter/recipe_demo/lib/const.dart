@@ -1,6 +1,6 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import './models/category.dart';
 
 const Map<int, Color> defaultTheme = {
   50: Color.fromRGBO(150, 134, 255, .1),
@@ -17,59 +17,56 @@ const Map<int, Color> defaultTheme = {
 const btnColor = const Color.fromARGB(255, 93, 16, 73);
 const fontName = 'Raleway';
 
-//Color.fromRGBO(52, 73, 85, 1)
-// Color.fromARGB(255, 3, 218, 197),
-//Color.fromARGB(255, 233, 203, 190),
+const MaterialColor themeColor = const MaterialColor(0xFF9686FF, defaultTheme);
+final ThemeData themeData = ThemeData(
+  primarySwatch: themeColor,
+  accentColor: Color.fromRGBO(52, 73, 85, 1),
+  canvasColor: themeColor.shade300,
+  fontFamily: fontName,
+  buttonColor: btnColor,
+  textTheme: TextTheme(
+    headline5: TextStyle(
+      fontSize: 24,
+      fontWeight: FontWeight.w600,
+      color: Colors.white,
+    ),
+    headline6: TextStyle(
+      fontSize: 20,
+      fontWeight: FontWeight.w600,
+      color: Colors.white,
+    ),
+    subtitle1: TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+      color: Colors.white,
+    ),
+    subtitle2: TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w600,
+      color: Colors.white,
+    ),
+    bodyText1: TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.w600,
+      color: Colors.white,
+    ),
+    bodyText2: TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+      color: Colors.white,
+    ),
+    button: TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w600,
+      color: Colors.white,
+    ),
+  ),
+  
+  visualDensity: VisualDensity.adaptivePlatformDensity,
+);
 
-const dummyData = const [
-  Category(
-    id: 'c1',
-    title: 'Italian',
-    color: Colors.purple,
-  ),
-  Category(
-    id: 'c2',
-    title: 'Quick & Easy',
-    color: Colors.red,
-  ),
-  Category(
-    id: 'c3',
-    title: 'Hamburgers',
-    color: Colors.orange,
-  ),
-  Category(
-    id: 'c4',
-    title: 'German',
-    color: Colors.amber,
-  ),
-  Category(
-    id: 'c5',
-    title: 'Light & Lovely',
-    color: Colors.blue,
-  ),
-  Category(
-    id: 'c6',
-    title: 'Exotic',
-    color: Colors.green,
-  ),
-  Category(
-    id: 'c7',
-    title: 'Breakfast',
-    color: Colors.lightBlue,
-  ),
-  Category(
-    id: 'c8',
-    title: 'Asian',
-    color: Colors.lightGreen,
-  ),
-  Category(
-    id: 'c9',
-    title: 'French',
-    color: Colors.pink,
-  ),
-  Category(
-    id: 'c10',
-    title: 'Summer',
-    color: Colors.teal,
-  ),
-];
+// route
+const categoriesDetailPath = '/categories/detail';
+//Color.fromRGBO(52, 73, 85, 1) //grey
+// Color.fromARGB(255, 3, 218, 197), //cyan
+//Color.fromARGB(255, 233, 203, 190), //pink

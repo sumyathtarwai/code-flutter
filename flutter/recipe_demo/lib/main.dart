@@ -1,99 +1,68 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_demo/const.dart';
+import 'package:recipe_demo/ui/categories_page.dart';
 
-import 'models/category.dart';
+import 'ui/categories_detail.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-const MaterialColor themeColor = const MaterialColor(0xFF9686FF, defaultTheme);
-
-final ThemeData themeData = ThemeData(
-  primarySwatch: themeColor,
-  buttonColor: btnColor,
-  textTheme: TextTheme(
-    headline5: TextStyle(
-      fontFamily: fontName,
-      fontSize: 24,
-      fontWeight: FontWeight.w600,
-      color: Colors.white,
-    ),
-    headline6: TextStyle(
-      fontFamily: fontName,
-      fontSize: 20,
-      fontWeight: FontWeight.w600,
-      color: Colors.white,
-    ),
-    subtitle1: TextStyle(
-      fontFamily: fontName,
-      fontSize: 16,
-      fontWeight: FontWeight.w500,
-      color: Colors.white,
-    ),
-    subtitle2: TextStyle(
-      fontFamily: fontName,
-      fontSize: 14,
-      fontWeight: FontWeight.w600,
-      color: Colors.white,
-    ),
-    bodyText1: TextStyle(
-      fontFamily: fontName,
-      fontSize: 16,
-      fontWeight: FontWeight.w600,
-      color: Colors.white,
-    ),
-    bodyText2: TextStyle(
-      fontFamily: fontName,
-      fontSize: 14,
-      fontWeight: FontWeight.w400,
-      color: Colors.white,
-    ),
-    button: TextStyle(
-      fontFamily: fontName,
-      fontSize: 14,
-      fontWeight: FontWeight.w600,
-      color: Colors.white,
-    ),
-  ),
-  visualDensity: VisualDensity.adaptivePlatformDensity,
-);
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Recipe Demo',
       theme: themeData,
-      home: MyHomePage(title: 'Recipe'),
+
+      //home: Home(),
+      initialRoute: '/',
+      routes: {
+        '/': (ctx) => Home(),
+        categoriesDetailPath: (ctx) => CategoriesDetail(),
+      },
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class Home extends StatelessWidget {
+  const Home({Key key}) : super(key: key);
 
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    const appTextStyle = const TextStyle(
+      fontSize: 24,
+      fontWeight: FontWeight.w500,
+      color: Colors.white,
+    );
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(56.0),
+        child: Container(
+          padding: EdgeInsets.only(
+            top: MediaQuery.of(context).padding.top,
+          ),
+          child: Center(
+            child: const Text(
+              'Recipe',
+              style: appTextStyle,
+            ),
+          ),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                colors: [
+                  Theme.of(context).primaryColorLight,
+                  Theme.of(context).primaryColorDark,
+                ],
+                begin: const FractionalOffset(1.0, 0.0),
+                end: const FractionalOffset(0.5, 0.0),
+                stops: [0.2, 3.0],
+                tileMode: TileMode.clamp),
+          ),
+        ),
       ),
       body: Container(
-          // child: FlatButton(
-          //   color: Theme.of(context).buttonColor,
-          //   textColor: Theme.of(context).textTheme.button.color,
-          //   onPressed: () => {},
-          //   child: Text('data'),
-          // ),
-          ),
+        child: CategoriesPage(),
+      ),
     );
   }
 }
