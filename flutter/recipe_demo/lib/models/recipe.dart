@@ -1,14 +1,14 @@
 enum Level {
-  Easy,
-  Challenging,
-  Intermediate,
-  Hard,
+  easy,
+  challenging,
+  intermediate,
+  hard,
 }
 
 enum Affordability {
-  Affordable,
-  Pricey,
-  Luxurious,
+  affordable,
+  pricey,
+  luxurious,
 }
 
 class Recipe {
@@ -45,4 +45,39 @@ class Recipe {
     this.remark1,
     this.remark2,
   });
+
+  get affordabilityValue {
+    switch (affordability) {
+      case Affordability.affordable:
+        return 'Affordable';
+        break;
+      case Affordability.pricey:
+        return 'Pricey';
+        break;
+      case Affordability.luxurious:
+        return 'Luxurious';
+        break;
+      default:
+        return 'TBD';
+    }
+  }
+
+  get levelValue {
+    switch (level) {
+      case Level.easy:
+        return 'Easy';
+        break;
+      case Level.challenging:
+        return 'Challenging';
+        break;
+      case Level.intermediate:
+        return 'Intermediate';
+        break;
+      case Level.hard:
+        return 'Hard';
+        break;
+      default:
+        return 'TBD';
+    }
+  }
 }

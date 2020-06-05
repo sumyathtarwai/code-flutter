@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../models/dummy_data.dart';
-import 'recipe_page.dart';
+import 'recipe_item.dart';
+import '../const.dart';
 
 class CategoriesDetail extends StatelessWidget {
   const CategoriesDetail({Key key}) : super(key: key);
@@ -19,14 +20,15 @@ class CategoriesDetail extends StatelessWidget {
         )
         .toList();
     return Scaffold(
-      
       appBar: AppBar(
-        title: Text(routeData['categoryTitle']),
+        title: Text(
+          routeData['categoryTitle'],
+          style: appTextStyle.copyWith(fontSize: 20.0),
+        ),
       ),
-      backgroundColor: Theme.of(context).primaryColorLight,
       body: ListView.builder(
         itemBuilder: (ctx, index) {
-          return RecipePage(recipeList[index]);
+          return RecipeItem(recipeList[index]);
         },
         itemCount: recipeList.length,
       ),
