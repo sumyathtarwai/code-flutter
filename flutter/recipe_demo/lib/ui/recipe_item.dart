@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../const.dart';
 import '../models/recipe.dart';
 
 class RecipeItem extends StatelessWidget {
@@ -6,7 +7,13 @@ class RecipeItem extends StatelessWidget {
 
   const RecipeItem(this.recipe, {Key key}) : super(key: key);
 
-  void recipeDetail() {}
+  void recipeDetail(BuildContext context) {
+    Navigator.of(context).pushNamed(
+      recipesDetailPath,
+      arguments: recipe.id,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var image = ClipRRect(
@@ -38,9 +45,9 @@ class RecipeItem extends StatelessWidget {
       ),
     );
     return InkWell(
-      onTap: () => recipeDetail,
+      onTap: () => recipeDetail(context),
       child: Card(
-        color: Theme.of(context).accentColor,
+        color: Theme.of(context).accentColor.withOpacity(0.8),
         margin: EdgeInsets.all(10),
         elevation: 10,
         shape: RoundedRectangleBorder(

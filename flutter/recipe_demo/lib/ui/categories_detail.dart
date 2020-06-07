@@ -20,10 +20,14 @@ class CategoriesDetail extends StatelessWidget {
         )
         .toList();
     return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        iconTheme:  Theme.of(context).iconTheme.copyWith(color: Colors.white),
+        elevation: 0,
         title: Text(
           routeData['categoryTitle'],
-          style: appTextStyle.copyWith(fontSize: 20.0),
+          style: appTextStyle,
         ),
       ),
       body: ListView.builder(
