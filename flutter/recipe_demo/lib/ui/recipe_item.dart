@@ -20,12 +20,12 @@ class RecipeItem extends StatelessWidget {
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(25),
         topRight: Radius.circular(25),
-        bottomLeft: Radius.circular(10),
-        bottomRight: Radius.circular(10),
+        // bottomLeft: Radius.circular(10),
+        // bottomRight: Radius.circular(10),
       ),
       child: Image.network(
         recipe.imageUrl,
-        height: 250,
+        height: MediaQuery.of(context).size.height * 0.35,
         width: double.infinity,
         fit: BoxFit.cover,
       ),
@@ -40,8 +40,8 @@ class RecipeItem extends StatelessWidget {
       child: Text(
         recipe.title,
         style: Theme.of(context).textTheme.headline6,
-        //  softWrap: true,
-        // overflow: TextOverflow.fade,
+        softWrap: true,
+        overflow: TextOverflow.fade,
       ),
     );
     return InkWell(
