@@ -16,7 +16,7 @@ const Map<int, Color> defaultTheme = {
   900: Color.fromRGBO(150, 181, 247, 1),
 };
 
-const btnColor = const Color.fromARGB(255, 96, 79, 80);
+const btnColor = const Color.fromARGB(255, 175, 170, 253);
 const fontName = 'Raleway';
 const appTextStyle = const TextStyle(
   fontSize: 20,
@@ -28,8 +28,10 @@ const MaterialColor themeColor = const MaterialColor(0xFFb6cbf9, defaultTheme);
 final ThemeData themeData = ThemeData(
   primarySwatch: themeColor,
   accentColor: Color.fromARGB(255, 233, 203, 190),
-  canvasColor: themeColor.shade300,
+  // canvasColor: themeColor.shade300,
   //Color.fromRGBO(232, 225, 225, 1),
+  scaffoldBackgroundColor: themeColor.shade500,
+  canvasColor: Color.fromARGB(60, 90, 83, 255),
   fontFamily: fontName,
   buttonColor: btnColor,
   iconTheme: IconThemeData(
@@ -91,6 +93,17 @@ final ThemeData themeData = ThemeData(
       fontWeight: FontWeight.w600,
       color: Colors.white,
     ),
+    caption: TextStyle(
+      fontSize: 22,
+      // fontSize: 12,
+      fontWeight: FontWeight.w500,
+      color: Colors.white,
+    ),
+    overline: TextStyle(
+      fontSize: 12,
+      fontWeight: FontWeight.w600,
+      color: Colors.white,
+    ),
   ),
   visualDensity: VisualDensity.adaptivePlatformDensity,
 );
@@ -98,6 +111,8 @@ final ThemeData themeData = ThemeData(
 // route
 const categoriesDetailPath = '/categories/detail';
 const recipesDetailPath = '/recipes/detail';
+const favoritePath = '/recipes/favorite';
+const filterPath = '/recipes/filter';
 //Color.fromRGBO(52, 73, 85, 1) //grey
 // Color.fromARGB(255, 3, 218, 197), //cyan
 //Color.fromARGB(255, 233, 203, 190), //pink

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:recipe_demo/ui/favorites_page.dart';
 
 import './const.dart';
 import './ui/categories_page.dart';
 import 'ui/categories_detail.dart';
+import 'ui/filter_page.dart';
 import 'ui/recipe_detail.dart';
 import 'widgets/bottom_tabs.dart';
 
@@ -25,7 +27,7 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Recipe',
+          'Categories',
           style: appTextStyle,
         ),
       ),
@@ -47,6 +49,8 @@ class MyApp extends StatelessWidget {
         '/': (ctx) => BottomTabs(),
         categoriesDetailPath: (ctx) => CategoriesDetail(),
         recipesDetailPath: (ctx) => RecipeDetail(),
+        favoritePath: (ctx) => FavoritesPage(),
+        filterPath: (ctx) => FilterPage(),
       },
     );
   }

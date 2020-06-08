@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/drawer_widget.dart';
 import '../const.dart';
 import '../ui/categories_page.dart';
 import '../ui/favorites_page.dart';
@@ -22,7 +23,7 @@ class _BottomTabsState extends State<BottomTabs> {
     },
     {
       'title': 'Favorites',
-      'icon': Icons.grade,
+      'icon': Icons.favorite_border,
       'page': FavoritesPage(),
     },
   ];
@@ -35,13 +36,16 @@ class _BottomTabsState extends State<BottomTabs> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         title: Text(
           _pages[_current]['title'],
           style: appTextStyle,
         ),
       ),
-      drawer: Drawer(),
+      drawer: DrawerWidget(),
       bottomNavigationBar: BottomNavigationBar(
+        elevation: 2,
         items: [
           BottomNavigationBarItem(
             title: Text(_pages[0]['title']),

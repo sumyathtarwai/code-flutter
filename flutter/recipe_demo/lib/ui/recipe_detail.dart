@@ -15,7 +15,7 @@ class RecipeDetail extends StatelessWidget {
     final ThemeData themeOf = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: themeOf.primaryColor,
+   //   backgroundColor: themeOf.primaryColor,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -40,7 +40,7 @@ class RecipeDetail extends StatelessWidget {
         child: Text(
           'Ingredients'.toUpperCase(),
           style: themeOf.textTheme.headline4.copyWith(
-            color: Colors.black87,
+            color: Colors.blueGrey,
           ),
         ),
       ),
@@ -137,15 +137,12 @@ class RecipeDetail extends StatelessWidget {
         children: <Widget>[
           Expanded(
             flex: 3,
-            child: FittedBox(
-              fit: BoxFit.contain,
-              child: Text(
-                recipe.title,
-                style: themeOf.textTheme.headline4,
-                softWrap: true,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.start,
-              ),
+            child: Text(
+              recipe.title,
+              style: themeOf.textTheme.caption,
+              softWrap: true,
+              overflow: TextOverflow.clip,
+              textAlign: TextAlign.start,
             ),
           ),
           SizedBox(

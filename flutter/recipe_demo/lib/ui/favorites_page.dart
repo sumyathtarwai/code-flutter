@@ -5,8 +5,10 @@ class FavoritesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('data'),
+    return SingleChildScrollView(
+      child: Container(
+        child: Text('Favorites'),
+      ),
     );
   }
 }

@@ -20,7 +20,7 @@ class CategoriesDetail extends StatelessWidget {
         )
         .toList();
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+     // backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         iconTheme: Theme.of(context).iconTheme.copyWith(color: Colors.white),
