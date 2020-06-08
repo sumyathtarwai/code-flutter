@@ -5,7 +5,7 @@ import './const.dart';
 import './ui/categories_page.dart';
 import 'ui/categories_detail.dart';
 import 'ui/recipe_detail.dart';
-import 'widgets/top_tabs.dart';
+import 'widgets/bottom_tabs.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
       //home: Home(),
       initialRoute: '/',
       routes: {
-        '/': (ctx) => TopTabs(),
+        '/': (ctx) => BottomTabs(),
         categoriesDetailPath: (ctx) => CategoriesDetail(),
         recipesDetailPath: (ctx) => RecipeDetail(),
       },
