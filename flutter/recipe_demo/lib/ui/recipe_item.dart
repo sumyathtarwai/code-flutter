@@ -7,7 +7,7 @@ class RecipeItem extends StatelessWidget {
 
   const RecipeItem(this.recipe, {Key key}) : super(key: key);
 
-  void recipeDetail(BuildContext context) {
+  void _recipeDetail(BuildContext context) {
     Navigator.of(context).pushNamed(
       recipesDetailPath,
       arguments: recipe.id,
@@ -45,7 +45,7 @@ class RecipeItem extends StatelessWidget {
       ),
     );
     return InkWell(
-      onTap: () => recipeDetail(context),
+      onTap: () => _recipeDetail(context),
       child: Card(
         color: Theme.of(context).accentColor.withOpacity(0.8),
         margin: EdgeInsets.all(10),
@@ -71,17 +71,17 @@ class RecipeItem extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  buildInfo(
+                  _buildInfo(
                     context,
                     icon: Icons.timer,
                     text: '${recipe.duration.toInt()} min',
                   ),
-                  buildInfo(
+                  _buildInfo(
                     context,
                     icon: Icons.format_list_numbered_rtl,
                     text: recipe.levelValue,
                   ),
-                  buildInfo(
+                  _buildInfo(
                     context,
                     icon: Icons.monetization_on,
                     text: recipe.affordabilityValue,
@@ -95,7 +95,7 @@ class RecipeItem extends StatelessWidget {
     );
   }
 
-  Widget buildInfo(BuildContext context, {IconData icon, String text}) {
+  Widget _buildInfo(BuildContext context, {IconData icon, String text}) {
     return Row(
       children: <Widget>[
         Icon(icon),

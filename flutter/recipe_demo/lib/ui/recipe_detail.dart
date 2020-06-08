@@ -20,17 +20,17 @@ class RecipeDetail extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
-            buildAppBar(mediaHeight, recipe, context),
-            buildTitleSection(mediaHeight, recipe, themeOf, context),
-            ...buildIngredientSection(media, themeOf, recipe),
-            buildStepsSection(media, themeOf, recipe),
+            _buildAppBar(mediaHeight, recipe, context),
+            _buildTitleSection(mediaHeight, recipe, themeOf, context),
+            ..._buildIngredientSection(media, themeOf, recipe),
+            _buildStepsSection(media, themeOf, recipe),
           ],
         ),
       ),
     );
   }
 
-  List<Widget> buildIngredientSection(
+  List<Widget> _buildIngredientSection(
       MediaQueryData media, ThemeData themeOf, Recipe recipe) {
     return [
       Container(
@@ -51,11 +51,19 @@ class RecipeDetail extends StatelessWidget {
         margin: EdgeInsets.symmetric(vertical: 10),
         padding: EdgeInsets.symmetric(horizontal: 12),
         child: ListView.builder(
-          padding: EdgeInsets.symmetric(vertical: 12),
+          padding: EdgeInsets.symmetric(vertical: 2),
           itemBuilder: (context, index) {
             return Container(
-              padding: EdgeInsets.symmetric(vertical: 2),
+              padding: EdgeInsets.symmetric(vertical: 4),
+              margin: EdgeInsets.symmetric(vertical: 4),
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(width: 6, color: themeOf.dividerColor),
+                ),
+              ),
               child: RichText(
+                softWrap: true,
+                textAlign: TextAlign.justify,
                 text: TextSpan(
                   text: '${String.fromCharCode(0x2022)} ',
                   style: themeOf.textTheme.subtitle1.copyWith(
@@ -78,7 +86,7 @@ class RecipeDetail extends StatelessWidget {
     ];
   }
 
-  Widget buildStepsSection(
+  Widget _buildStepsSection(
       MediaQueryData media, ThemeData themeOf, Recipe recipe) {
     return Container(
       height: media.size.height * 0.4,
@@ -87,13 +95,14 @@ class RecipeDetail extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 10),
         itemBuilder: (context, index) {
           return ListTile(
-            leading: Container(
-              width: media.size.width * 0.1,
-              height: media.size.width * 0.1,
-              decoration: BoxDecoration(
-                color: themeOf.primaryColorLight,
-                shape: BoxShape.circle,
-              ),
+            // leading: Container(
+            //   width: media.size.width * 0.1,
+            //   height: media.size.width * 0.1,
+            //   decoration: BoxDecoration(
+            //     color: themeOf.primaryColorLight,
+            //     shape: BoxShape.circle,
+            //   ),
+            leading: CircleAvatar(
               child: FittedBox(
                 child: Text(
                   '${index + 1}',
@@ -118,8 +127,8 @@ class RecipeDetail extends StatelessWidget {
     );
   }
 
-  Widget buildTitleSection(double mediaHeight, Recipe recipe, ThemeData themeOf,
-      BuildContext context) {
+  Widget _buildTitleSection(double mediaHeight, Recipe recipe,
+      ThemeData themeOf, BuildContext context) {
     return Container(
       height: mediaHeight * 0.06,
       margin: EdgeInsets.symmetric(horizontal: 10),
@@ -146,12 +155,12 @@ class RecipeDetail extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                buildRecipeInfo(
+                _buildRecipeInfo(
                   context,
                   icon: Icons.timer,
                   text: '${recipe.duration.toInt()} min',
                 ),
-                buildRecipeInfo(
+                _buildRecipeInfo(
                   context,
                   icon: Icons.format_list_numbered_rtl,
                   text: recipe.levelValue,
@@ -164,7 +173,7 @@ class RecipeDetail extends StatelessWidget {
     );
   }
 
-  Widget buildAppBar(double mediaHeight, Recipe recipe, BuildContext context) {
+  Widget _buildAppBar(double mediaHeight, Recipe recipe, BuildContext context) {
     return Container(
       height: mediaHeight * 0.32,
       child: Stack(
@@ -192,7 +201,7 @@ class RecipeDetail extends StatelessWidget {
     );
   }
 
-  Widget buildRecipeInfo(BuildContext context, {IconData icon, String text}) {
+  Widget _buildRecipeInfo(BuildContext context, {IconData icon, String text}) {
     return Expanded(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,

@@ -23,7 +23,7 @@ class CategoriesDetail extends StatelessWidget {
       backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        iconTheme:  Theme.of(context).iconTheme.copyWith(color: Colors.white),
+        iconTheme: Theme.of(context).iconTheme.copyWith(color: Colors.white),
         elevation: 0,
         title: Text(
           routeData['categoryTitle'],
