@@ -15,7 +15,7 @@ class RecipeDetail extends StatelessWidget {
     final ThemeData themeOf = Theme.of(context);
 
     return Scaffold(
-   //   backgroundColor: themeOf.primaryColor,
+      //   backgroundColor: themeOf.primaryColor,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,

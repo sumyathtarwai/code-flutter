@@ -4,7 +4,7 @@ import 'package:recipe_demo/ui/favorites_page.dart';
 
 import './const.dart';
 import './ui/categories_page.dart';
-import 'ui/categories_detail.dart';
+import 'ui/recipe_page.dart';
 import 'ui/filter_page.dart';
 import 'ui/recipe_detail.dart';
 import 'widgets/bottom_tabs.dart';
@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (ctx) => BottomTabs(),
-        categoriesDetailPath: (ctx) => CategoriesDetail(),
+        recipePagePath: (ctx) => RecipePage(),
         recipesDetailPath: (ctx) => RecipeDetail(),
         favoritePath: (ctx) => FavoritesPage(),
         filterPath: (ctx) => FilterPage(),

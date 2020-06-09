@@ -109,7 +109,7 @@ final ThemeData themeData = ThemeData(
 );
 
 // route
-const categoriesDetailPath = '/categories/detail';
+const recipePagePath = '/recipes';
 const recipesDetailPath = '/recipes/detail';
 const favoritePath = '/recipes/favorite';
 const filterPath = '/recipes/filter';

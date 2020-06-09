@@ -4,8 +4,8 @@ import '../models/dummy_data.dart';
 import 'recipe_item.dart';
 import '../const.dart';
 
-class CategoriesDetail extends StatelessWidget {
-  const CategoriesDetail({Key key}) : super(key: key);
+class RecipePage extends StatelessWidget {
+  const RecipePage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class CategoriesDetail extends StatelessWidget {
         )
         .toList();
     return Scaffold(
-     // backgroundColor: Theme.of(context).primaryColor,
+      // backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         iconTheme: Theme.of(context).iconTheme.copyWith(color: Colors.white),

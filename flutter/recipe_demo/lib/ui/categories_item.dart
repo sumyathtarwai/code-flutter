@@ -9,10 +9,10 @@ class CategoryItem extends StatelessWidget {
   const CategoryItem({Key key, this.id, this.title, this.color})
       : super(key: key);
 
-  void _categoriesDetail(BuildContext context) {
+  void _recipePagePath(BuildContext context) {
     Navigator.pushNamed(
       context,
-      categoriesDetailPath,
+      recipePagePath,
       arguments: {
         'id': id,
         'categoryTitle': title,
@@ -23,7 +23,7 @@ class CategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => _categoriesDetail(context),
+      onTap: () => _recipePagePath(context),
       splashColor: color.withOpacity(0.4),
       child: Container(
         child: Center(
