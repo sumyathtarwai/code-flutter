@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../models/recipe.dart';
 import '../models/filter.dart';
 
 import '../models/dummy_data.dart';
