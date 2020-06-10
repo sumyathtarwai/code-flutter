@@ -94,10 +94,10 @@ final ThemeData themeData = ThemeData(
       color: Colors.white,
     ),
     caption: TextStyle(
-      fontSize: 22,
-      // fontSize: 12,
+     // fontSize: 22,
+       fontSize: 12,
       fontWeight: FontWeight.w500,
-      color: Colors.white,
+      color: Colors.black54,
     ),
     overline: TextStyle(
       fontSize: 12,
@@ -116,3 +116,11 @@ const filterPath = '/recipes/filter';
 //Color.fromRGBO(52, 73, 85, 1) //grey
 // Color.fromARGB(255, 3, 218, 197), //cyan
 //Color.fromARGB(255, 233, 203, 190), //pink
+
+const glutenText =
+    'Strictly excludes gluten, which is a mixture of proteins found in wheat, as well as barley, rye, and oats.';
+const veganText =
+    ' Exclude all forms of animal exploitation and cruelty, vegans avoid traditional sources of protein and iron such as meat, poultry, fish and eggs.';
+const vegetarianText =
+    'Exclude meat and animal tissue products. Eggs and dairy products, such as milk and cheese without rennet are permitted.';
+const lactoseText = 'Dairy products where the lactose has been removed, whereas dairy-free means there is no dairy at all, the food is made from plants or nuts instead.';

@@ -1,3 +1,5 @@
+import 'package:equatable/equatable.dart';
+
 enum Level {
   easy,
   challenging,
@@ -11,7 +13,7 @@ enum Affordability {
   luxurious,
 }
 
-class Recipe {
+class Recipe extends Equatable {
   final String id;
   final String imageUrl;
   final List<String> categories;
@@ -80,4 +82,10 @@ class Recipe {
         return 'TBD';
     }
   }
+
+  @override
+  List<Object> get props => [id];
+
+  @override
+  bool get stringify => true;
 }
