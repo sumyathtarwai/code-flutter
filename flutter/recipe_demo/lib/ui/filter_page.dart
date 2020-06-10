@@ -94,7 +94,9 @@ class _FilterPageState extends State<FilterPage> {
       ),
       subtitle: Text(
         sub,
-        style: Theme.of(context).textTheme.caption,
+        style: Theme.of(context).textTheme.bodyText2.copyWith(
+              color: Colors.black54,
+            ),
       ),
       value: val,
       onChanged: callback,

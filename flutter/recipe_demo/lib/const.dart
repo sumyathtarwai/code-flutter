@@ -94,10 +94,9 @@ final ThemeData themeData = ThemeData(
       color: Colors.white,
     ),
     caption: TextStyle(
-     // fontSize: 22,
-       fontSize: 12,
+      fontSize: 22,
       fontWeight: FontWeight.w500,
-      color: Colors.black54,
+      color: Colors.white,
     ),
     overline: TextStyle(
       fontSize: 12,
@@ -123,4 +122,5 @@ const veganText =
     ' Exclude all forms of animal exploitation and cruelty, vegans avoid traditional sources of protein and iron such as meat, poultry, fish and eggs.';
 const vegetarianText =
     'Exclude meat and animal tissue products. Eggs and dairy products, such as milk and cheese without rennet are permitted.';
-const lactoseText = 'Dairy products where the lactose has been removed, whereas dairy-free means there is no dairy at all, the food is made from plants or nuts instead.';
+const lactoseText =
+    'Dairy products where the lactose has been removed, whereas dairy-free means there is no dairy at all, the food is made from plants or nuts instead.';
