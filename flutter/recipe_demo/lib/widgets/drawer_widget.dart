@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_demo/ui/favorites_page.dart';
 import '../const.dart';
 
 class DrawerWidget extends StatelessWidget {
@@ -22,14 +23,14 @@ class DrawerWidget extends StatelessWidget {
               context,
               Icons.group_work,
               'Categories',
-              () => Navigator.pushReplacementNamed(context, '/'),
+              () => Navigator.pushReplacementNamed(context, '/', arguments: 0),
             ),
-            _buildListTile(
-              context,
-              Icons.favorite,
-              'Favorite',
-              () => Navigator.pushReplacementNamed(context, '/'),
-            ),
+            // _buildListTile(
+            //   context,
+            //   Icons.favorite,
+            //   'Favorite',
+            //   () => FavoritesPage(),
+            // ),
             _buildListTile(
               context,
               Icons.filter_list,

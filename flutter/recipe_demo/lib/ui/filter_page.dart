@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../models/filter.dart';
+
 import '../const.dart';
+import '../models/filter.dart';
 import '../widgets/drawer_widget.dart';
 
 class FilterPage extends StatefulWidget {
@@ -21,25 +22,12 @@ class _FilterPageState extends State<FilterPage> {
   Filter newFilter;
 
   @override
-  void initState() {
-    var filter = widget.current;
-
-    newFilter = Filter(
-      isGlutenFree: filter.isGlutenFree,
-      isLactoseFree: filter.isLactoseFree,
-      isVegan: filter.isVegan,
-      isVegetarian: filter.isVegetarian,
-    );
-
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColorDark,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        iconTheme: Theme.of(context).iconTheme.copyWith(color: Colors.white),
         title: Text(
           'Filter',
           style: appTextStyle,
@@ -101,6 +89,23 @@ class _FilterPageState extends State<FilterPage> {
       value: val,
       onChanged: callback,
     );
+  }
+
+  @override
+  void initState() {
+    if (widget?.current == null) {
+      newFilter = Filter();
+      return;
+    }
+    var filter = widget.current;
+    newFilter = Filter(
+      isGlutenFree: filter.isGlutenFree,
+      isLactoseFree: filter.isLactoseFree,
+      isVegan: filter.isVegan,
+      isVegetarian: filter.isVegetarian,
+    );
+
+    super.initState();
   }
 
   void _saveAll() {

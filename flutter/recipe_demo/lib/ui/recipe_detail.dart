@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
-import '../widgets/bottom_wave_image.dart';
-import '../models/dummy_data.dart';
 import 'package:recipe_demo/models/recipe.dart';
 
+import '../models/dummy_data.dart';
+import '../widgets/bottom_wave_image.dart';
+
 class RecipeDetail extends StatelessWidget {
-  const RecipeDetail({Key key}) : super(key: key);
+  final Function favoriteSetting;
+  final List<Recipe> favoriteList;
+  const RecipeDetail({Key key, this.favoriteSetting, this.favoriteList})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +17,7 @@ class RecipeDetail extends StatelessWidget {
     final media = MediaQuery.of(context);
     final mediaHeight = (media.size.height - media.padding.top);
     final ThemeData themeOf = Theme.of(context);
-
+    bool isCurrentFavorite = favoriteList?.any((el) => el.id == arg);
     return Scaffold(
       //   backgroundColor: themeOf.primaryColor,
       body: SingleChildScrollView(
@@ -26,6 +30,45 @@ class RecipeDetail extends StatelessWidget {
             _buildStepsSection(media, themeOf, recipe),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => favoriteSetting(recipe.id),
+        child: isCurrentFavorite
+            ? Icon(
+                Icons.favorite,
+                color: themeOf.buttonColor,
+              )
+            : Icon(
+                Icons.favorite_border,
+              ),
+      ),
+    );
+  }
+
+  Widget _buildAppBar(double mediaHeight, Recipe recipe, BuildContext context) {
+    return Container(
+      height: mediaHeight * 0.32,
+      child: Stack(
+        children: <Widget>[
+          Container(
+            width: double.infinity,
+            height: mediaHeight * 0.32,
+            child: BottomWaveImage(
+              Image.network(
+                recipe.imageUrl,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Positioned(
+            child: AppBar(
+              backgroundColor: Colors.transparent,
+              iconTheme:
+                  Theme.of(context).iconTheme.copyWith(color: Colors.white),
+              elevation: 0,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -86,6 +129,31 @@ class RecipeDetail extends StatelessWidget {
     ];
   }
 
+  Widget _buildRecipeInfo(BuildContext context, {IconData icon, String text}) {
+    return Expanded(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          Expanded(
+            child: Icon(icon),
+          ),
+          Expanded(
+            flex: 2,
+            child: FittedBox(
+              child: Text(
+                text,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1
+                    .copyWith(color: Colors.black),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildStepsSection(
       MediaQueryData media, ThemeData themeOf, Recipe recipe) {
     return Container(
@@ -95,13 +163,6 @@ class RecipeDetail extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 10),
         itemBuilder: (context, index) {
           return ListTile(
-            // leading: Container(
-            //   width: media.size.width * 0.1,
-            //   height: media.size.width * 0.1,
-            //   decoration: BoxDecoration(
-            //     color: themeOf.primaryColorLight,
-            //     shape: BoxShape.circle,
-            //   ),
             leading: CircleAvatar(
               child: FittedBox(
                 child: Text(
@@ -165,59 +226,6 @@ class RecipeDetail extends StatelessWidget {
               ],
             ),
           )
-        ],
-      ),
-    );
-  }
-
-  Widget _buildAppBar(double mediaHeight, Recipe recipe, BuildContext context) {
-    return Container(
-      height: mediaHeight * 0.32,
-      child: Stack(
-        children: <Widget>[
-          Container(
-            width: double.infinity,
-            height: mediaHeight * 0.32,
-            child: BottomWaveImage(
-              Image.network(
-                recipe.imageUrl,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          Positioned(
-            child: AppBar(
-              backgroundColor: Colors.transparent,
-              iconTheme:
-                  Theme.of(context).iconTheme.copyWith(color: Colors.white),
-              elevation: 0,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildRecipeInfo(BuildContext context, {IconData icon, String text}) {
-    return Expanded(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          Expanded(
-            child: Icon(icon),
-          ),
-          Expanded(
-            flex: 2,
-            child: FittedBox(
-              child: Text(
-                text,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1
-                    .copyWith(color: Colors.black),
-              ),
-            ),
-          ),
         ],
       ),
     );

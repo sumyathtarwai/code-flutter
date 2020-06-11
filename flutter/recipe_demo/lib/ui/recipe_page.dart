@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import '../models/filter.dart';
 
-import '../models/dummy_data.dart';
-import 'recipe_item.dart';
 import '../const.dart';
+import '../models/recipe.dart';
+import '../widgets/drawer_widget.dart';
+import 'recipe_item.dart';
 
 class RecipePage extends StatelessWidget {
-  final Filter filter;
+  final List<Recipe> recipeList;
   const RecipePage({
-    this.filter,
+    this.recipeList,
     Key key,
   }) : super(key: key);
 
@@ -16,7 +16,7 @@ class RecipePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final routeData =
         ModalRoute.of(context).settings.arguments as Map<String, String>;
-    var recipeList = dummyRecipe
+    var filterData = recipeList
         .where(
           (el) => el.categories.contains(
             routeData['id'],
@@ -24,25 +24,7 @@ class RecipePage extends StatelessWidget {
         )
         .toList();
 
-    // all false is No filter
-    // only filter when true
-    if (filter != Filter()) {
-      recipeList = recipeList
-          .where(
-            (e) =>
-                Filter(
-                  isGlutenFree: e.isGlutenFree,
-                  isLactoseFree: e.isLactoseFree,
-                  isVegan: e.isVegan,
-                  isVegetarian: e.isVegetarian,
-                ) ==
-                filter,
-          )
-          .toList();
-    }
-
     return Scaffold(
-      // backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         iconTheme: Theme.of(context).iconTheme.copyWith(color: Colors.white),
@@ -52,11 +34,12 @@ class RecipePage extends StatelessWidget {
           style: appTextStyle,
         ),
       ),
+      drawer: DrawerWidget(),
       body: ListView.builder(
         itemBuilder: (ctx, index) {
-          return RecipeItem(recipeList[index]);
+          return RecipeItem(filterData[index]);
         },
-        itemCount: recipeList.length,
+        itemCount: filterData.length,
       ),
     );
   }

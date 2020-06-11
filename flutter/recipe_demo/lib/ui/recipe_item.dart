@@ -4,8 +4,11 @@ import '../models/recipe.dart';
 
 class RecipeItem extends StatelessWidget {
   final Recipe recipe;
-
-  const RecipeItem(this.recipe, {Key key}) : super(key: key);
+  final bool fromFavoritePage;
+  final Function callback;
+  const RecipeItem(this.recipe,
+      {Key key, this.fromFavoritePage = false, this.callback})
+      : super(key: key);
 
   void _recipeDetail(BuildContext context) {
     Navigator.of(context).pushNamed(
@@ -25,7 +28,7 @@ class RecipeItem extends StatelessWidget {
       ),
       child: Image.network(
         recipe.imageUrl,
-        height: MediaQuery.of(context).size.height * 0.35,
+        height: MediaQuery.of(context).size.height * 0.3,
         width: double.infinity,
         fit: BoxFit.cover,
       ),
@@ -66,8 +69,10 @@ class RecipeItem extends StatelessWidget {
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
+            Container(
+              padding: const EdgeInsets.all(8.0),
+              height: MediaQuery.of(context).size.height * 0.08,
+              width: double.infinity,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -86,6 +91,18 @@ class RecipeItem extends StatelessWidget {
                     icon: Icons.monetization_on,
                     text: recipe.affordabilityValue,
                   ),
+                  if (fromFavoritePage)
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.04,
+                      child: FloatingActionButton(
+                        onPressed: () => callback(recipe.id),
+                        backgroundColor: Theme.of(context).buttonColor,
+                        child: Icon(Icons.delete_forever),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
                 ],
               ),
             )

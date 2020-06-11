@@ -4,10 +4,12 @@ import 'package:recipe_demo/ui/favorites_page.dart';
 
 import './const.dart';
 import './ui/categories_page.dart';
+import 'models/dummy_data.dart';
 import 'models/filter.dart';
-import 'ui/recipe_page.dart';
+import 'models/recipe.dart';
 import 'ui/filter_page.dart';
 import 'ui/recipe_detail.dart';
+import 'ui/recipe_page.dart';
 import 'widgets/bottom_tabs.dart';
 
 void main() {
@@ -46,24 +48,19 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   Filter _filter;
-  @override
-  void initState() {
-    _filter ??= Filter();
+  List<Recipe> _favoriteList;
+  get recipeList {
+    if (_filter == null || _filter == Filter()) return dummyRecipe;
 
-    super.initState();
-  }
-
-  void _filterSetting(Filter newFilter) {
-    // setState(
-    //   () {
-    //     // _filter.update(filterVal.keys.first, (value) => filterVal.values.first);
-    //     _filter.forEach((key, value) {
-    //       _filter[key] = filterVal[key];
-    //     });
-    //   },
-    // );
-
-    setState(() => _filter = newFilter);
+    return dummyRecipe.where(
+      (e) {
+        if (_filter.isGlutenFree && !e.isGlutenFree) return false;
+        if (_filter.isVegan && !e.isVegan) return false;
+        if (_filter.isVegetarian && !e.isVegetarian) return false;
+        if (_filter.isLactoseFree && !e.isLactoseFree) return false;
+        return true;
+      },
+    ).toList();
   }
 
   @override
@@ -73,13 +70,43 @@ class _MyAppState extends State<MyApp> {
       //home: Home(),
       initialRoute: '/',
       routes: {
-        '/': (ctx) => BottomTabs(),
-        recipePagePath: (ctx) => RecipePage(filter: _filter),
-        recipesDetailPath: (ctx) => RecipeDetail(),
-        favoritePath: (ctx) => FavoritesPage(),
+        '/': (ctx) => BottomTabs(
+            currentFavorite: _favoriteList, favoriteSetting: _removeFavorite),
+        recipePagePath: (ctx) => RecipePage(recipeList: recipeList),
+        recipesDetailPath: (ctx) => RecipeDetail(
+            favoriteList: _favoriteList, favoriteSetting: _toogleFavorite),
+        favoritePath: (ctx) => FavoritesPage(
+            current: _favoriteList, favoriteSetting: _removeFavorite),
         filterPath: (ctx) =>
             FilterPage(current: _filter, filterSetting: _filterSetting),
       },
     );
+  }
+
+  @override
+  void initState() {
+    _favoriteList = [];
+    super.initState();
+  }
+
+  void _filterSetting(Filter newFilter) {
+    setState(() => _filter = newFilter);
+  }
+
+  void _removeFavorite(String recipeId) {
+    setState(() => _favoriteList.removeWhere((el) => el.id == recipeId));
+  }
+
+  void _toogleFavorite(String recipeId) {
+    var index = _favoriteList?.indexWhere((el) => el.id == recipeId);
+    if (index >= 0) {
+      setState(() {
+        _favoriteList.removeAt(index);
+      });
+    } else {
+      setState(() {
+        _favoriteList.add(dummyRecipe.firstWhere((el) => el.id == recipeId));
+      });
+    }
   }
 }
