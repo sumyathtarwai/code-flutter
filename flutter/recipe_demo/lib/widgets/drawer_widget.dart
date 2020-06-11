@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_demo/ui/favorites_page.dart';
 import '../const.dart';
 
 class DrawerWidget extends StatelessWidget {

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../const.dart';
 import '../models/recipe.dart';
-import '../widgets/drawer_widget.dart';
 import 'recipe_item.dart';
 
 class RecipePage extends StatelessWidget {
