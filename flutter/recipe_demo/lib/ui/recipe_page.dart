@@ -34,7 +34,7 @@ class RecipePage extends StatelessWidget {
           style: appTextStyle,
         ),
       ),
-      drawer: DrawerWidget(),
+     // drawer: DrawerWidget(),
       body: ListView.builder(
         itemBuilder: (ctx, index) {
           return RecipeItem(filterData[index]);

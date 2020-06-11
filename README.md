@@ -31,7 +31,7 @@ dependencies:
 ```
 
 <div>
-<img src='flutter/ui_building/screenshot/ui_building.gif' width="15%" alt='ui'> 
+<img src='flutter/ui_building/screenshot/ui_building.gif' width="20%" alt='ui'> 
 </div>
 
 # 🤹🏻‍♂️ State Management
@@ -49,7 +49,7 @@ dependencies:
 ```
 
 <div>
-<img src='flutter/provider_demo/pl_players/screenshot/pl_provider.gif' width="15%" alt='pl_players'> 
+<img src='flutter/provider_demo/pl_players/screenshot/pl_provider.gif' width="20%" alt='pl_players'> 
 </div>
 
 # 🗄 Database
@@ -70,7 +70,7 @@ dependencies:
 ```
 
 <div>
-<img src='flutter/database_demo/moor/book_moor/screenshot/category_moor.gif' width="15%" alt='category'> 
+<img src='flutter/database_demo/moor/book_moor/screenshot/category_moor.gif' width="20%" alt='category'> 
 </div>
 
 # 💭 Demo
@@ -83,4 +83,14 @@ Weekly spend tracking demo with in memory data storage.
 <img src='flutter/expenses_demo/screenshots/main.png' width="15%" alt='main'> 
 <img src='flutter/expenses_demo/screenshots/modal.png' width="15%" alt='main'> 
 <img src='flutter/expenses_demo/screenshots/landscape1.png' width="50%" alt='main'> 
+</div>
+
+## recipe_demo
+
+Recipe browsing app.
+
+<div>
+<img src='flutter/recipe_demo/screenshots/recipe.gif' width="20%" alt='main'> 
+<img src='flutter/recipe_demo/screenshots/favorite.gif' width="20%" alt='favorite'> 
+<img src='flutter/recipe_demo/screenshots/filter.gif' width="20%" alt='filter'> 
 </div>
