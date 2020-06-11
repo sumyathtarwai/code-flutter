@@ -7,3 +7,4 @@
 ## TODO
 
 - Cache Image
+- State Management

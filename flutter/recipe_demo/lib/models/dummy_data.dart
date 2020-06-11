@@ -238,7 +238,8 @@ const dummyRecipe = const [
     affordability: Affordability.affordable,
     level: Level.hard,
     imageUrl:
-        'https://cdn.pixabay.com/photo/2017/05/01/05/18/pastry-2274750_1280.jpg',
+        'https://images.unsplash.com/photo-1591717303152-0d0ec5769eb7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
+    //   'https://cdn.pixabay.com/photo/2017/05/01/05/18/pastry-2274750_1280.jpg',
     duration: 240,
     ingredients: [
       '4 Sheets of Gelatine',
