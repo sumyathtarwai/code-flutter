@@ -10,6 +10,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // var platformBrightnessMediaQuery = MediaQuery.platformBrightnessOf(context);
+    // bool darkModeOn = platformBrightnessMediaQuery == Brightness.dark;
+
     return MultiProvider(
       providers: [
         Provider<RestClient>(
@@ -17,9 +20,17 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        theme: ThemeData.dark(),
+        themeMode: ThemeMode.system,
+        theme: ThemeData(
+          brightness: Brightness.light,
+          primarySwatch: Colors.red,
+        ),
+        darkTheme: ThemeData(
+          brightness: Brightness.dark,
+          primarySwatch: Colors.blueGrey,
+          canvasColor: Colors.blueGrey,
+        ),
         home: Home(),
-        
       ),
     );
   }
