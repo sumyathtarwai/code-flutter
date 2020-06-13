@@ -43,11 +43,16 @@ Widget _photoList(List<Photo> data) {
   return ListView.builder(
       itemCount: data.length,
       itemBuilder: (_, i) {
-        return Card(
-          child: ListTile(
-            title: Text(data[i].title),
-            leading: Image.network(
-              data[i].thumbnailUrl,
+        return Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Card(
+            elevation: 3.0,
+            child: ListTile(
+              contentPadding: const EdgeInsets.all(10.0),
+              title: Text(data[i].title),
+              leading: Image.network(
+                data[i].thumbnailUrl,
+              ),
             ),
           ),
         );

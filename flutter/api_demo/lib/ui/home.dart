@@ -52,10 +52,15 @@ class Home extends StatelessWidget {
     return ListView.builder(
         itemCount: data.length,
         itemBuilder: (_, i) {
-          return Card(
-            child: ListTile(
-              title: Text(data[i].title),
-              subtitle: Text(data[i].body),
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
+              elevation: 5,
+              child: ListTile(
+                contentPadding: const EdgeInsets.all(10),
+                title: Text(data[i].title),
+                subtitle: Text(data[i].body),
+              ),
             ),
           );
         });
