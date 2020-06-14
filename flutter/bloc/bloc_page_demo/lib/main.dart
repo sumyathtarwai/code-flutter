@@ -1,9 +1,10 @@
-import 'package:bloc_page_demo/bloc/page/page_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import './bloc/color/color_bloc.dart';
+import './helper/simple_bloc_delegate.dart';
+import 'bloc/color/color_bloc.dart';
 import 'bloc/data/data_bloc.dart';
+import 'bloc/page/page_bloc.dart';
 import 'ui/first_page.dart';
 import 'ui/home.dart';
 import 'ui/next_data_page.dart';
@@ -11,6 +12,7 @@ import 'ui/next_page.dart';
 import 'ui/second_page.dart';
 
 void main() {
+  BlocSupervisor.delegate = SimpleBlocDelegate();
   runApp(MyApp());
 }
 
