@@ -12,8 +12,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+        primarySwatch: Colors.blue,
+        canvasColor: Colors.blue.shade50,
+        primaryIconTheme: IconThemeData(color: Colors.blueGrey),
         textTheme: GoogleFonts.ralewayTextTheme(),
-        primarySwatch: Colors.orange,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: WeatherHome(title: titleText),
