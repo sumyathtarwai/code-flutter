@@ -10,7 +10,6 @@ import 'network/api_service.dart';
 
 void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
-
   runApp(MyApp());
 }
 

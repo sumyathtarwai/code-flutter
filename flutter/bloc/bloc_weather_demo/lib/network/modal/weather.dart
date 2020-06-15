@@ -8,7 +8,9 @@ class Weather extends Equatable {
   final int id;
   @JsonKey(name: 'weather_state_name')
   final String stateName;
-  final String created;
+  @JsonKey(name: 'weather_state_abbr')
+  final String stateAbbr;
+  final DateTime created;
   @JsonKey(name: 'min_temp')
   final double minTemp;
   @JsonKey(name: 'max_temp')
@@ -19,6 +21,7 @@ class Weather extends Equatable {
   const Weather({
     this.id,
     this.stateName,
+    this.stateAbbr,
     this.created,
     this.minTemp,
     this.maxTemp,
@@ -31,7 +34,8 @@ class Weather extends Equatable {
   Map<String, dynamic> toJson() => _$WeatherToJson(this);
 
   @override
-  List<Object> get props => [id, stateName, created, minTemp, maxTemp, temp];
+  List<Object> get props =>
+      [id, stateName, stateAbbr, created, minTemp, maxTemp, temp];
 
   @override
   bool get stringify => true;
