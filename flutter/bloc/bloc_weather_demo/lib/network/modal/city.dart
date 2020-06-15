@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'city.g.dart';
 
 @JsonSerializable()
-class City {
+class City extends Equatable {
   final String title;
   @JsonKey(name: 'location_type')
   final String locationType;
@@ -23,4 +24,16 @@ class City {
   factory City.fromJson(Map<String, dynamic> json) => _$CityFromJson(json);
 
   Map<String, dynamic> toJson() => _$CityToJson(this);
+
+  @override
+  List<Object> get props => [
+        title,
+        locationType,
+        lattLong,
+        woeid,
+        distance,
+      ];
+
+  @override
+  bool get stringify => true;
 }
