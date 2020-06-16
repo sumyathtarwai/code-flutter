@@ -9,7 +9,7 @@ class City extends Equatable {
   @JsonKey(name: 'location_type')
   final String locationType;
   @JsonKey(name: 'latt_long')
-  final double lattLong;
+  final String lattLong;
   final int woeid;
   final int distance;
 

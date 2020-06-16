@@ -5,12 +5,13 @@ part 'weather.g.dart';
 
 @JsonSerializable()
 class Weather extends Equatable {
+  
   final int id;
   @JsonKey(name: 'weather_state_name')
   final String stateName;
   @JsonKey(name: 'weather_state_abbr')
   final String stateAbbr;
-  final DateTime created;
+  final String created;
   @JsonKey(name: 'min_temp')
   final double minTemp;
   @JsonKey(name: 'max_temp')

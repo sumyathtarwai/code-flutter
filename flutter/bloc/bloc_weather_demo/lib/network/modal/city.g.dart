@@ -10,7 +10,7 @@ City _$CityFromJson(Map<String, dynamic> json) {
   return City(
     title: json['title'] as String,
     locationType: json['location_type'] as String,
-    lattLong: (json['latt_long'] as num)?.toDouble(),
+    lattLong: json['latt_long'] as String,
     woeid: json['woeid'] as int,
     distance: json['distance'] as int,
   );

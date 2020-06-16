@@ -6,13 +6,14 @@ part 'weather_report.g.dart';
 
 @JsonSerializable()
 class WeatherReport extends Equatable {
+  @JsonKey(name: 'consolidated_weather')
   final List<Weather> weather;
   final String title;
   @JsonKey(name: 'location_type')
   final String locationType;
   final int woeid;
   @JsonKey(name: 'latt_long')
-  final double lattLong;
+  final String lattLong;
   final String timezone;
 
   const WeatherReport({

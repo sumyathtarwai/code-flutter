@@ -19,6 +19,6 @@ class WeatherLoaded extends WeatherState {
 }
 
 class WeatherFail extends WeatherState {
-  final Exception ex;
+  final Object ex;
   const WeatherFail(this.ex);
 }

@@ -10,7 +10,7 @@ class SimpleBlocDelegate extends BlocDelegate {
 
   @override
   void onError(Bloc bloc, Object error, StackTrace stackTrace) {
-    logger.e(error, [stackTrace]);
+    logger.e(error, [error, stackTrace]);
     super.onError(bloc, error, stackTrace);
   }
 
@@ -22,7 +22,7 @@ class SimpleBlocDelegate extends BlocDelegate {
 
   @override
   void onTransition(Bloc bloc, Transition transition) {
-    logger.i(bloc, transition);
+    logger.i(bloc, transition.currentState);
     super.onTransition(bloc, transition);
   }
 }

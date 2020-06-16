@@ -23,7 +23,8 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
         yield WeatherLoading();
 
         final city = await api.getLocation(event.cityName);
-        final report = await api.getWeather(city.woeid);
+        print(city);
+        final report = await api.getWeather(city.first.woeid);
 
         yield WeatherLoaded(weatherReport: report);
       } catch (e) {

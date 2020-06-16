@@ -1,4 +1,6 @@
-import 'package:bloc_weather_demo/bloc/weather_bloc.dart';
+import 'package:flutter/services.dart';
+
+import '../bloc/weather/weather_bloc.dart';
 import '../network/modal/weather.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,25 +9,21 @@ import 'package:intl/intl.dart';
 import 'search_page.dart';
 
 class WeatherHome extends StatefulWidget {
-  final String title;
-
-  WeatherHome({Key key, @required this.title}) : super(key: key);
+  WeatherHome({Key key}) : super(key: key);
 
   @override
   _WeatherHomeState createState() => _WeatherHomeState();
 }
 
 class _WeatherHomeState extends State<WeatherHome> {
-  var locationId = 1015662;
-  var currentCity;
+  static const titleText = 'Weather';
+  String currentCity;
   Weather report;
   //Completer _refreshCompleter;
 
   @override
   void initState() {
     // _refreshCompleter = Completer<void>();
-    locationId = 1015662;
-    currentCity = 'Yangon';
     super.initState();
   }
 
@@ -37,7 +35,7 @@ class _WeatherHomeState extends State<WeatherHome> {
       appBar: AppBar(
         leading: const Icon(Icons.home),
         title: Text(
-          widget.title,
+          titleText,
           style: textTheme.headline5,
         ),
         actions: <Widget>[
@@ -50,29 +48,32 @@ class _WeatherHomeState extends State<WeatherHome> {
         child: BlocBuilder<WeatherBloc, WeatherState>(
           builder: (ctx, state) {
             if (state is WeatherInitial) {
-              return CircularProgressIndicator();
+              BlocProvider.of<WeatherBloc>(context)
+                  .add(FetchWeather(cityName: currentCity ?? 'Yangon'));
+              return Center(child: Text('Please Select a Location'));
             }
 
-            if (state is WeatherLoaded) {
-              return CircularProgressIndicator();
+            if (state is WeatherLoading) {
+              return Center(child: CircularProgressIndicator());
             }
 
             if (state is WeatherFail) {
-              return Center(child: Text('Fail'));
+              return Center(child: Text('Fail to fetch weather'));
             }
 
             if (state is WeatherLoaded) {
               var report = state.weatherReport?.weather?.first;
               return Column(
                 children: <Widget>[
-                  Spacer(),
+                  const Spacer(),
                   Expanded(
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
-                      child: cityTitle(textTheme, state.weatherReport?.title),
+                      child: cityTitle(
+                          textTheme, currentCity = state.weatherReport?.title),
                     ),
                   ),
-                  lastUpdate(textTheme),
+                  lastUpdate(textTheme, DateTime.now()),
                   Expanded(
                     flex: 3,
                     child:
@@ -84,11 +85,12 @@ class _WeatherHomeState extends State<WeatherHome> {
                   Expanded(
                     flex: 2,
                     child: buildDegreeRow(
-                        current: '${report.temp}℃',
-                        min: '${report.minTemp}℃',
-                        max: '${report.maxTemp}℃'),
+                      current: '${report.temp.toStringAsFixed(0)}℃',
+                      min: '${report.minTemp.toStringAsFixed(0)}℃',
+                      max: '${report.maxTemp.toStringAsFixed(0)}℃',
+                    ),
                   ),
-                  Spacer(flex: 2),
+                  const Spacer(flex: 2),
                 ],
               );
             }
@@ -119,14 +121,10 @@ class _WeatherHomeState extends State<WeatherHome> {
     );
   }
 
-  Text lastUpdate(TextTheme textTheme) {
+  Text lastUpdate(TextTheme textTheme, DateTime date) {
     return Text(
-      'updated: ${DateFormat.Hm().format(
-        DateTime.now(),
-      )} - ${DateFormat.MMMd().format(
-        DateTime.now(),
-      )}',
-      style: textTheme.subtitle1.copyWith(color: Colors.blueGrey),
+      'updated: ${DateFormat.jm().format(date)}',
+      style: GoogleFonts.ibmPlexMono(color: Colors.blueGrey),
     );
   }
 
@@ -134,12 +132,16 @@ class _WeatherHomeState extends State<WeatherHome> {
     return IconButton(
       icon: Icon(Icons.search),
       tooltip: 'Search City',
-      onPressed: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (ctx) => SearchPage(),
-        ),
-      ),
+      onPressed: () async {
+        var pop = await Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (ctx) => SearchPage(city: currentCity),
+          ),
+        );
+        if (pop == null) return;
+        BlocProvider.of<WeatherBloc>(context).add(FetchWeather(cityName: pop));
+      },
     );
   }
 
@@ -171,31 +173,29 @@ class _WeatherHomeState extends State<WeatherHome> {
             ),
           ),
         ),
-        Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                child: Text(
-                  'min $min',
-                  style: GoogleFonts.ibmPlexMono(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w300,
-                  ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              child: Text(
+                'min $min',
+                style: GoogleFonts.ibmPlexMono(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w300,
                 ),
               ),
-              Divider(),
-              Container(
-                child: Text(
-                  'max max',
-                  style: GoogleFonts.ibmPlexMono(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w300,
-                  ),
+            ),
+            Divider(),
+            Container(
+              child: Text(
+                'max $max',
+                style: GoogleFonts.ibmPlexMono(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w300,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         )
       ],
     );

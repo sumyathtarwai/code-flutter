@@ -1,12 +1,13 @@
-import 'package:bloc_weather_demo/bloc/weather_bloc.dart';
-import 'package:bloc_weather_demo/ui/weather_home.dart';
-import 'package:bloc_weather_demo/util/simple_bloc_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import 'bloc/search/search_bloc.dart';
+import 'bloc/weather/weather_bloc.dart';
 import 'network/api_service.dart';
+import 'ui/weather_home.dart';
+import 'util/simple_bloc_delegate.dart';
 
 void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
@@ -14,7 +15,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  static const titleText = 'Weather';
   @override
   Widget build(BuildContext context) {
     return Provider<ApiService>(
@@ -25,6 +25,9 @@ class MyApp extends StatelessWidget {
             providers: [
               BlocProvider<WeatherBloc>(
                 create: (ctx) => WeatherBloc(api: apiService),
+              ),
+              BlocProvider<SearchBloc>(
+                create: (ctx) => SearchBloc(api: apiService),
               ),
             ],
             child: MaterialApp(
@@ -37,7 +40,7 @@ class MyApp extends StatelessWidget {
                 visualDensity: VisualDensity.adaptivePlatformDensity,
               ),
               darkTheme: ThemeData(brightness: Brightness.dark),
-              home: WeatherHome(title: titleText),
+              home: WeatherHome(),
             ),
           );
         },

@@ -14,7 +14,7 @@ abstract class ApiService {
   }
 
   @GET("/location/search/")
-  Future<City> getLocation(@Query('query') String keyword);
+  Future<List<City>> getLocation(@Query('query') String keyword);
 
   @GET("/location/{woeid}")
   Future<WeatherReport> getWeather(@Path() int woeid);

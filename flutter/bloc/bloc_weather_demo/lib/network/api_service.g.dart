@@ -22,7 +22,7 @@ class _ApiService implements ApiService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'query': keyword};
     final _data = <String, dynamic>{};
-    final Response<Map<String, dynamic>> _result = await _dio.request(
+    final Response<List<dynamic>> _result = await _dio.request(
         '/location/search/',
         queryParameters: queryParameters,
         options: RequestOptions(
@@ -31,7 +31,9 @@ class _ApiService implements ApiService {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = City.fromJson(_result.data);
+    var value = _result.data
+        .map((dynamic i) => City.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 
