@@ -11,7 +11,7 @@ part 'search_state.dart';
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final ApiService api;
 
-  SearchBloc({this.api});
+  SearchBloc({this.api}) : assert(api != null);
   @override
   SearchState get initialState => SearchInitial();
 

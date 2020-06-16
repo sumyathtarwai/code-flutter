@@ -15,7 +15,7 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   void initState() {
-    _serchCtrl = TextEditingController(text: widget.city);
+    _serchCtrl = TextEditingController();
     super.initState();
   }
 
@@ -24,6 +24,8 @@ class _SearchPageState extends State<SearchPage> {
     _serchCtrl.dispose();
     super.dispose();
   }
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,10 @@ class _SearchPageState extends State<SearchPage> {
               Row(
                 children: <Widget>[
                   Expanded(
-                    child: inputCity(),
+                    child: Form(
+                      child: inputCity(),
+                      key: _formKey,
+                    ),
                   ),
                   searchIcon(context),
                 ],
@@ -56,11 +61,19 @@ class _SearchPageState extends State<SearchPage> {
               BlocBuilder<SearchBloc, SearchState>(
                 builder: (context, state) {
                   if (state is SearchLoading) {
-                    return Center(child: CircularProgressIndicator());
+                    return Expanded(
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
                   }
 
                   if (state is SearchFail) {
-                    return Center(child: Text('Something went wrong!'));
+                    return Expanded(
+                      child: Center(
+                        child: Text('Something went wrong!'),
+                      ),
+                    );
                   }
 
                   if (state is SearchSuccess && state.cities != null) {
@@ -107,8 +120,9 @@ class _SearchPageState extends State<SearchPage> {
     return IconButton(
       icon: Icon(Icons.search),
       onPressed: () async {
-        if (_serchCtrl.text.isEmpty) return;
-        BlocProvider.of<SearchBloc>(context).add(FetchCity(_serchCtrl.text));
+        if (_formKey.currentState.validate()) {
+          BlocProvider.of<SearchBloc>(context).add(FetchCity(_serchCtrl.text));
+        }
       },
     );
   }
@@ -118,12 +132,14 @@ class _SearchPageState extends State<SearchPage> {
       autofocus: true,
       controller: _serchCtrl,
       validator: (value) {
-        if (value.isEmpty || value == null) return 'Enter City';
-
+        print(value);
+        if (value.isEmpty) {
+          return 'Please enter some text';
+        }
         return null;
       },
       decoration: InputDecoration(
-        hintText: widget.city,
+        // hintText: widget.city,
         border: OutlineInputBorder(),
       ),
     );
