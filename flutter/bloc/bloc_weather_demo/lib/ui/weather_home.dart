@@ -61,35 +61,53 @@ class _WeatherHomeState extends State<WeatherHome> {
 
             if (state is WeatherLoaded) {
               var report = state.weatherReport?.weather?.first;
-              return Column(
-                children: <Widget>[
-                  const Spacer(),
-                  Expanded(
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: cityTitle(
-                          textTheme, currentId = state.weatherReport?.title),
+              //Note: RefreshIndicator ONLY works with ListView!
+              return RefreshIndicator(
+                backgroundColor: Colors.blue,
+                color: Colors.white,
+                onRefresh: () async {
+                  BlocProvider.of<WeatherBloc>(context)
+                      .add(FetchWeather(woeid: state.weatherReport?.woeid));
+                  Future.value();
+                },
+                child: Stack(
+                  children: <Widget>[
+                    ListView(
+                      physics: const AlwaysScrollableScrollPhysics(),
                     ),
-                  ),
-                  lastUpdate(textTheme, DateTime.now()),
-                  Expanded(
-                    flex: 3,
-                    child:
-                        weatherImage('assets/images/${report.stateAbbr}.png'),
-                  ),
-                  Expanded(
-                    child: weatherCondition(context, '${report.stateName}'),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: buildDegreeRow(
-                      current: '${report.temp.toStringAsFixed(0)}℃',
-                      min: '${report.minTemp.toStringAsFixed(0)}℃',
-                      max: '${report.maxTemp.toStringAsFixed(0)}℃',
+                    Column(
+                      children: <Widget>[
+                        const Spacer(),
+                        Expanded(
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: cityTitle(
+                                textTheme, state.weatherReport?.title),
+                          ),
+                        ),
+                        lastUpdate(textTheme, DateTime.now()),
+                        Expanded(
+                          flex: 3,
+                          child: weatherImage(
+                              'assets/images/${report.stateAbbr}.png'),
+                        ),
+                        Expanded(
+                          child:
+                              weatherCondition(context, '${report.stateName}'),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: buildDegreeRow(
+                            current: '${report.temp.toStringAsFixed(0)}℃',
+                            min: '${report.minTemp.toStringAsFixed(0)}℃',
+                            max: '${report.maxTemp.toStringAsFixed(0)}℃',
+                          ),
+                        ),
+                        const Spacer(flex: 2),
+                      ],
                     ),
-                  ),
-                  const Spacer(flex: 2),
-                ],
+                  ],
+                ),
               );
             }
             return Container();
@@ -134,10 +152,11 @@ class _WeatherHomeState extends State<WeatherHome> {
         var pop = await Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (ctx) => SearchPage(city: currentId),
+            builder: (ctx) => SearchPage(),
           ),
         );
         if (pop == null) return;
+
         BlocProvider.of<WeatherBloc>(context).add(FetchWeather(woeid: pop));
       },
     );
