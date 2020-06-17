@@ -5,9 +5,9 @@ abstract class WeatherEvent extends Equatable {
 }
 
 class FetchWeather extends WeatherEvent {
-  final String cityName;
+  final int woeid;
 
-  const FetchWeather({@required this.cityName}) : assert(cityName != null);
+  const FetchWeather({@required this.woeid}) : assert(woeid != null);
   @override
-  List<Object> get props => [cityName];
+  List<Object> get props => [woeid];
 }

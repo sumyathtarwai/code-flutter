@@ -94,11 +94,11 @@ class _SearchPageState extends State<SearchPage> {
   ListView cityList(SearchSuccess state, BuildContext context) {
     return ListView.builder(
       itemBuilder: (ctx, i) {
-        var city = state.cities[i].title;
+        var city = state.cities[i];
         return InkWell(
           child: Container(
             padding: EdgeInsets.all(10),
-            child: Text('${i + 1}.  $city',
+            child: Text('${i + 1}.  ${city.title}',
                 style: Theme.of(context).textTheme.subtitle1),
             decoration: BoxDecoration(
               border: Border(
@@ -108,7 +108,7 @@ class _SearchPageState extends State<SearchPage> {
           ),
           onTap: () async {
             BlocProvider.of<SearchBloc>(context).add(Empty());
-            Navigator.pop(context, city);
+            Navigator.pop(context, city.woeid);
           },
         );
       },
@@ -139,7 +139,7 @@ class _SearchPageState extends State<SearchPage> {
         return null;
       },
       decoration: InputDecoration(
-        // hintText: widget.city,
+        hintText: widget.city,
         border: OutlineInputBorder(),
       ),
     );

@@ -1,5 +1,3 @@
-import 'package:flutter/services.dart';
-
 import '../bloc/weather/weather_bloc.dart';
 import '../network/modal/weather.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +15,7 @@ class WeatherHome extends StatefulWidget {
 
 class _WeatherHomeState extends State<WeatherHome> {
   static const titleText = 'Weather';
-  String currentCity;
+  String currentId;
   Weather report;
   //Completer _refreshCompleter;
 
@@ -49,7 +47,7 @@ class _WeatherHomeState extends State<WeatherHome> {
           builder: (ctx, state) {
             if (state is WeatherInitial) {
               BlocProvider.of<WeatherBloc>(context)
-                  .add(FetchWeather(cityName: currentCity ?? 'Yangon'));
+                  .add(FetchWeather(woeid: currentId ?? 1015662));
               return Center(child: Text('Please Select a Location'));
             }
 
@@ -70,7 +68,7 @@ class _WeatherHomeState extends State<WeatherHome> {
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
                       child: cityTitle(
-                          textTheme, currentCity = state.weatherReport?.title),
+                          textTheme, currentId = state.weatherReport?.title),
                     ),
                   ),
                   lastUpdate(textTheme, DateTime.now()),
@@ -136,11 +134,11 @@ class _WeatherHomeState extends State<WeatherHome> {
         var pop = await Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (ctx) => SearchPage(city: currentCity),
+            builder: (ctx) => SearchPage(city: currentId),
           ),
         );
         if (pop == null) return;
-        BlocProvider.of<WeatherBloc>(context).add(FetchWeather(cityName: pop));
+        BlocProvider.of<WeatherBloc>(context).add(FetchWeather(woeid: pop));
       },
     );
   }
