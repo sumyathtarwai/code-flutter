@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Roboto',
         primarySwatch: Colors.red,
+        accentColor: Colors.blueAccent,
         brightness: Brightness.light,
         iconTheme: IconThemeData(
           color: Colors.blueGrey,
