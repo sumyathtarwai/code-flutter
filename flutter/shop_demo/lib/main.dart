@@ -16,10 +16,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Roboto',
         primarySwatch: Colors.red,
-        accentColor: Colors.blueAccent,
+        accentColor: Colors.deepOrange,
         brightness: Brightness.light,
         iconTheme: IconThemeData(
-          color: Colors.blueGrey,
+          color: Colors.deepOrange,
         ),
       ),
       darkTheme: ThemeData(

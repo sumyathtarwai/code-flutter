@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class GridFooter extends StatelessWidget {
+class GridBarFooter extends StatelessWidget {
   final Widget leading;
   final Widget middle;
   final Widget trailing;
 
-  const GridFooter({
+  const GridBarFooter({
     Key key,
     @required this.leading,
     @required this.middle,

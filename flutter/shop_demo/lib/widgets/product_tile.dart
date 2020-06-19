@@ -1,7 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:shop_demo/widgets/grid_footer.dart';
+import 'package:shop_demo/widgets/grid_image.dart';
 import '../modal/modal.dart';
 
 class ProductTile extends StatelessWidget {
@@ -21,7 +20,7 @@ class ProductTile extends StatelessWidget {
         children: <Widget>[
           Expanded(
             flex: 6,
-            child: imageSection(product.imageUrl),
+            child: GridBarImage(imagePath: product.imageUrl),
           ),
           Expanded(
             flex: 2,
@@ -44,7 +43,7 @@ class ProductTile extends StatelessWidget {
           ),
           Expanded(
             flex: 2,
-            child: GridFooter(
+            child: GridBarFooter(
               leading: priceTag(context, product.price),
               middle: IconButton(
                 icon: Icon(Icons.favorite_border),
@@ -66,7 +65,7 @@ class ProductTile extends StatelessWidget {
         desc,
         overflow: TextOverflow.ellipsis,
         softWrap: true,
-        style: Theme.of(context).textTheme.bodyText1,
+        style: Theme.of(context).textTheme.bodyText2,
       ),
     );
   }
@@ -107,7 +106,7 @@ class ProductTile extends StatelessWidget {
         size == 'Non' ? '' : size,
         style: Theme.of(context)
             .textTheme
-            .bodyText1
+            .bodyText2
             .copyWith(color: Colors.black45),
       ),
     );
@@ -122,31 +121,6 @@ class ProductTile extends StatelessWidget {
         color: color['color'],
         border: Border.all(color: Colors.transparent),
         borderRadius: BorderRadius.circular(10),
-      ),
-    );
-  }
-
-  Widget imageSection(String image) {
-    return ClipRRect(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(10),
-        topRight: Radius.circular(10),
-      ),
-      child: Container(
-        // margin: const EdgeInsets.symmetric(vertical: 5),
-        child: CachedNetworkImage(
-          width: double.infinity,
-          imageUrl: image,
-          placeholder: (context, url) => Shimmer.fromColors(
-            baseColor: Colors.black26,
-            highlightColor: Colors.white,
-            child: Container(
-              width: double.infinity,
-              color: Colors.black,
-            ),
-          ),
-          fit: BoxFit.cover,
-        ),
       ),
     );
   }
