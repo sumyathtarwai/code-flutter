@@ -13,11 +13,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         fontFamily: 'Roboto',
-        primarySwatch: Colors.red,
-        accentColor: Colors.deepOrange,
+        primarySwatch: Colors.indigo,
+        accentColor: Colors.redAccent,
         brightness: Brightness.light,
         iconTheme: IconThemeData(
-          color: Colors.deepOrange,
+          color: Colors.redAccent.shade400,
         ),
       ),
       darkTheme: ThemeData(

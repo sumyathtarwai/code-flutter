@@ -46,7 +46,7 @@ class Product extends Equatable {
   final String categoryId;
   final bool flag;
   final Size size;
-  final ColorCode color;
+  final List<ColorCode> color;
   final Gender gender;
   final bool isFavorite;
 
@@ -60,13 +60,13 @@ class Product extends Equatable {
       this.categoryId,
       this.flag = false,
       this.size = Size.non,
-      this.color = ColorCode.non,
+      this.color,
       this.gender = Gender.non,
       this.isFavorite = false});
 
-  Map<String, Object> get productColor {
+  static Map<String, Object> getProductColor(ColorCode color) {
     var map;
-    switch (this.color) {
+    switch (color) {
       case ColorCode.white:
         map = {'name': 'White', 'color': Colors.white};
         break;

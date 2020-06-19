@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:shop_demo/widgets/grid_footer.dart';
-import 'package:shop_demo/widgets/grid_image.dart';
+import 'package:shop_demo/widgets/color_non.widget.dart';
+import '../widgets/color_grid_widget.dart';
+import '../widgets/grid_footer.dart';
+import '../widgets/grid_image.dart';
 import '../modal/modal.dart';
 
 class ProductTile extends StatelessWidget {
@@ -23,24 +25,25 @@ class ProductTile extends StatelessWidget {
             child: GridBarImage(imagePath: product.imageUrl),
           ),
           Expanded(
-            child: description(context, product.title),
+            child: _description(context, product.title),
           ),
-          if (product.color == ColorCode.non)
+          if (product.color == null || product.color?.first == ColorCode.non)
             Expanded(
-              child: noSize(),
+              child: ColorNonIcon(),
             ),
-          //TODO color list row
-          if (product.color != ColorCode.non)
+
+          if (product.color != null && product.color?.first != ColorCode.non)
             Expanded(
-              child: colorPattern(color: product.productColor),
+              child: ColorGridBar(colorList: product.color),
             ),
+          //TODO size list row
           Expanded(
-            child: sizeTag(context: context, size: product.sizeName),
+            child: _sizeTag(context: context, size: product.sizeName),
           ),
           Expanded(
             flex: 2,
-            child: GridBarFooter(
-              leading: priceTag(context, product.price),
+            child: Footer(
+              leading: _priceTag(context, product.price),
               middle: IconButton(
                 icon: Icon(Icons.favorite_border),
                 onPressed: () => {},
@@ -54,7 +57,7 @@ class ProductTile extends StatelessWidget {
     );
   }
 
-  Widget description(BuildContext context, String desc) {
+  Widget _description(BuildContext context, String desc) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Text(
@@ -66,24 +69,7 @@ class ProductTile extends StatelessWidget {
     );
   }
 
-  Widget noSize() {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
-      width: 20,
-      height: 20,
-      child: Icon(
-        Icons.close,
-        color: Colors.red,
-        size: 10,
-      ),
-      decoration: BoxDecoration(
-        border: Border.all(),
-        borderRadius: BorderRadius.circular(10),
-      ),
-    );
-  }
-
-  Widget priceTag(BuildContext context, double price) {
+  Widget _priceTag(BuildContext context, double price) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
       child: FittedBox(
@@ -95,7 +81,7 @@ class ProductTile extends StatelessWidget {
     );
   }
 
-  Widget sizeTag({@required BuildContext context, @required String size}) {
+  Widget _sizeTag({@required BuildContext context, @required String size}) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
       child: Text(
@@ -104,19 +90,6 @@ class ProductTile extends StatelessWidget {
             .textTheme
             .bodyText2
             .copyWith(color: Colors.black45),
-      ),
-    );
-  }
-
-  Widget colorPattern({@required Map<String, Object> color}) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
-      width: 20,
-      height: 20,
-      decoration: BoxDecoration(
-        color: color['color'],
-        border: Border.all(color: Colors.transparent),
-        borderRadius: BorderRadius.circular(10),
       ),
     );
   }

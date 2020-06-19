@@ -22,11 +22,12 @@ class GridBarImage extends StatelessWidget {
           width: double.infinity,
           imageUrl: imagePath,
           placeholder: (context, url) => Shimmer.fromColors(
-            baseColor: Colors.black26,
-            highlightColor: Colors.white,
+            baseColor: Colors.grey,
+            highlightColor: Colors.grey.shade400,
+            enabled: true,
             child: Container(
               width: double.infinity,
-              color: Colors.black,
+              color: Colors.white,
             ),
           ),
           fit: BoxFit.cover,

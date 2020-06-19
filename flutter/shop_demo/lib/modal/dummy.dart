@@ -6,36 +6,45 @@ const dummyProduct = const [
     title: 'Red Shirt',
     desc: 'A red shirt - it is pretty red!',
     price: 29.99,
-    color: ColorCode.red,
+    color: [
+      ColorCode.red,
+      ColorCode.blue,
+      ColorCode.yellow,
+      ColorCode.gray,
+      ColorCode.black,
+      ColorCode.white
+    ],
     size: Size.free,
     imageUrl:
-        'https://cdn.pixabay.com/photo/2016/10/02/22/17/red-t-shirt-1710578_1280.jpg',
+        'https://images.unsplash.com/photo-1511746315387-c4a76990fdce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
   ),
   Product(
     id: 'p2',
     title: 'Trousers',
     desc: 'A nice pair of trousers',
-    color: ColorCode.non,
+    color: [ColorCode.non],
     size: Size.inch25,
     price: 59.99,
     imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Trousers%2C_dress_%28AM_1960.022-8%29.jpg/512px-Trousers%2C_dress_%28AM_1960.022-8%29.jpg',
+        'https://images.unsplash.com/photo-1584382296087-ac00c7263710?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
   ),
   Product(
     id: 'p3',
-    title: 'Yellow Scarf',
+    title: 'scarf',
     desc: 'Warm and cozy - exactly what you need for the winter',
-    color: ColorCode.yellow,
+    color: [ColorCode.gray, ColorCode.yellow],
     price: 19.99,
-    imageUrl: 'https://live.staticflickr.com/4043/4438260868_cc79b3369d_z.jpg',
+    size: Size.free,
+    imageUrl:
+        'https://images.unsplash.com/photo-1549401334-b71409ed03ae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=664&q=80',
   ),
   Product(
     id: 'p4',
     title: 'A Pan',
     desc: 'Prepare any meal you want',
-    color: ColorCode.black,
+    color: [ColorCode.black],
     price: 49.99,
     imageUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Cast-Iron-Pan.jpg/1024px-Cast-Iron-Pan.jpg',
+        'https://images.unsplash.com/photo-1583777620797-5e0a34794f74?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
   ),
 ];
