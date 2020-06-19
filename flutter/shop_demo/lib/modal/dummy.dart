@@ -10,6 +10,7 @@ const dummyProduct = const [
       ColorCode.red,
       ColorCode.blue,
       ColorCode.yellow,
+      ColorCode.brown,
       ColorCode.gray,
       ColorCode.black,
       ColorCode.white
