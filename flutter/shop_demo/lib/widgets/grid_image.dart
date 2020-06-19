@@ -17,7 +17,6 @@ class GridBarImage extends StatelessWidget {
         topRight: Radius.circular(10),
       ),
       child: Container(
-        // margin: const EdgeInsets.symmetric(vertical: 5),
         child: CachedNetworkImage(
           width: double.infinity,
           imageUrl: imagePath,

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_demo/provider/product_provider.dart';
 
 class ProductDetail extends StatelessWidget {
   const ProductDetail({Key key}) : super(key: key);
@@ -6,6 +8,11 @@ class ProductDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var id = ModalRoute.of(context).settings.arguments;
+    final product = Provider.of<ProductNotifer>(
+      context,
+      listen: false,
+    ).whereId(id);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
