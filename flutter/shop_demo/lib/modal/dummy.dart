@@ -14,7 +14,7 @@ const dummyProduct = const [
   Product(
     id: 'p2',
     title: 'Trousers',
-    desc: 'A nice pair of trousers.',
+    desc: 'A nice pair of trousers',
     color: ColorCode.non,
     size: Size.inch25,
     price: 59.99,
@@ -24,7 +24,7 @@ const dummyProduct = const [
   Product(
     id: 'p3',
     title: 'Yellow Scarf',
-    desc: 'Warm and cozy - exactly what you need for the winter.',
+    desc: 'Warm and cozy - exactly what you need for the winter',
     color: ColorCode.yellow,
     price: 19.99,
     imageUrl: 'https://live.staticflickr.com/4043/4438260868_cc79b3369d_z.jpg',
@@ -32,7 +32,7 @@ const dummyProduct = const [
   Product(
     id: 'p4',
     title: 'A Pan',
-    desc: 'Prepare any meal you want.',
+    desc: 'Prepare any meal you want',
     color: ColorCode.black,
     price: 49.99,
     imageUrl:

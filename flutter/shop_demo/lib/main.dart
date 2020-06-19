@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'pages/product_home.dart';
+import 'package:shop_demo/route.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,7 +11,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ProductHome(),
       theme: ThemeData(
         fontFamily: 'Roboto',
         primarySwatch: Colors.red,
@@ -28,6 +26,7 @@ class MyApp extends StatelessWidget {
             color: Colors.redAccent,
           ),
           brightness: Brightness.dark),
+      routes: RouteName.route,
     );
   }
 }

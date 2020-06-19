@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_demo/widgets/product_tile.dart';
+import '../route.dart';
+import '../widgets/product_tile.dart';
 import '../modal/modal.dart';
 
 class ProductHome extends StatelessWidget {
@@ -9,19 +10,32 @@ class ProductHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Kaimono',
-            textAlign: TextAlign.right,
-            style: Theme.of(context).textTheme.headline6),
+        title: Text(
+          'KAIMONO',
+          style: Theme.of(context).textTheme.headline6,
+        ),
         backgroundColor: Colors.transparent,
         iconTheme: Theme.of(context).iconTheme,
         elevation: 0,
+        leading: IconButton(icon: Icon(Icons.menu), onPressed: () => {}),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.favorite), onPressed: () => {}),
+          IconButton(icon: Icon(Icons.shopping_cart), onPressed: () => {}),
+        ],
       ),
       body: SafeArea(
         child: GridView.builder(
           padding: const EdgeInsets.all(10.0),
           itemCount: dummyProduct.length,
           itemBuilder: (context, i) {
-            return ProductTile(product: dummyProduct[i]);
+            return InkWell(
+              child: ProductTile(product: dummyProduct[i]),
+              onTap: () => Navigator.pushNamed(
+                context,
+                RouteName.productDetail,
+                arguments: dummyProduct[i].id,
+              ),
+            );
           },
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,

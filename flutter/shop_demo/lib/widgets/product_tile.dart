@@ -23,19 +23,15 @@ class ProductTile extends StatelessWidget {
             child: GridBarImage(imagePath: product.imageUrl),
           ),
           Expanded(
-            flex: 2,
-            child: description(context, product.desc),
+            child: description(context, product.title),
           ),
-
           if (product.color == ColorCode.non)
             Expanded(
-              flex: 0,
               child: noSize(),
             ),
           //TODO color list row
           if (product.color != ColorCode.non)
             Expanded(
-              flex: 0,
               child: colorPattern(color: product.productColor),
             ),
           Expanded(
@@ -65,7 +61,7 @@ class ProductTile extends StatelessWidget {
         desc,
         overflow: TextOverflow.ellipsis,
         softWrap: true,
-        style: Theme.of(context).textTheme.bodyText2,
+        style: Theme.of(context).textTheme.bodyText1,
       ),
     );
   }
