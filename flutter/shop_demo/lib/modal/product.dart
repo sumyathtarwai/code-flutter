@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 enum Size {
   oversize,
@@ -19,6 +20,7 @@ enum ColorCode {
   white,
   black,
   gray,
+  yellow,
   blue,
   pink,
   brown,
@@ -46,20 +48,55 @@ class Product extends Equatable {
   final Size size;
   final ColorCode color;
   final Gender gender;
+  final bool isFavorite;
 
-  const Product({
-    this.id,
-    this.sku,
-    this.title,
-    this.desc,
-    this.price,
-    this.imageUrl,
-    this.categoryId,
-    this.flag = false,
-    this.size = Size.non,
-    this.color = ColorCode.non,
-    this.gender = Gender.non,
-  });
+  const Product(
+      {this.id,
+      this.sku,
+      this.title,
+      this.desc,
+      this.price,
+      this.imageUrl,
+      this.categoryId,
+      this.flag = false,
+      this.size = Size.non,
+      this.color = ColorCode.non,
+      this.gender = Gender.non,
+      this.isFavorite = false});
+
+  Map<String, Object> get productColor {
+    var map;
+    switch (this.color) {
+      case ColorCode.white:
+        map = {'name': 'White', 'color': Colors.white};
+        break;
+      case ColorCode.black:
+        map = {'name': 'Black', 'color': Colors.black};
+        break;
+      case ColorCode.gray:
+        map = {'name': 'Gray', 'color': Colors.grey};
+        break;
+      case ColorCode.yellow:
+        map = {'name': 'Yellow', 'color': Colors.yellow};
+        break;
+      case ColorCode.blue:
+        map = {'name': 'Blue', 'color': Colors.blue};
+        break;
+      case ColorCode.pink:
+        map = {'name': 'Pink', 'color': Colors.pink};
+        break;
+      case ColorCode.brown:
+        map = {'name': 'Brown', 'color': Colors.brown};
+        break;
+      case ColorCode.red:
+        map = {'name': 'Red', 'color': Colors.red};
+        break;
+      case ColorCode.non:
+      default:
+        map = {'name': 'Non', 'color': Colors.white70};
+    }
+    return map;
+  }
 
   String get sizeName {
     var size;
@@ -83,7 +120,7 @@ class Product extends Equatable {
         size = 'XS';
         break;
       case Size.free:
-        size = 'Free';
+        size = 'Free Size';
         break;
       case Size.inch23:
         size = '23 inch';
