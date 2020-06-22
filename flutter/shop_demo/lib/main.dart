@@ -12,8 +12,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: ProductNotifer(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(
+          value: ProductNotifer(),
+        ),
+        ChangeNotifierProvider.value(
+          value: CartNotifier(),
+        ),
+      ],
       child: MaterialApp(
         theme: ThemeData(
           fontFamily: 'Roboto',
