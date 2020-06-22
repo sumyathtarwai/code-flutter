@@ -1,29 +1,112 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:badges/badges.dart';
+import '../provider/modal.dart';
 import '../widgets/product_grid_view.dart';
 
-class ProductHome extends StatelessWidget {
+enum FilterOption { favorite, all }
+
+class ProductHome extends StatefulWidget {
   const ProductHome({Key key}) : super(key: key);
 
   @override
+  _ProductHomeState createState() => _ProductHomeState();
+}
+
+class _ProductHomeState extends State<ProductHome> {
+  var _showOnlyFavorite = false;
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'KAIMONO',
-          style: Theme.of(context).textTheme.headline6,
+    var theme = Theme.of(context);
+    var products = Provider.of<ProductNotifer>(context);
+
+    return ChangeNotifierProvider.value(
+      value: CartNotifier(),
+      builder: (context, child) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'KAIMONO',
+              style: theme.textTheme.headline6,
+            ),
+            backgroundColor: Colors.transparent,
+            iconTheme: theme.iconTheme,
+            elevation: 0,
+            leading: IconButton(
+                icon: Icon(
+                  Icons.menu,
+                ),
+                onPressed: () => {}),
+            actions: <Widget>[
+              Consumer<CartNotifier>(
+                builder: (context, value, child) => value.cartList.isNotEmpty
+                    ? Badge(
+                        position: BadgePosition.topRight(top: 0, right: 3),
+                        badgeColor: theme.iconTheme.color,
+                        shape: BadgeShape.circle,
+                        borderRadius: 20,
+                        animationDuration: Duration(milliseconds: 300),
+                        toAnimate: true,
+                        animationType: BadgeAnimationType.slide,
+                        badgeContent: Text(
+                          '${value.totalQty}',
+                          style: TextStyle(
+                            color: theme.primaryColorLight,
+                          ),
+                        ),
+                        child: child,
+                      )
+                    : cartBag(theme),
+                child: cartBag(theme),
+              ),
+              //FIXME when 0 count disable fav menu
+              filter(theme, products.favoriteCount > 0),
+            ],
+          ),
+          body: child,
+        );
+      },
+      child: SafeArea(
+        child: ProductGridView(showOnlyFavorite: _showOnlyFavorite),
+      ),
+    );
+  }
+
+  IconButton cartBag(ThemeData theme) {
+    return IconButton(
+        icon: Icon(
+          Icons.shopping_cart,
+          color: theme.buttonColor,
         ),
-        backgroundColor: Colors.transparent,
-        iconTheme: Theme.of(context).iconTheme,
-        elevation: 0,
-        leading: IconButton(icon: Icon(Icons.menu), onPressed: () => {}),
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.favorite), onPressed: () => {}),
-          IconButton(icon: Icon(Icons.shopping_cart), onPressed: () => {}),
-        ],
+        onPressed: () => {});
+  }
+
+  PopupMenuButton<FilterOption> filter(ThemeData theme, bool haveFavorite) {
+    return PopupMenuButton(
+      onSelected: (val) {
+        if (val == FilterOption.favorite) {
+          setState(() => _showOnlyFavorite = true);
+        } else {
+          setState(() => _showOnlyFavorite = false);
+        }
+      },
+      icon: Icon(
+        Icons.filter_list,
+        color: theme.buttonColor,
       ),
-      body: SafeArea(
-        child: ProductGridView(),
-      ),
+      itemBuilder: (_) => [
+        PopupMenuItem(
+          value: FilterOption.all,
+          child: Text('Show All'),
+        ),
+        PopupMenuItem(
+          value: FilterOption.favorite,
+          //FIXME haveFavorite
+          enabled: true,
+          child: Text('Only Favorites'),
+        ),
+      ],
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-import '../modal/modal.dart';
+import '../provider/modal.dart';
 
 class ProductNotifer with ChangeNotifier {
   List<Product> _products = [...dummyProduct];
@@ -13,8 +13,15 @@ class ProductNotifer with ChangeNotifier {
     return _products.firstWhere((el) => id == el.id);
   }
 
-  void addProducts(Product val) {
-    //_products.add(val);
+  int get favoriteCount {
+    return _products.where((el) => el.isFavorite).length;
+  }
+
+  void notifyProductList() {
     notifyListeners();
+  }
+
+  List<Product> get favoritesProducts {
+    return _products.where((el) => el.isFavorite).toList();
   }
 }

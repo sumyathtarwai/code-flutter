@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../modal/modal.dart';
+import '../provider/modal.dart';
 
 class ColorGridBar extends StatelessWidget {
   final List<ColorCode> colorList;

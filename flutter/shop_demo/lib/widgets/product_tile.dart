@@ -1,36 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:shop_demo/widgets/color_non.widget.dart';
+import 'package:provider/provider.dart';
+import '../route.dart';
+import '../widgets/color_non.widget.dart';
 import '../widgets/color_grid_widget.dart';
 import '../widgets/grid_footer.dart';
 import '../widgets/grid_image.dart';
-import '../modal/modal.dart';
+import '../provider/modal.dart';
 
 class ProductTile extends StatelessWidget {
-  final Product product;
-  const ProductTile({Key key, this.product}) : super(key: key);
+  // final Product product;
+  const ProductTile({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final product = Provider.of<Product>(context, listen: true);
+    final cart = Provider.of<CartNotifier>(context, listen: false);
     return Container(
-      //  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black12),
         borderRadius: BorderRadius.circular(10),
+        color: Theme.of(context).secondaryHeaderColor,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Expanded(
             flex: 6,
-            child: GridBarImage(imagePath: product.imageUrl),
+            child: InkWell(
+              child: GridBarImage(imagePath: product.imageUrl),
+              onTap: () => Navigator.pushNamed(
+                context,
+                RouteName.productDetail,
+                arguments: product.id,
+              ),
+            ),
           ),
           Expanded(
             child: _description(context, product.title),
           ),
           if (product.color == null || product.color?.first == ColorCode.non)
-            Expanded(
-              child: ColorNonIcon(),
-            ),
+            Expanded(child: ColorNonIcon()),
 
           if (product.color != null && product.color?.first != ColorCode.non)
             Expanded(
@@ -42,14 +51,30 @@ class ProductTile extends StatelessWidget {
           ),
           Expanded(
             flex: 2,
-            child: Footer(
-              leading: _priceTag(context, product.price),
-              middle: IconButton(
-                icon: Icon(Icons.favorite_border),
-                onPressed: () => {},
+            child: Consumer<Product>(
+              builder: (context, prod, child) => Footer(
+                leading: _priceTag(context, prod.price),
+                middle: IconButton(
+                  icon: Icon(
+                    prod.isFavorite ? Icons.favorite : Icons.favorite_border,
+                  ),
+                  onPressed: () {
+                    prod.toggleFavorite();
+                  },
+                ),
+                // TODO qty selection
+                trailing: IconButton(
+                  icon: Icon(Icons.add_shopping_cart),
+                  onPressed: () => cart.addToCart(
+                    Cart(
+                        id: DateTime.now().toString(),
+                        productId: prod.id,
+                        title: prod.title,
+                        price: prod.price,
+                        qty: 1),
+                  ),
+                ),
               ),
-              trailing: IconButton(
-                  icon: Icon(Icons.add_shopping_cart), onPressed: () => {}),
             ),
           ),
         ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_demo/provider/product_provider.dart';
+import '../provider/modal.dart';
 
 class ProductDetail extends StatelessWidget {
   const ProductDetail({Key key}) : super(key: key);

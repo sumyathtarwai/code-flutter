@@ -1,6 +1,6 @@
-import './modal.dart';
+import '../provider/modal.dart';
 
-const dummyProduct = const [
+final dummyProduct = [
   Product(
     id: 'p1',
     title: 'Red Shirt',

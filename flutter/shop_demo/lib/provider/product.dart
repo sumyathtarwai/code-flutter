@@ -36,7 +36,7 @@ enum Gender {
   non,
 }
 
-class Product extends Equatable {
+class Product extends Equatable with ChangeNotifier {
   final String sku;
   final String id;
   final String title;
@@ -48,9 +48,9 @@ class Product extends Equatable {
   final Size size;
   final List<ColorCode> color;
   final Gender gender;
-  final bool isFavorite;
+  bool isFavorite;
 
-  const Product(
+  Product(
       {this.id,
       this.sku,
       this.title,
@@ -145,4 +145,9 @@ class Product extends Equatable {
 
   @override
   bool get stringify => true;
+
+  void toggleFavorite() {
+    isFavorite = !isFavorite;
+    notifyListeners();
+  }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_demo/provider/product_provider.dart';
+import './provider/modal.dart';
 import 'package:shop_demo/route.dart';
 
 void main() {
@@ -12,14 +12,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => ProductNotifer(),
+    return ChangeNotifierProvider.value(
+      value: ProductNotifer(),
       child: MaterialApp(
         theme: ThemeData(
           fontFamily: 'Roboto',
           primarySwatch: Colors.indigo,
           accentColor: Colors.redAccent,
           brightness: Brightness.light,
+          buttonColor: Colors.brown,
           iconTheme: IconThemeData(
             color: Colors.redAccent.shade400,
           ),
