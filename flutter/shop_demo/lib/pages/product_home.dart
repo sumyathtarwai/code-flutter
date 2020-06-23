@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:badges/badges.dart';
 import '../provider/modal.dart';
+import '../route.dart';
 import '../widgets/product_grid_view.dart';
 
 enum FilterOption { favorite, all }
@@ -19,7 +20,8 @@ class _ProductHomeState extends State<ProductHome> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    var products = Provider.of<ProductNotifer>(context);
+    var products = Provider.of<ProductNotifer>(context, listen: false);
+
     var cart = Provider.of<CartNotifier>(context);
     return Scaffold(
       appBar: AppBar(
@@ -66,11 +68,14 @@ class _ProductHomeState extends State<ProductHome> {
 
   IconButton cartBag(ThemeData theme) {
     return IconButton(
-        icon: Icon(
-          Icons.shopping_cart,
-          color: theme.buttonColor,
-        ),
-        onPressed: () => {});
+      icon: Icon(
+        Icons.shopping_cart,
+        color: theme.buttonColor,
+      ),
+      onPressed: () => Navigator.of(context).pushNamed(
+        RouteName.cart,
+      ),
+    );
   }
 
   PopupMenuButton<FilterOption> filter(ThemeData theme, bool haveFavorite) {

@@ -27,10 +27,13 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.indigo,
           accentColor: Colors.redAccent,
           brightness: Brightness.light,
-          buttonColor: Colors.brown,
-          iconTheme: IconThemeData(
-            color: Colors.redAccent.shade400,
+          buttonColor: Colors.redAccent.shade400,
+          textTheme: TextTheme(
+            button: TextStyle(
+              color: Colors.white,
+            ),
           ),
+          iconTheme: IconThemeData(color: Colors.brown),
         ),
         darkTheme: ThemeData(
             fontFamily: 'Roboto',

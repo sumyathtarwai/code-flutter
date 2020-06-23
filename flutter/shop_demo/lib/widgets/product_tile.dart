@@ -13,7 +13,7 @@ class ProductTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final product = Provider.of<Product>(context, listen: true);
+    final product = Provider.of<Product>(context, listen: false);
     final cart = Provider.of<CartNotifier>(context, listen: false);
     return Container(
       decoration: BoxDecoration(
@@ -71,6 +71,8 @@ class ProductTile extends StatelessWidget {
                         productId: prod.id,
                         title: prod.title,
                         price: prod.price,
+                        // FIXME Color
+                        color: ColorCode.red,
                         qty: 1),
                   ),
                 ),

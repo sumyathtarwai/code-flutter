@@ -3,7 +3,7 @@ import '../provider/modal.dart';
 final dummyProduct = [
   Product(
     id: 'p1',
-    title: 'Red Shirt',
+    title: 'Shirt',
     desc: 'A red shirt - it is pretty red!',
     price: 29.99,
     color: [
@@ -21,7 +21,7 @@ final dummyProduct = [
   ),
   Product(
     id: 'p2',
-    title: 'Trousers',
+    title: 'Trouser',
     desc: 'A nice pair of trousers',
     color: [ColorCode.non],
     size: Size.inch25,
@@ -31,7 +31,7 @@ final dummyProduct = [
   ),
   Product(
     id: 'p3',
-    title: 'scarf',
+    title: 'Scarf',
     desc: 'Warm and cozy - exactly what you need for the winter',
     color: [ColorCode.gray, ColorCode.yellow],
     price: 19.99,
@@ -41,7 +41,7 @@ final dummyProduct = [
   ),
   Product(
     id: 'p4',
-    title: 'A Pan',
+    title: 'Pan',
     desc: 'Prepare any meal you want',
     color: [ColorCode.black],
     price: 49.99,

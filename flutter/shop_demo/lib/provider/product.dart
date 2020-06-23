@@ -120,7 +120,7 @@ class Product extends Equatable with ChangeNotifier {
         size = 'XS';
         break;
       case Size.free:
-        size = 'Free Size';
+        size = 'Free';
         break;
       case Size.inch23:
         size = '23 inch';

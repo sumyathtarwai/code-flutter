@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'modal.dart';
 
 class CartNotifier with ChangeNotifier {
-  int id;
+  // int id;
   // String userId;
 
-  List<Cart> _cartList = [];
+  CartNotifier();
+//FIXME static variable ONLY for debug
+  static final List<Cart> _cartList = [];
 
   List<Cart> get cartList {
     return [..._cartList];

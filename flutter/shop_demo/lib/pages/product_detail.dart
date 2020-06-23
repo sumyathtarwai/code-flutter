@@ -20,7 +20,7 @@ class ProductDetail extends StatelessWidget {
         elevation: 0,
       ),
       body: Container(
-        child: Text(id),
+        child: Text(product.title),
       ),
     );
   }
