@@ -2,20 +2,20 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-class GridBarImage extends StatelessWidget {
+class ImageWidget extends StatelessWidget {
   final String imagePath;
-  const GridBarImage({
+
+  final BorderRadius borderRadius;
+  const ImageWidget({
     Key key,
     @required this.imagePath,
+    @required this.borderRadius,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(10),
-        topRight: Radius.circular(10),
-      ),
+      borderRadius: borderRadius,
       child: Container(
         child: CachedNetworkImage(
           width: double.infinity,

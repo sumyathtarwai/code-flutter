@@ -3,8 +3,8 @@ import '../provider/modal.dart';
 final dummyProduct = [
   Product(
     id: 'p1',
-    title: 'Shirt',
-    desc: 'A red shirt - it is pretty red!',
+    title: 'ORIGINALS 3-STRIPES TEE',
+    desc: 'A cotton tee inspired by retro style.',
     price: 29.99,
     color: [
       ColorCode.red,
@@ -21,8 +21,8 @@ final dummyProduct = [
   ),
   Product(
     id: 'p2',
-    title: 'Trouser',
-    desc: 'A nice pair of trousers',
+    title: 'JEANS',
+    desc: 'A nice pair of jeans',
     color: [ColorCode.non],
     size: Size.inch25,
     price: 59.99,
@@ -31,21 +31,21 @@ final dummyProduct = [
   ),
   Product(
     id: 'p3',
-    title: 'Scarf',
+    title: 'SCARF',
     desc: 'Warm and cozy - exactly what you need for the winter',
-    color: [ColorCode.gray, ColorCode.yellow],
-    price: 19.99,
+    color: [ColorCode.gray, ColorCode.black],
+    price: 9.99,
     size: Size.free,
     imageUrl:
         'https://images.unsplash.com/photo-1549401334-b71409ed03ae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=664&q=80',
   ),
   Product(
     id: 'p4',
-    title: 'Pan',
-    desc: 'Prepare any meal you want',
-    color: [ColorCode.black],
-    price: 49.99,
+    title: 'SHORT PANTS',
+    desc: 'Casual ware',
+    color: [ColorCode.blue],
+    price: 19.99,
     imageUrl:
-        'https://images.unsplash.com/photo-1583777620797-5e0a34794f74?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+        'https://images.unsplash.com/photo-1591195853828-11db59a44f6b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80',
   ),
 ];

@@ -1,8 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:shop_demo/provider/modal.dart';
-import 'package:shop_demo/provider/product.dart';
+import '../provider/modal.dart';
+import '../provider/product.dart';
+
+import 'image_widget.dart';
 
 class CartEditModal extends StatelessWidget {
   final ScrollController scrollController;
@@ -32,19 +32,9 @@ class CartEditModal extends StatelessWidget {
                 flex: 2,
                 child: Container(
                   // height: 200,
-                  child: CachedNetworkImage(
-                    imageUrl: product.imageUrl,
-                    placeholder: (context, url) => Shimmer.fromColors(
-                      baseColor: Colors.grey,
-                      highlightColor: Colors.grey.shade400,
-                      enabled: true,
-                      child: Container(
-                        width: double.infinity,
-                        color: Colors.white,
-                      ),
-                    ),
-                    fit: BoxFit.cover,
-                  ),
+                  child: ImageWidget(
+                      imagePath: product.imageUrl,
+                      borderRadius: BorderRadius.zero),
                 ),
               ),
               Expanded(
@@ -82,7 +72,7 @@ class CartEditModal extends StatelessWidget {
                             Text('Price'),
                             Text('${cart.price}'),
                             Text('Subtotal'),
-                            Text('${cart.price}'),
+                            Text('${cart.subTotal.toStringAsFixed(2)}'),
                           ],
                         ),
                       ),

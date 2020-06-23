@@ -30,6 +30,6 @@ class CartNotifier with ChangeNotifier {
   }
 
   double get total {
-    return _cartList.fold(0, (prev, el) => prev + el.price);
+    return _cartList.fold(0, (prev, el) => prev + (el.price * el.qty));
   }
 }

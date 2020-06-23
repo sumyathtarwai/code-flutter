@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../widgets/cart_tile.dart';
 
 import '../provider/modal.dart';
-import '../widgets/cart_detail.dart';
 import '../widgets/cart_order_summary.dart';
 
 class CartHome extends StatelessWidget {
@@ -11,7 +11,7 @@ class CartHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    var carts = Provider.of<CartNotifier>(context, listen: false);
+    var carts = Provider.of<CartNotifier>(context);
     var products = Provider.of<ProductNotifer>(context, listen: false);
 
     return Scaffold(
@@ -33,13 +33,12 @@ class CartHome extends StatelessWidget {
             Expanded(
               flex: 4,
               child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
+                margin: const EdgeInsets.symmetric(horizontal: 10),
                 child: ListView.separated(
                   itemBuilder: (context, index) {
                     final prod =
                         products.whereId(carts.cartList[index].productId);
-                    return CartDetail(
-                        product: prod, cart: carts.cartList[index]);
+                    return CartTile(product: prod, cart: carts.cartList[index]);
                   },
                   itemCount: carts.cartList.length,
                   separatorBuilder: (context, index) => Divider(thickness: 2),

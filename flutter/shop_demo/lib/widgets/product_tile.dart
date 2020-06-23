@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../route.dart';
-import '../widgets/color_non.widget.dart';
+import '../widgets/color_non_widget.dart';
 import '../widgets/color_grid_widget.dart';
 import '../widgets/grid_footer.dart';
-import '../widgets/grid_image.dart';
+import '../widgets/image_widget.dart';
 import '../provider/modal.dart';
 
 class ProductTile extends StatelessWidget {
@@ -27,7 +27,13 @@ class ProductTile extends StatelessWidget {
           Expanded(
             flex: 6,
             child: InkWell(
-              child: GridBarImage(imagePath: product.imageUrl),
+              child: ImageWidget(
+                imagePath: product.imageUrl,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                ),
+              ),
               onTap: () => Navigator.pushNamed(
                 context,
                 RouteName.productDetail,

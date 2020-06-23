@@ -52,7 +52,7 @@ class OrderSummary extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    '\$ ${cart.total}',
+                    '\$ ${cart.total.toStringAsFixed(2)}',
                     style: text.subtitle1,
                   ),
                 ),

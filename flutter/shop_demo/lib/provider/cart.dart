@@ -18,4 +18,8 @@ class Cart with ChangeNotifier {
     @required this.qty,
     @required this.color,
   });
+
+  double get subTotal {
+    return this.price * this.qty;
+  }
 }

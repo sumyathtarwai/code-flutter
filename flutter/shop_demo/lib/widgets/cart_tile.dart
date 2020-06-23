@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:shop_demo/pages/pages.dart';
-import 'package:shop_demo/provider/modal.dart';
+import '../pages/pages.dart';
+import '../provider/modal.dart';
+import '../widgets/image_widget.dart';
 
-class CartDetail extends StatelessWidget {
-  const CartDetail({
+class CartTile extends StatelessWidget {
+  const CartTile({
     Key key,
     @required this.product,
     @required this.cart,
@@ -28,20 +27,10 @@ class CartDetail extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 child: Container(
-                  height: 200,
-                  child: CachedNetworkImage(
-                    imageUrl: product.imageUrl,
-                    placeholder: (context, url) => Shimmer.fromColors(
-                      baseColor: Colors.grey,
-                      highlightColor: Colors.grey.shade400,
-                      enabled: true,
-                      child: Container(
-                        width: double.infinity,
-                        color: Colors.white,
-                      ),
-                    ),
-                    fit: BoxFit.cover,
-                  ),
+                  height: MediaQuery.of(context).size.width / 2.5,
+                  child: ImageWidget(
+                      imagePath: product.imageUrl,
+                      borderRadius: BorderRadius.zero),
                 ),
               ),
               Expanded(
@@ -87,14 +76,14 @@ class Trailing extends StatelessWidget {
           Container(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text(
-              'Quantity ${cart.qty}',
+              'Quantity: ${cart.qty}',
               style: text.bodyText1,
             ),
           ),
           Container(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text(
-              'Subtotal: \$${product.price * cart.qty}',
+              'Subtotal: \$${cart.subTotal.toStringAsFixed(2)}',
               style: text.bodyText1,
             ),
           ),
