@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import '../provider/modal.dart';
 import '../provider/product.dart';
 
+import 'color_grid_widget.dart';
 import 'image_widget.dart';
 
-class CartEditModal extends StatelessWidget {
+class CartEditModal extends StatefulWidget {
   final ScrollController scrollController;
   final Product product;
   final Cart cart;
@@ -16,7 +17,23 @@ class CartEditModal extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _CartEditModalState createState() => _CartEditModalState();
+}
+
+class _CartEditModalState extends State<CartEditModal> {
+  var selectedItem;
+
+  @override
+  void initState() {
+    selectedItem = widget.cart?.qty;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    var length = widget.product.displayQty;
+    var qtyList = List.generate(length, (i) => i + 1);
+
     return Material(
       child: WillPopScope(
         onWillPop: () async {
@@ -33,55 +50,61 @@ class CartEditModal extends StatelessWidget {
                 child: Container(
                   // height: 200,
                   child: ImageWidget(
-                      imagePath: product.imageUrl,
+                      imagePath: widget.product.imageUrl,
                       borderRadius: BorderRadius.zero),
                 ),
               ),
               Expanded(
                 flex: 3,
-                child: Form(
-                  child: Column(
-                    children: <Widget>[
-                      Expanded(
-                        child: Row(
-                          children: <Widget>[
-                            Text('Quantity'),
-                            Text('${cart.qty}'),
-                          ],
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  child: Form(
+                    child: Column(
+                      children: <Widget>[
+                        rowTitle(
+                          leading: Text('Quantity: '),
+                          trailig: DropdownButton(
+                            value: selectedItem,
+                            dropdownColor: Theme.of(context).primaryColorLight,
+                            onChanged: (val) =>
+                                setState(() => selectedItem = val),
+                            items: qtyList.map(
+                              (item) {
+                                return DropdownMenuItem(
+                                  child: Text('$item'),
+                                  value: item,
+                                );
+                              },
+                            ).toList(),
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: Row(
-                          children: <Widget>[
-                            Text('Color'),
-                            Text('${product.color}'),
-                          ],
+                        rowTitle(
+                          leading: Text('Color: '),
+                          trailig: ColorGridBar(
+                            colorList: widget.product.color,
+                            onDoubleTap: () => {},
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: Row(
-                          children: <Widget>[
-                            Text('Size'),
-                            Text('${product.sizeName}'),
-                          ],
+                        rowTitle(
+                          leading: Text('Size: '),
+                          trailig: Text('${widget.product.sizeName}'),
                         ),
-                      ),
-                      Expanded(
-                        child: Row(
-                          children: <Widget>[
-                            Text('Price'),
-                            Text('${cart.price}'),
-                            Text('Subtotal'),
-                            Text('${cart.subTotal.toStringAsFixed(2)}'),
-                          ],
+                        rowTitle(
+                          leading: Text('Price: '),
+                          trailig: Text('${widget.product.price}'),
                         ),
-                      ),
-                      RaisedButton(
-                        onPressed: () => {},
-                        child: Text('Add To Cart',
-                            style: Theme.of(context).textTheme.button),
-                      ),
-                    ],
+                        rowTitle(
+                          leading: Text('Subtotal: '),
+                          trailig: Text(
+                              '${widget.cart.subTotal.toStringAsFixed(2)}'),
+                        ),
+                        RaisedButton(
+                          onPressed: () => {},
+                          child: Text('Add To Cart',
+                              style: Theme.of(context).textTheme.button),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -120,5 +143,17 @@ class CartEditModal extends StatelessWidget {
       ),
     );
     return shouldClose;
+  }
+
+  Widget rowTitle({Widget leading, Widget trailig}) {
+    return Expanded(
+      child: Row(
+        // crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          leading,
+          trailig,
+        ],
+      ),
+    );
   }
 }

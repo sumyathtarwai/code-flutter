@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import '../provider/modal.dart';
 
 class ColorGridBar extends StatelessWidget {
+  final Function onDoubleTap;
   final List<ColorCode> colorList;
-  const ColorGridBar({Key key, this.colorList}) : super(key: key);
+  const ColorGridBar(
+      {Key key, @required this.colorList, @required this.onDoubleTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,25 +19,29 @@ class ColorGridBar extends StatelessWidget {
       ),
       itemBuilder: (context, index) {
         return _colorPattern(
-          color: Product.getProductColor(colorList[index]),
-        );
+            color: Product.getProductColor(colorList[index]),
+            callback: onDoubleTap);
       },
       itemCount: colorList.length,
       scrollDirection: Axis.horizontal,
-      shrinkWrap: true,
+     shrinkWrap: true,
       physics: ScrollPhysics(),
     );
   }
 
-  Widget _colorPattern({@required Map<String, Object> color}) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-      width: 20,
-      height: 20,
-      decoration: BoxDecoration(
-        color: color['color'],
-        border: Border.all(color: Colors.grey),
-        borderRadius: BorderRadius.circular(20),
+  Widget _colorPattern(
+      {@required Map<String, Object> color, @required callback}) {
+    return InkWell(
+      onDoubleTap: () => callback,
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+        width: 20,
+        height: 20,
+        decoration: BoxDecoration(
+          color: color['color'],
+          border: Border.all(color: Colors.grey),
+          borderRadius: BorderRadius.circular(20),
+        ),
       ),
     );
   }

@@ -49,7 +49,10 @@ class ProductTile extends StatelessWidget {
 
           if (product.color != null && product.color?.first != ColorCode.non)
             Expanded(
-              child: ColorGridBar(colorList: product.color),
+              child: ColorGridBar(
+                colorList: product.color,
+                onDoubleTap: () => {},
+              ),
             ),
           //TODO size list row
           Expanded(

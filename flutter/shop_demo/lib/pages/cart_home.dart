@@ -38,7 +38,24 @@ class CartHome extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final prod =
                         products.whereId(carts.cartList[index].productId);
-                    return CartTile(product: prod, cart: carts.cartList[index]);
+                    return Dismissible(
+                      key: ValueKey(key),
+                      onDismissed: (direction) async =>
+                          carts.removeCart(carts.cartList[index]),
+                      direction: DismissDirection.endToStart,
+                      background: Container(
+                        alignment: Alignment.centerRight,
+                        padding: const EdgeInsets.all(20),
+                        color: Theme.of(context).errorColor,
+                        child: Icon(
+                          Icons.delete_forever,
+                          size: 50,
+                          color: Theme.of(context).secondaryHeaderColor,
+                        ),
+                      ),
+                      child: CartTile(
+                          product: prod, cart: carts.cartList[index]),
+                    );
                   },
                   itemCount: carts.cartList.length,
                   separatorBuilder: (context, index) => Divider(thickness: 2),

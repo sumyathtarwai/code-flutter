@@ -1,7 +1,8 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import '../provider/modal.dart';
 
-class Cart with ChangeNotifier {
+class Cart extends Equatable with ChangeNotifier {
   final String id;
   final String productId;
   final String title;
@@ -22,4 +23,7 @@ class Cart with ChangeNotifier {
   double get subTotal {
     return this.price * this.qty;
   }
+
+  @override
+  List<String> get props => [id];
 }

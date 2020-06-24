@@ -24,6 +24,16 @@ class CartNotifier with ChangeNotifier {
     notifyListeners();
   }
 
+  void removeCart(Cart cart) {
+    if (cart != null) {
+      // int i = _cartList.indexWhere((element) => cart.id == element.id);
+      // _cartList.removeAt(i);
+      // used Equatable
+      _cartList.remove(cart);
+      notifyListeners();
+    }
+  }
+
   int get totalQty {
     return _cartList.fold(
         0, (previousValue, element) => previousValue + element.qty);

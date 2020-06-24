@@ -49,6 +49,7 @@ class Product extends Equatable with ChangeNotifier {
   final List<ColorCode> color;
   final Gender gender;
   bool isFavorite;
+  final int displayQty;
 
   Product(
       {this.id,
@@ -61,6 +62,7 @@ class Product extends Equatable with ChangeNotifier {
       this.flag = false,
       this.size = Size.non,
       this.color,
+      this.displayQty = 10,
       this.gender = Gender.non,
       this.isFavorite = false});
 
