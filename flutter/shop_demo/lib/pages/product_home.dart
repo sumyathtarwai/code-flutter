@@ -21,7 +21,6 @@ class _ProductHomeState extends State<ProductHome> {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     var products = Provider.of<ProductNotifer>(context, listen: false);
-
     var cart = Provider.of<CartNotifier>(context);
     return Scaffold(
       appBar: AppBar(

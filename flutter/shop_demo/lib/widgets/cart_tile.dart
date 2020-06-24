@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../pages/pages.dart';
 import '../provider/modal.dart';
 import '../widgets/image_widget.dart';
@@ -18,29 +19,47 @@ class CartTile extends StatelessWidget {
   Widget build(BuildContext context) {
     var text = Theme.of(context).textTheme;
 //TODO different color/size different card
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Container(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Expanded(
-                child: Container(
-                  height: MediaQuery.of(context).size.width / 2.5,
-                  child: ImageWidget(
-                      imagePath: product.imageUrl,
-                      borderRadius: BorderRadius.zero),
-                ),
-              ),
-              Expanded(
-                child: Trailing(product: product, text: text, cart: cart),
-              ),
-            ],
-          ),
+    return Dismissible(
+      // key shoud be unique
+      key: Key(cart.id),
+      onDismissed: (_) {
+        Provider.of<CartNotifier>(context, listen: false).removeCart(cart);
+      },
+      direction: DismissDirection.endToStart,
+      background: Container(
+        alignment: Alignment.centerRight,
+        padding: const EdgeInsets.all(20),
+        color: Theme.of(context).errorColor,
+        child: Icon(
+          Icons.delete_forever,
+          size: 50,
+          color: Theme.of(context).secondaryHeaderColor,
         ),
-        Footer(cart: cart, text: text, product: product),
-      ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    height: MediaQuery.of(context).size.width / 2.5,
+                    child: ImageWidget(
+                        imagePath: product.imageUrl,
+                        borderRadius: BorderRadius.zero),
+                  ),
+                ),
+                Expanded(
+                  child: Trailing(product: product, text: text, cart: cart),
+                ),
+              ],
+            ),
+          ),
+          Footer(cart: cart, text: text, product: product),
+        ],
+      ),
     );
   }
 }
