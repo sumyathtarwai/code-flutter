@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(
-          value: ProductNotifer(),
+          value: ProductList(),
         ),
         ChangeNotifierProvider.value(
           value: CartNotifier(),

@@ -13,7 +13,7 @@ class ProductGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var contain = Provider.of<ProductNotifer>(context, listen: false);
+    var contain = Provider.of<ProductList>(context, listen: false);
     var products =
         showOnlyFavorite ? contain.favoritesProducts : contain.products;
     return GridView.builder(

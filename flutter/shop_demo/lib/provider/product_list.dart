@@ -2,7 +2,8 @@ import 'package:flutter/foundation.dart';
 
 import 'modal.dart';
 
-class ProductNotifer with ChangeNotifier {
+class ProductList with ChangeNotifier {
+  //int id;
   final List<ProductItem> _products = [...dummyProduct];
 
   List<ProductItem> get products {

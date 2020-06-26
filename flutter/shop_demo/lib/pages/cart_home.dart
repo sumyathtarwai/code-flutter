@@ -13,7 +13,7 @@ class CartHome extends StatelessWidget {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     var carts = Provider.of<CartNotifier>(context);
-    var products = Provider.of<ProductNotifer>(context, listen: false);
+    var products = Provider.of<ProductList>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(

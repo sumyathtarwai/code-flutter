@@ -12,7 +12,7 @@ class ProductDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     var id = ModalRoute.of(context).settings.arguments;
     var product =
-        Provider.of<ProductNotifer>(context, listen: false).whereId(id);
+        Provider.of<ProductList>(context, listen: false).whereId(id);
 
     return ChangeNotifierProvider<ProductItem>.value(
       value: product,
