@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'modal.dart';
 
-class CartNotifier with ChangeNotifier {
+class CartList with ChangeNotifier {
   // int id;
   // String userId;
 
-  CartNotifier();
+  CartList();
 //FIXME static variable ONLY for debug
   static final List<CartItem> _cartList = [];
 

@@ -23,7 +23,7 @@ class CartTile extends StatelessWidget {
       // key shoud be unique
       key: Key(cart.id),
       onDismissed: (_) {
-        Provider.of<CartNotifier>(context, listen: false).removeCart(cart);
+        Provider.of<CartList>(context, listen: false).removeCart(cart);
       },
       direction: DismissDirection.endToStart,
       background: Container(

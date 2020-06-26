@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../provider/modal.dart';
 
 class OrderSummary extends StatelessWidget {
-  final CartNotifier cart;
+  final CartList cart;
   const OrderSummary({
     Key key,
     this.cart,

@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 class Order extends Equatable with ChangeNotifier {
   final String id;
   final int cartId;
-  final List<int> productId;
+  final int productId;
   final double total;
   final int qty;
+  
 
   Order({
     this.id,

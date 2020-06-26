@@ -9,7 +9,7 @@ class AddToCartButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cart = Provider.of<CartNotifier>(context, listen: false);
+    final cart = Provider.of<CartList>(context, listen: false);
     return RaisedButton(
       child: Text(
         'Add To Cart',

@@ -14,7 +14,7 @@ class ProductTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<ProductItem>(context);
-    final cart = Provider.of<CartNotifier>(context, listen: false);
+    final cart = Provider.of<CartList>(context, listen: false);
     
     return Container(
       decoration: BoxDecoration(

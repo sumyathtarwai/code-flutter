@@ -10,7 +10,7 @@ class CartBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cart = Provider.of<CartNotifier>(context);
+    var cart = Provider.of<CartList>(context);
 
     return cart.cartList.isNotEmpty
         ? Badge(
