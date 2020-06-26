@@ -37,7 +37,7 @@ final dummyProduct = [
     price: 9.99,
     size: Size.free,
     imageUrl:
-        'https://images.unsplash.com/photo-1549401334-b71409ed03ae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=664&q=80',
+        'https://images.unsplash.com/photo-1549401334-b71409ed03ae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
   ),
   Product(
     id: 'p4',
@@ -46,6 +46,26 @@ final dummyProduct = [
     color: [ColorCode.blue],
     price: 19.99,
     imageUrl:
-        'https://images.unsplash.com/photo-1591195853828-11db59a44f6b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80',
+        'https://images.unsplash.com/photo-1591195853828-11db59a44f6b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80',
+  ),
+  Product(
+    id: 'p5',
+    title: 'SHIRT',
+    desc: 'Free style cotton shirt',
+    color: [ColorCode.gray, ColorCode.white],
+    price: 9.99,
+    size: Size.free,
+    imageUrl:
+        'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+  ),
+  Product(
+    id: 'p6',
+    title: 'DRESS',
+    desc: 'Style and cozy - for summer',
+    color: [ColorCode.red, ColorCode.blue],
+    price: 9.99,
+    size: Size.free,
+    imageUrl:
+        'https://images.unsplash.com/photo-1572804013427-4d7ca7268217?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
   ),
 ];

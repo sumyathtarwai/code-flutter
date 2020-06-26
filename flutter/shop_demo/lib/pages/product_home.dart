@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:shop_demo/widgets/drawer_widget.dart';
 import '../widgets/cart_badge_widget.dart';
 import '../widgets/product_grid_view.dart';
 
 enum FilterOption { favorite, all }
 
 class ProductHome extends StatefulWidget {
-  const ProductHome({Key key}) : super(key: key);
+  final bool showOnlyFavorite;
+  const ProductHome({Key key, this.showOnlyFavorite = false}) : super(key: key);
 
   @override
   _ProductHomeState createState() => _ProductHomeState();
@@ -13,6 +15,12 @@ class ProductHome extends StatefulWidget {
 
 class _ProductHomeState extends State<ProductHome> {
   var _showOnlyFavorite = false;
+
+  @override
+  void didChangeDependencies() {
+    _showOnlyFavorite = widget.showOnlyFavorite;
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,17 +35,13 @@ class _ProductHomeState extends State<ProductHome> {
         backgroundColor: Colors.transparent,
         iconTheme: theme.iconTheme,
         elevation: 0,
-        leading: IconButton(
-            icon: Icon(
-              Icons.menu,
-            ),
-            onPressed: () => {}),
         actions: <Widget>[
           CartBadge(),
           //FIXME when 0 count disable fav menu
           filter(theme),
         ],
       ),
+      drawer: DrawerWidget(),
       body: SafeArea(
         child: ProductGridView(showOnlyFavorite: _showOnlyFavorite),
       ),

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shop_demo/widgets/add_to_cart_widget.dart';
+import 'package:shop_demo/widgets/product_content_widget.dart';
 import '../provider/modal.dart';
 import '../provider/product.dart';
 
-import 'color_grid_widget.dart';
-import 'color_non_widget.dart';
+
 import 'image_widget.dart';
 
 class CartEditModal extends StatefulWidget {
@@ -34,7 +34,7 @@ class _CartEditModalState extends State<CartEditModal> {
   @override
   Widget build(BuildContext context) {
     var length = widget.product.displayQty;
-    var qtyList = List.generate(length, (i) => i + 1);
+    //var qtyList = List.generate(length, (i) => i + 1);
 
     return Material(
       child: WillPopScope(
@@ -47,67 +47,71 @@ class _CartEditModalState extends State<CartEditModal> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Expanded(
-                flex: 2,
-                child: Container(
-                  // height: 200,
-                  child: ImageWidget(imagePath: widget.product.imageUrl),
-                ),
+              Container(
+                // height: 200,
+                child: ImageWidget(imagePath: widget.product.imageUrl),
               ),
-              Expanded(
-                flex: 3,
-                child: Container(
-                  padding: const EdgeInsets.all(10),
-                  child: Form(
-                    child: Column(
-                      children: <Widget>[
-                        rowTitle(
-                          leading: Text('Quantity: '),
-                          trailig: DropdownButton(
-                            value: selectedItem,
-                            dropdownColor: Theme.of(context).primaryColorLight,
-                            onChanged: (val) =>
-                                setState(() => selectedItem = val),
-                            items: qtyList.map(
-                              (item) {
-                                return DropdownMenuItem(
-                                  child: Text('$item'),
-                                  value: item,
-                                );
-                              },
-                            ).toList(),
-                          ),
-                        ),
-                        (widget.product.color == null ||
-                                widget.product.color?.first == ColorCode.non)
-                            ? Expanded(child: ColorNonIcon())
-                            : rowTitle(
-                                leading: Text('Color: '),
-                                // FIXME
-                                trailig: ColorGridBar(
-                                  colorList: widget.product.color,
-                                  onDoubleTap: () => {},
-                                ),
-                              ),
-                        rowTitle(
-                          leading: Text('Size: '),
-                          trailig: Text('${widget.product.sizeName}'),
-                        ),
-                        rowTitle(
-                          leading: Text('Price: '),
-                          trailig: Text('${widget.product.price}'),
-                        ),
-                        rowTitle(
-                          leading: Text('Subtotal: '),
-                          trailig: Text(
-                              '${widget.cart.subTotal.toStringAsFixed(2)}'),
-                        ),
-                        AddToCartButton(product: widget.product),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+              ProductContent(product: widget.product),
+              // Expanded(
+              //   flex: 3,
+              //   child: Container(
+              //     padding: const EdgeInsets.all(10),
+              //     child: Form(
+              //       child: Column(
+              //         children: <Widget>[
+              //           rowTitle(
+              //             leading: Text('Quantity: '),
+              //             trailig: DropdownButton(
+              //               value: selectedItem,
+              //               dropdownColor: Theme.of(context).primaryColorLight,
+              //               onChanged: (val) =>
+              //                   setState(() => selectedItem = val),
+              //               items: qtyList.map(
+              //                 (item) {
+              //                   return DropdownMenuItem(
+              //                     child: Text('$item'),
+              //                     value: item,
+              //                   );
+              //                 },
+              //               ).toList(),
+              //             ),
+              //           ),
+              //           // (widget.product.color == null ||
+              //           //         widget.product.color?.first == ColorCode.non)
+              //           //     ? Expanded(child: ColorNonIcon())
+              //           //     : Expanded(
+              //           //         child: rowTitle(
+              //           //           leading: Text('Color: '),
+              //           //           // FIXME
+              //           //           trailig: Container(
+              //           //             height: 30,
+              //           //             child: ColorGridBar(
+              //           //               colorList: widget.product.color,
+              //           //               onDoubleTap: () => {},
+              //           //             ),
+              //           //           ),
+              //           //         ),
+              //           //       ),
+              //           rowTitle(
+              //             leading: Text('Size: '),
+              //             trailig: Text('${widget.product.sizeName}'),
+              //           ),
+              //           rowTitle(
+              //             leading: Text('Price: '),
+              //             trailig: Text('${widget.product.price}'),
+              //           ),
+              //           rowTitle(
+              //             leading: Text('Subtotal: '),
+              //             trailig: Text(
+              //                 '${widget.cart.subTotal.toStringAsFixed(2)}'),
+              //           ),
+              //           AddToCartButton(product: widget.product),
+              //         ],
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              AddToCartButton(product: widget.product),
             ],
           ),
         ),

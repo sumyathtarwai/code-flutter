@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../widgets/drawer_widget.dart';
 import '../widgets/cart_tile.dart';
 
 import '../provider/modal.dart';
@@ -24,6 +25,7 @@ class CartHome extends StatelessWidget {
         iconTheme: theme.iconTheme,
         elevation: 0,
       ),
+      drawer: DrawerWidget(),
       body: SafeArea(
         child: carts.cartList.isEmpty
             ? Padding(

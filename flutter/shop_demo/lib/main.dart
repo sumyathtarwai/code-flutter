@@ -29,17 +29,14 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.light,
           buttonColor: Colors.redAccent.shade400,
           textTheme: TextTheme(
-            button: TextStyle(
-              color: Colors.white,
-            ),
+            button: TextStyle(color: Colors.white),
           ),
           iconTheme: IconThemeData(color: Colors.brown),
         ),
         darkTheme: ThemeData(
             fontFamily: 'Roboto',
-            iconTheme: IconThemeData(
-              color: Colors.redAccent,
-            ),
+            iconTheme: IconThemeData(color: Colors.white),
+            buttonColor: Colors.redAccent.shade400,
             brightness: Brightness.dark),
         routes: RouteName.route,
       ),
