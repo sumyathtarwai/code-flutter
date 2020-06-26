@@ -4,6 +4,7 @@ import 'modal.dart';
 
 class CartItem extends Equatable with ChangeNotifier {
   final String id;
+  // should use Product?
   final String productId;
   final String title;
   final double price;
