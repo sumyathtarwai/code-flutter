@@ -4,8 +4,12 @@ import '../provider/modal.dart';
 class ColorGridBar extends StatelessWidget {
   final Function onDoubleTap;
   final List<ColorCode> colorList;
+  final Axis direction;
   const ColorGridBar(
-      {Key key, @required this.colorList, @required this.onDoubleTap})
+      {Key key,
+      @required this.colorList,
+      @required this.onDoubleTap,
+      this.direction = Axis.horizontal})
       : super(key: key);
 
   @override
@@ -23,8 +27,8 @@ class ColorGridBar extends StatelessWidget {
             callback: onDoubleTap);
       },
       itemCount: colorList.length,
-      scrollDirection: Axis.horizontal,
-     shrinkWrap: true,
+      scrollDirection: direction,
+      //    shrinkWrap: true,
       physics: ScrollPhysics(),
     );
   }

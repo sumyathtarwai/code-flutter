@@ -21,10 +21,11 @@ class ProductGridView extends StatelessWidget {
       itemCount: products.length,
       itemBuilder: (ctx, i) {
         return ChangeNotifierProvider<Product>.value(
+          builder: (context, child) => ProductTile(),
           value: products[i],
-          child: ProductTile(
-              //product: products[i]
-              ),
+          // child: ProductTile(
+          //     //product: products[i]
+          //     ),
         );
       },
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

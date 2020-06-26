@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:badges/badges.dart';
-import '../provider/modal.dart';
-import '../route.dart';
+import '../widgets/cart_badge_widget.dart';
 import '../widgets/product_grid_view.dart';
 
 enum FilterOption { favorite, all }
@@ -20,8 +17,7 @@ class _ProductHomeState extends State<ProductHome> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    var products = Provider.of<ProductNotifer>(context, listen: false);
-    var cart = Provider.of<CartNotifier>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -37,26 +33,9 @@ class _ProductHomeState extends State<ProductHome> {
             ),
             onPressed: () => {}),
         actions: <Widget>[
-          cart.cartList.isNotEmpty
-              ? Badge(
-                  position: BadgePosition.topRight(top: 0, right: 3),
-                  badgeColor: theme.iconTheme.color,
-                  shape: BadgeShape.circle,
-                  borderRadius: 20,
-                  animationDuration: Duration(milliseconds: 300),
-                  toAnimate: true,
-                  animationType: BadgeAnimationType.slide,
-                  badgeContent: Text(
-                    '${cart.totalQty}',
-                    style: TextStyle(
-                      color: theme.primaryColorLight,
-                    ),
-                  ),
-                  child: cartBag(theme),
-                )
-              : cartBag(theme),
+          CartBadge(),
           //FIXME when 0 count disable fav menu
-          filter(theme, products.favoriteCount > 0),
+          filter(theme),
         ],
       ),
       body: SafeArea(
@@ -65,20 +44,9 @@ class _ProductHomeState extends State<ProductHome> {
     );
   }
 
-  IconButton cartBag(ThemeData theme) {
-    return IconButton(
-      icon: Icon(
-        Icons.shopping_cart,
-        color: theme.buttonColor,
-      ),
-      onPressed: () => Navigator.of(context).pushNamed(
-        RouteName.cart,
-      ),
-    );
-  }
-
-  PopupMenuButton<FilterOption> filter(ThemeData theme, bool haveFavorite) {
+  PopupMenuButton<FilterOption> filter(ThemeData theme) {
     return PopupMenuButton(
+      //  enabled: haveFavorite,
       onSelected: (val) {
         if (val == FilterOption.favorite) {
           setState(() => _showOnlyFavorite = true);

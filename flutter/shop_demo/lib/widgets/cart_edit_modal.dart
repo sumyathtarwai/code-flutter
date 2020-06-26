@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:shop_demo/widgets/add_to_cart_widget.dart';
 import '../provider/modal.dart';
 import '../provider/product.dart';
 
 import 'color_grid_widget.dart';
+import 'color_non_widget.dart';
 import 'image_widget.dart';
 
 class CartEditModal extends StatefulWidget {
@@ -49,9 +51,7 @@ class _CartEditModalState extends State<CartEditModal> {
                 flex: 2,
                 child: Container(
                   // height: 200,
-                  child: ImageWidget(
-                      imagePath: widget.product.imageUrl,
-                      borderRadius: BorderRadius.zero),
+                  child: ImageWidget(imagePath: widget.product.imageUrl),
                 ),
               ),
               Expanded(
@@ -78,13 +78,17 @@ class _CartEditModalState extends State<CartEditModal> {
                             ).toList(),
                           ),
                         ),
-                        rowTitle(
-                          leading: Text('Color: '),
-                          trailig: ColorGridBar(
-                            colorList: widget.product.color,
-                            onDoubleTap: () => {},
-                          ),
-                        ),
+                        (widget.product.color == null ||
+                                widget.product.color?.first == ColorCode.non)
+                            ? Expanded(child: ColorNonIcon())
+                            : rowTitle(
+                                leading: Text('Color: '),
+                                // FIXME
+                                trailig: ColorGridBar(
+                                  colorList: widget.product.color,
+                                  onDoubleTap: () => {},
+                                ),
+                              ),
                         rowTitle(
                           leading: Text('Size: '),
                           trailig: Text('${widget.product.sizeName}'),
@@ -98,11 +102,7 @@ class _CartEditModalState extends State<CartEditModal> {
                           trailig: Text(
                               '${widget.cart.subTotal.toStringAsFixed(2)}'),
                         ),
-                        RaisedButton(
-                          onPressed: () => {},
-                          child: Text('Add To Cart',
-                              style: Theme.of(context).textTheme.button),
-                        ),
+                        AddToCartButton(product: widget.product),
                       ],
                     ),
                   ),

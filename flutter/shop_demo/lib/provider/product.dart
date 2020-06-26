@@ -48,6 +48,7 @@ class Product extends Equatable with ChangeNotifier {
   final Size size;
   final List<ColorCode> color;
   final Gender gender;
+  //TODO along with user
   bool isFavorite;
   final int displayQty;
 

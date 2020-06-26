@@ -25,28 +25,38 @@ class CartHome extends StatelessWidget {
         elevation: 0,
       ),
       body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: OrderSummary(cart: carts),
-            ),
-            Expanded(
-              flex: 4,
-              child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 10),
-                child: ListView.separated(
-                  itemBuilder: (context, index) {
-                    final prod =
-                        products.whereId(carts.cartList[index].productId);
-                    return CartTile(product: prod, cart: carts.cartList[index]);
-                  },
-                  itemCount: carts.cartList.length,
-                  separatorBuilder: (context, index) => Divider(thickness: 2),
+        child: carts.cartList.isEmpty
+            ? Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  'There is no items in the cart.',
+                  style: theme.textTheme.headline4,
                 ),
+              )
+            : Column(
+                children: <Widget>[
+                  Expanded(
+                    child: OrderSummary(cart: carts),
+                  ),
+                  Expanded(
+                    flex: 4,
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      child: ListView.separated(
+                        itemBuilder: (context, index) {
+                          final prod =
+                              products.whereId(carts.cartList[index].productId);
+                          return CartTile(
+                              product: prod, cart: carts.cartList[index]);
+                        },
+                        itemCount: carts.cartList.length,
+                        separatorBuilder: (context, index) =>
+                            Divider(thickness: 2),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
       ),
     );
   }

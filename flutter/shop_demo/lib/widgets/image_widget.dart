@@ -9,7 +9,7 @@ class ImageWidget extends StatelessWidget {
   const ImageWidget({
     Key key,
     @required this.imagePath,
-    @required this.borderRadius,
+    this.borderRadius = BorderRadius.zero,
   }) : super(key: key);
 
   @override

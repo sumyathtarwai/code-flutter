@@ -17,10 +17,6 @@ class ProductNotifer with ChangeNotifier {
     return _products.where((el) => el.isFavorite).length;
   }
 
-  void notifyProductList() {
-    notifyListeners();
-  }
-
   List<Product> get favoritesProducts {
     return _products.where((el) => el.isFavorite).toList();
   }

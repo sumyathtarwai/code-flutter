@@ -13,8 +13,9 @@ class ProductTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final product = Provider.of<Product>(context, listen: false);
+    final product = Provider.of<Product>(context);
     final cart = Provider.of<CartNotifier>(context, listen: false);
+    
     return Container(
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black12),
@@ -38,6 +39,8 @@ class ProductTile extends StatelessWidget {
                 context,
                 RouteName.productDetail,
                 arguments: product.id,
+                // arguments:
+                //     ChangeNotifierProvider<Product>.value(value: product),
               ),
             ),
           ),
@@ -60,30 +63,27 @@ class ProductTile extends StatelessWidget {
           ),
           Expanded(
             flex: 2,
-            child: Consumer<Product>(
-              builder: (context, prod, child) => Footer(
-                leading: _priceTag(context, prod.price),
-                middle: IconButton(
-                  icon: Icon(
-                    prod.isFavorite ? Icons.favorite : Icons.favorite_border,
-                  ),
-                  onPressed: () {
-                    prod.toggleFavorite();
-                  },
+            child: Footer(
+              leading: _priceTag(context, product.price),
+              middle: IconButton(
+                icon: Icon(
+                  product.isFavorite ? Icons.favorite : Icons.favorite_border,
                 ),
-                // TODO qty selection
-                trailing: IconButton(
-                  icon: Icon(Icons.add_shopping_cart),
-                  onPressed: () => cart.addToCart(
-                    Cart(
-                        id: DateTime.now().toString(),
-                        productId: prod.id,
-                        title: prod.title,
-                        price: prod.price,
-                        // FIXME Color
-                        color: ColorCode.red,
-                        qty: 1),
-                  ),
+                onPressed: () => product.toggleFavorite(),
+              ),
+              // TODO qty selection
+              trailing: IconButton(
+                icon: Icon(Icons.add_shopping_cart),
+                onPressed: () => cart.addToCart(
+                  Cart(
+                      id: DateTime.now().toString(),
+                      productId: product.id,
+                      title: product.title,
+                      price: product.price,
+                      // FIXME Color
+                      color: ColorCode.red,
+                      // FIXME qty
+                      qty: 1),
                 ),
               ),
             ),
