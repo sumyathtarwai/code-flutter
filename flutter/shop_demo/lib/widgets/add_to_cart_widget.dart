@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import '../provider/modal.dart';
 
 class AddToCartButton extends StatelessWidget {
-  final Product product;
+  final ProductItem product;
 
   const AddToCartButton({Key key, @required this.product}) : super(key: key);
 
@@ -17,7 +17,7 @@ class AddToCartButton extends StatelessWidget {
       ),
       onPressed: () {
         cart.addToCart(
-          Cart(
+          CartItem(
               id: DateTime.now().toString(),
               productId: product.id,
               title: product.title,

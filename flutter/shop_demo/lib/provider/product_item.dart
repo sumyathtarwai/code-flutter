@@ -36,7 +36,7 @@ enum Gender {
   non,
 }
 
-class Product extends Equatable with ChangeNotifier {
+class ProductItem extends Equatable with ChangeNotifier {
   final String sku;
   final String id;
   final String title;
@@ -52,7 +52,7 @@ class Product extends Equatable with ChangeNotifier {
   bool isFavorite;
   final int displayQty;
 
-  Product(
+  ProductItem(
       {this.id,
       this.sku,
       this.title,

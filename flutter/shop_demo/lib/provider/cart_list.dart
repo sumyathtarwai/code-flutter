@@ -8,13 +8,13 @@ class CartNotifier with ChangeNotifier {
 
   CartNotifier();
 //FIXME static variable ONLY for debug
-  static final List<Cart> _cartList = [];
+  static final List<CartItem> _cartList = [];
 
-  List<Cart> get cartList {
+  List<CartItem> get cartList {
     return [..._cartList];
   }
 
-  void addToCart(Cart cart) {
+  void addToCart(CartItem cart) {
     var i = _cartList?.indexWhere((el) => cart.productId == el.productId);
     if (i >= 0) {
       _cartList[i].qty += cart.qty;
@@ -24,7 +24,7 @@ class CartNotifier with ChangeNotifier {
     notifyListeners();
   }
 
-  void removeCart(Cart cart) {
+  void removeCart(CartItem cart) {
     if (cart != null) {
       // int i = _cartList.indexWhere((element) => cart.id == element.id);
       // _cartList.removeAt(i);

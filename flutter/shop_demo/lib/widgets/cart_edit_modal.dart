@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:shop_demo/widgets/add_to_cart_widget.dart';
 import 'package:shop_demo/widgets/product_content_widget.dart';
 import '../provider/modal.dart';
-import '../provider/product.dart';
+import '../provider/product_item.dart';
 
 
 import 'image_widget.dart';
 
 class CartEditModal extends StatefulWidget {
   final ScrollController scrollController;
-  final Product product;
-  final Cart cart;
+  final ProductItem product;
+  final CartItem cart;
   const CartEditModal({
     Key key,
     this.scrollController,

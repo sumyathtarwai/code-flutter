@@ -13,7 +13,7 @@ class ProductTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final product = Provider.of<Product>(context);
+    final product = Provider.of<ProductItem>(context);
     final cart = Provider.of<CartNotifier>(context, listen: false);
     
     return Container(
@@ -75,7 +75,7 @@ class ProductTile extends StatelessWidget {
               trailing: IconButton(
                 icon: Icon(Icons.add_shopping_cart),
                 onPressed: () => cart.addToCart(
-                  Cart(
+                  CartItem(
                       id: DateTime.now().toString(),
                       productId: product.id,
                       title: product.title,

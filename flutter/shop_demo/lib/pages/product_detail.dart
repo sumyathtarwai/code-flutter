@@ -14,9 +14,9 @@ class ProductDetail extends StatelessWidget {
     var product =
         Provider.of<ProductNotifer>(context, listen: false).whereId(id);
 
-    return ChangeNotifierProvider<Product>.value(
+    return ChangeNotifierProvider<ProductItem>.value(
       value: product,
-      builder: (context, child) => Consumer<Product>(
+      builder: (context, child) => Consumer<ProductItem>(
         builder: (context, product, child) {
           return Scaffold(
             appBar: AppBar(

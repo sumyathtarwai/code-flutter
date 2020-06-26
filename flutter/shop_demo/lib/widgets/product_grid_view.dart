@@ -20,7 +20,7 @@ class ProductGridView extends StatelessWidget {
       padding: const EdgeInsets.all(10.0),
       itemCount: products.length,
       itemBuilder: (ctx, i) {
-        return ChangeNotifierProvider<Product>.value(
+        return ChangeNotifierProvider<ProductItem>.value(
           builder: (context, child) => ProductTile(),
           value: products[i],
           // child: ProductTile(

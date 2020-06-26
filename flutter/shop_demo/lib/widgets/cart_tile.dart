@@ -12,8 +12,8 @@ class CartTile extends StatelessWidget {
     @required this.cart,
   }) : super(key: key);
 
-  final Product product;
-  final Cart cart;
+  final ProductItem product;
+  final CartItem cart;
 
   @override
   Widget build(BuildContext context) {
@@ -72,9 +72,9 @@ class Trailing extends StatelessWidget {
     @required this.cart,
   }) : super(key: key);
 
-  final Product product;
+  final ProductItem product;
   final TextTheme text;
-  final Cart cart;
+  final CartItem cart;
 
   @override
   Widget build(BuildContext context) {
@@ -138,9 +138,9 @@ class Footer extends StatelessWidget {
     @required this.product,
   }) : super(key: key);
 
-  final Cart cart;
+  final CartItem cart;
   final TextTheme text;
-  final Product product;
+  final ProductItem product;
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +151,7 @@ class Footer extends StatelessWidget {
           Container(
             padding: const EdgeInsets.only(right: 10),
             child: Text(
-              'Color: ${Product.getProductColor(cart.color)['name']}',
+              'Color: ${ProductItem.getProductColor(cart.color)['name']}',
               style: text.bodyText2,
             ),
           ),

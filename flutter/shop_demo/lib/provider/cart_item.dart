@@ -1,17 +1,16 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import '../provider/modal.dart';
+import 'modal.dart';
 
-class Cart extends Equatable with ChangeNotifier {
+class CartItem extends Equatable with ChangeNotifier {
   final String id;
   final String productId;
   final String title;
   final double price;
   final ColorCode color;
-
   int qty;
 
-  Cart({
+  CartItem({
     @required this.id,
     @required this.productId,
     @required this.title,

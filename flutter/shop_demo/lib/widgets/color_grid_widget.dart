@@ -23,7 +23,7 @@ class ColorGridBar extends StatelessWidget {
       ),
       itemBuilder: (context, index) {
         return _colorPattern(
-            color: Product.getProductColor(colorList[index]),
+            color: ProductItem.getProductColor(colorList[index]),
             callback: onDoubleTap);
       },
       itemCount: colorList.length,
