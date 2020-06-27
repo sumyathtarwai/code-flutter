@@ -41,7 +41,7 @@ class _ProductHomeState extends State<ProductHome> {
           filter(theme),
         ],
       ),
-      drawer: DrawerWidget(),
+      drawer: const DrawerWidget(),
       body: SafeArea(
         child: ProductGridView(showOnlyFavorite: _showOnlyFavorite),
       ),

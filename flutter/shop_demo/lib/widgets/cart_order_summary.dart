@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../provider/modal.dart';
 
 class OrderSummary extends StatelessWidget {
@@ -12,7 +13,8 @@ class OrderSummary extends StatelessWidget {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     var text = theme.textTheme;
-
+    var cart = Provider.of<CartList>(context, listen: false);
+    var order = Provider.of<OrderList>(context, listen: false);
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Column(
@@ -63,7 +65,10 @@ class OrderSummary extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             child: RaisedButton(
               color: theme.buttonColor,
-              onPressed: () => {},
+              onPressed: () {
+                order.addOrder(cart.cartList, cart.total);
+                cart.clearCart();
+              },
               child: Text(
                 'Checkout',
                 style: text.button,

@@ -6,9 +6,8 @@ class CartList with ChangeNotifier {
   // int id;
   // String userId;
 
-  CartList();
 //FIXME static variable ONLY for debug
-  static final List<CartItem> _cartList = [];
+  static List<CartItem> _cartList = [];
 
   List<CartItem> get cartList {
     return [..._cartList];
@@ -32,6 +31,11 @@ class CartList with ChangeNotifier {
       _cartList.remove(cart);
       notifyListeners();
     }
+  }
+
+  void clearCart() {
+    _cartList = [];
+    notifyListeners();
   }
 
   int get totalQty {

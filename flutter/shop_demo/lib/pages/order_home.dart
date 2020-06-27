@@ -21,7 +21,7 @@ class OrderHome extends StatelessWidget {
         iconTheme: theme.iconTheme,
         elevation: 0,
       ),
-      drawer: DrawerWidget(),
+      drawer: const DrawerWidget(),
       body: Container(),
     );
   }
