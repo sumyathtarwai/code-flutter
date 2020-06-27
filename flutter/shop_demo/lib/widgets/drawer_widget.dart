@@ -3,7 +3,7 @@ import 'package:shop_demo/pages/pages.dart';
 import '../route.dart';
 
 class DrawerWidget extends StatelessWidget {
-  DrawerWidget({Key key}) : super(key: key);
+  const DrawerWidget({Key key}) : super(key: key);
 
   Widget build(BuildContext context) {
     final media = MediaQuery.of(context);
@@ -36,7 +36,11 @@ class DrawerWidget extends StatelessWidget {
               context,
               Icons.shopping_basket,
               'Cart',
-              () => Navigator.pushReplacementNamed(context, RouteName.cart),
+              () => Navigator.pushNamedAndRemoveUntil(
+                context,
+                RouteName.cart,
+                ModalRoute.withName(RouteName.home),
+              ),
             ),
             _buildListTile(
               context,

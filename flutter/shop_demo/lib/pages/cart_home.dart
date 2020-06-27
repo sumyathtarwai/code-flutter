@@ -15,6 +15,7 @@ class CartHome extends StatelessWidget {
     var carts = Provider.of<CartList>(context);
     var products = Provider.of<ProductList>(context, listen: false);
 
+    var fromDrawer = ModalRoute.of(context).isFirst;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -24,8 +25,21 @@ class CartHome extends StatelessWidget {
         backgroundColor: Colors.transparent,
         iconTheme: theme.iconTheme,
         elevation: 0,
+        leading: Builder(
+          builder: (BuildContext context) {
+            return fromDrawer
+                ? IconButton(
+                    icon: const Icon(Icons.menu),
+                    onPressed: () => Scaffold.of(context).openDrawer(),
+                  )
+                : IconButton(
+                    icon: const Icon(Icons.keyboard_arrow_left, size: 40),
+                    onPressed: () => Navigator.of(context).pop(),
+                  );
+          },
+        ),
       ),
-      drawer: DrawerWidget(),
+      drawer: const DrawerWidget(),
       body: SafeArea(
         child: carts.cartList.isEmpty
             ? Padding(
