@@ -5,7 +5,7 @@ class OrderList with ChangeNotifier {
   // final String id;
 //final String userId;
 //final String storeId;
-  final List<OrderItem> _order = [];
+  static List<OrderItem> _order = [];
 
   List<OrderItem> get order {
     return [..._order];
@@ -20,6 +20,12 @@ class OrderList with ChangeNotifier {
         createdDate: DateTime.now(),
       ),
     );
+    notifyListeners();
+  }
+
+  void removeOrder(String id) {
+    var i = _order.indexWhere((el) => el.id == id);
+    if (i >= 0) _order.removeAt(i);
     notifyListeners();
   }
 }

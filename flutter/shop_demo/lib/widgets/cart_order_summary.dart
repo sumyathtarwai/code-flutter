@@ -68,6 +68,14 @@ class OrderSummary extends StatelessWidget {
               onPressed: () {
                 order.addOrder(cart.cartList, cart.total);
                 cart.clearCart();
+                Scaffold.of(context).showSnackBar(
+                  SnackBar(
+                    backgroundColor: Theme.of(context).primaryColorDark,
+                    content: Text(
+                      'Successfully ordered!',
+                    ),
+                  ),
+                );
               },
               child: Text(
                 'Checkout',

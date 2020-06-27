@@ -59,7 +59,7 @@ class DrawerWidget extends StatelessWidget {
               context,
               Icons.history,
               'Order History',
-              () => Navigator.pushReplacementNamed(context, '/'),
+              () => Navigator.pushReplacementNamed(context, RouteName.order),
             ),
           ],
         ),
