@@ -27,10 +27,20 @@ class OrderItem extends Equatable with ChangeNotifier {
     this.orderStatus = OrderStatus.waiting,
   });
 
+  void removeOrderItem(String cartId) {
+    if (cart.isEmpty) return;
+
+    var i = cart.indexWhere((el) => el.id == cartId);
+    if (i >= 0) {
+      cart.removeAt(i);
+      notifyListeners();
+    }
+  }
+
   @override
   List<Object> get props => [id];
 
-  String get orderName {
+  String get statusName {
     var status;
     switch (this.orderStatus) {
       case OrderStatus.waiting:

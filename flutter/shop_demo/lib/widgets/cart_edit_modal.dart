@@ -4,7 +4,6 @@ import 'package:shop_demo/widgets/product_content_widget.dart';
 import '../provider/modal.dart';
 import '../provider/product_item.dart';
 
-
 import 'image_widget.dart';
 
 class CartEditModal extends StatefulWidget {
@@ -33,7 +32,7 @@ class _CartEditModalState extends State<CartEditModal> {
 
   @override
   Widget build(BuildContext context) {
-    var length = widget.product.displayQty;
+    // var length = widget.product.displayQty;
     //var qtyList = List.generate(length, (i) => i + 1);
 
     return Material(

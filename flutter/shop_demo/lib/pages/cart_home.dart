@@ -44,9 +44,11 @@ class CartHome extends StatelessWidget {
         child: carts.cartList.isEmpty
             ? Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Text(
-                  'There is no items in the cart.',
-                  style: theme.textTheme.headline4,
+                child: Center(
+                  child: Text(
+                    'No items in the cart yet.',
+                    style: theme.textTheme.headline4,
+                  ),
                 ),
               )
             : Column(

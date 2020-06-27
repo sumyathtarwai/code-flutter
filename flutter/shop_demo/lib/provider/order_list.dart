@@ -23,9 +23,16 @@ class OrderList with ChangeNotifier {
     notifyListeners();
   }
 
-  void removeOrder(String id) {
-    var i = _order.indexWhere((el) => el.id == id);
-    if (i >= 0) _order.removeAt(i);
-    notifyListeners();
+  void removeOrder({@required String orderId, @required String cartId}) {
+    var i = _order.indexWhere((el) => el.id == orderId);
+
+    if (i >= 0) {
+      _order[i].removeOrderItem(cartId);
+
+      if (_order[i].cart.isEmpty) {
+        _order.removeAt(i);
+      }
+      notifyListeners();
+    }
   }
 }
