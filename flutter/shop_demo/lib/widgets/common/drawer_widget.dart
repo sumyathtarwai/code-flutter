@@ -61,6 +61,14 @@ class DrawerWidget extends StatelessWidget {
               'Order History',
               () => Navigator.pushReplacementNamed(context, RouteName.order),
             ),
+            Divider(color: Theme.of(context).accentColor),
+            _buildListTile(
+              context,
+              Icons.list,
+              'Product',
+              () => Navigator.pushReplacementNamed(
+                  context, RouteName.adminProduct),
+            ),
           ],
         ),
       ),
