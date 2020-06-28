@@ -46,4 +46,16 @@ class CartList with ChangeNotifier {
   double get total {
     return _cartList.fold(0, (prev, el) => prev + (el.price * el.qty));
   }
+
+  void removeCurrent(String productId) {
+    var i = _cartList.indexWhere((element) => element.productId == productId);
+    if (i >= 0) {
+      if (_cartList[i].qty > 1) {
+        _cartList[i].qty--;
+      } else {
+        _cartList.removeAt(i);
+      }
+      notifyListeners();
+    }
+  }
 }

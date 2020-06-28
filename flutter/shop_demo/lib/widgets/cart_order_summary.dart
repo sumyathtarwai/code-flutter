@@ -72,7 +72,7 @@ class OrderSummary extends StatelessWidget {
                   SnackBar(
                     backgroundColor: Theme.of(context).primaryColorDark,
                     content: Text(
-                      'Successfully ordered!',
+                      'Successfully Ordered!',
                     ),
                   ),
                 );

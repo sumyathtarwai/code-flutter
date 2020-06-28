@@ -15,7 +15,7 @@ class ProductTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final product = Provider.of<ProductItem>(context);
     final cart = Provider.of<CartList>(context, listen: false);
-    
+
     return Container(
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black12),
@@ -74,17 +74,31 @@ class ProductTile extends StatelessWidget {
               // TODO qty selection
               trailing: IconButton(
                 icon: Icon(Icons.add_shopping_cart),
-                onPressed: () => cart.addToCart(
-                  CartItem(
-                      id: DateTime.now().toString(),
-                      productId: product.id,
-                      title: product.title,
-                      price: product.price,
-                      // FIXME Color
-                      color: ColorCode.red,
-                      // FIXME qty
-                      qty: 1),
-                ),
+                onPressed: () {
+                  cart.addToCart(
+                    CartItem(
+                        id: DateTime.now().toString(),
+                        productId: product.id,
+                        title: product.title,
+                        price: product.price,
+                        // FIXME Color
+                        color: ColorCode.red,
+                        // FIXME qty
+                        qty: 1),
+                  );
+                  Scaffold.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Theme.of(context).primaryColorDark,
+                      content: Text(
+                        'Successfully Added to Cart!',
+                      ),
+                      action: SnackBarAction(
+                        label: 'Undo',
+                        onPressed: () => cart.removeCurrent(product.id),
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
           ),
