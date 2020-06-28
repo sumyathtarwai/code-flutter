@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../widgets/color_grid_widget.dart';
-import '../provider/modal.dart';
+import 'color_grid_widget.dart';
+import '../../provider/modal.dart';
 
 class ProductContent extends StatelessWidget {
   const ProductContent({

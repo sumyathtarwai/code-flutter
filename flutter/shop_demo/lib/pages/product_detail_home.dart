@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../widgets/product_content_widget.dart';
-import '../widgets/add_to_cart_widget.dart';
-import '../widgets/cart_badge_widget.dart';
-import '../widgets/image_widget.dart';
+import '../widgets/common/common_part_export.dart';
+
 import '../provider/modal.dart';
 
 class ProductDetail extends StatelessWidget {

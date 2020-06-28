@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../provider/modal.dart';
+import '../../provider/modal.dart';
 
 class ColorGridBar extends StatelessWidget {
   final Function onDoubleTap;

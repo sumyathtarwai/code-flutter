@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_demo/provider/modal.dart';
 
-import '../route.dart';
+import '../../route.dart';
 
 class CartBadge extends StatelessWidget {
   const CartBadge({Key key}) : super(key: key);

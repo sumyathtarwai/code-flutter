@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import '../provider/modal.dart';
+import '../../provider/modal.dart';
 
 class OrderTile extends StatefulWidget {
   final OrderItem order;

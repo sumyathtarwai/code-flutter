@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_demo/pages/pages.dart';
-import '../route.dart';
+import '../../pages/pages.dart';
+import '../../route.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({Key key}) : super(key: key);

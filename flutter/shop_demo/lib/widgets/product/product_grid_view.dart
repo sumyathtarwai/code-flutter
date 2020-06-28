@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../provider/modal.dart';
-import '../widgets/product_tile.dart';
+import '../../provider/modal.dart';
+import 'product_tile.dart';
 
 class ProductGridView extends StatelessWidget {
   final showOnlyFavorite;

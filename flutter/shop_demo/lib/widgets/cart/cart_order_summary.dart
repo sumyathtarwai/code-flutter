@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../provider/modal.dart';
+import '../../provider/modal.dart';
 
 class OrderSummary extends StatelessWidget {
   final CartList cart;

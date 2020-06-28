@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../widgets/drawer_widget.dart';
-import '../widgets/cart_tile.dart';
+import '../widgets/cart/cart_part_export.dart';
+import '../widgets/common/common_part_export.dart';
 
 import '../provider/modal.dart';
-import '../widgets/cart_order_summary.dart';
 
 class CartHome extends StatelessWidget {
   const CartHome({Key key}) : super(key: key);

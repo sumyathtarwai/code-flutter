@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../route.dart';
-import '../widgets/color_non_widget.dart';
-import '../widgets/color_grid_widget.dart';
-import '../widgets/grid_footer.dart';
-import '../widgets/image_widget.dart';
-import '../provider/modal.dart';
+import '../common/common_part_export.dart';
+import '../../route.dart';
+
+import '../../provider/modal.dart';
+import 'grid_footer.dart';
 
 class ProductTile extends StatelessWidget {
   // final Product product;
