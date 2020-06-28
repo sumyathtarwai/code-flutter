@@ -30,7 +30,12 @@ class AddToCartButton extends StatelessWidget {
           SnackBar(
             backgroundColor: Theme.of(context).primaryColorDark,
             content: Text(
-              'Successfully added!',
+              'Successfully Added to Cart!',
+            ),
+            duration: Duration(seconds: 2),
+            action: SnackBarAction(
+              label: 'Undo',
+              onPressed: () => cart.removeCurrent(product.id),
             ),
           ),
         );

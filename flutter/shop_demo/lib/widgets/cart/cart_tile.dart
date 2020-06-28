@@ -5,7 +5,6 @@ import './cart_part_export.dart';
 import '../common/common_part_export.dart';
 import '../../provider/modal.dart';
 
-
 class CartTile extends StatelessWidget {
   const CartTile({
     Key key,
@@ -23,11 +22,9 @@ class CartTile extends StatelessWidget {
     return Dismissible(
       // key shoud be unique
       key: Key(cart.id),
+      confirmDismiss: (direction) => confirmRemove(context),
       onDismissed: (_) {
         Provider.of<CartList>(context, listen: false).removeCart(cart);
-      },
-      confirmDismiss: (direction) {
-        return confirmRemove(context);
       },
       direction: DismissDirection.endToStart,
       background: Container(
@@ -72,11 +69,15 @@ class CartTile extends StatelessWidget {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Remove This'),
+          title: Text('Remove Cart'),
           content: Text('Your cart item will be removed!'),
           actions: <Widget>[
-            FlatButton(onPressed: () => true, child: Text('OK')),
-            FlatButton(onPressed: () => false, child: Text('Cancel')),
+            FlatButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: Text('OK')),
+            FlatButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: Text('CANCEL')),
           ],
         );
       },

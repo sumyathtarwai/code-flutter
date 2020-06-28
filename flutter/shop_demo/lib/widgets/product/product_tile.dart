@@ -91,6 +91,7 @@ class ProductTile extends StatelessWidget {
                       content: Text(
                         'Successfully Added to Cart!',
                       ),
+                      duration: Duration(seconds: 2),
                       action: SnackBarAction(
                         label: 'Undo',
                         onPressed: () => cart.removeCurrent(product.id),
