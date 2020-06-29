@@ -37,7 +37,11 @@ class AdminProductItem extends StatelessWidget {
               ),
             ),
           ),
-          IconButton(icon: Icon(Icons.delete), onPressed: () => {})
+          IconButton(
+            icon: Icon(Icons.delete),
+            onPressed: () => Provider.of<ProductList>(context, listen: false)
+                .removeProduct(product.id),
+          ),
         ],
       ),
     );

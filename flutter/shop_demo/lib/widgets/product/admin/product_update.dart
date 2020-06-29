@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_demo/route.dart';
 //import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 //import 'package:provider/provider.dart';
-import 'package:shop_demo/provider/product_item.dart';
+import '../../../provider/modal.dart';
 import '../../../widgets/common/common_part_export.dart';
 
 class ProductUpdate extends StatefulWidget {
@@ -88,7 +90,7 @@ class _ProductEditFormState extends State<ProductEditForm> {
   void initState() {
     // _titleCtrl = TextEditingController(text: widget.product?.title);
     _imageCtrl = TextEditingController(text: widget.product?.imageUrl);
-    _imageFocusNode.addListener(() => _updatePreviewImage);
+    _imageFocusNode.addListener(_updatePreviewImage);
     super.initState();
   }
 
@@ -100,7 +102,7 @@ class _ProductEditFormState extends State<ProductEditForm> {
     _imageCtrl.dispose();
 
     _descFocusNode.dispose();
-    _imageFocusNode.removeListener(() => _updatePreviewImage);
+    _imageFocusNode.removeListener(_updatePreviewImage);
     _imageFocusNode.dispose();
     super.dispose();
   }
@@ -112,7 +114,31 @@ class _ProductEditFormState extends State<ProductEditForm> {
   }
 
   void _saveForm() {
-    if (_formKey.currentState.validate()) _formKey.currentState.save();
+    if (_formKey.currentState.validate()) {
+      var isEdit = widget.product?.id != null;
+
+      _formKey.currentState.save();
+      var productOf = Provider.of<ProductList>(context, listen: false);
+      if (isEdit) {
+        productOf.updateProduct(_copyProductWith(id: widget.product.id));
+      } else {
+        productOf.addProduct(_newProduct);
+      }
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          content: Text('Successfully ${isEdit ? "Updated" : "Added"}!'),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () => Navigator.of(context).popUntil(
+                ModalRoute.withName(RouteName.adminProduct),
+              ),
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
     print(_newProduct);
   }
 
@@ -144,6 +170,8 @@ class _ProductEditFormState extends State<ProductEditForm> {
   Widget build(BuildContext context) {
     var textOf = Theme.of(context).textTheme;
     var product = widget.product;
+    var _isEdit = product != null;
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
       child: Form(
@@ -309,7 +337,7 @@ class _ProductEditFormState extends State<ProductEditForm> {
               child: RaisedButton.icon(
                 onPressed: _saveForm,
                 icon: Icon(Icons.done_all),
-                label: Text(product != null ? 'Update' : 'Add'),
+                label: Text(_isEdit ? 'Update' : 'Add'),
               ),
             ),
             // Center(
