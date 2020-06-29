@@ -15,7 +15,7 @@ class AdminProductHome extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'PRODUCT',
+          'Product',
           style: Theme.of(context).textTheme.headline6,
         ),
         backgroundColor: Colors.transparent,

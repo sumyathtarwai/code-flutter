@@ -39,8 +39,19 @@ class AdminProductItem extends StatelessWidget {
           ),
           IconButton(
             icon: Icon(Icons.delete),
-            onPressed: () => Provider.of<ProductList>(context, listen: false)
-                .removeProduct(product.id),
+            onPressed: () {
+              var productOf = Provider.of<ProductList>(context, listen: false);
+              var removeProduct = productOf.removeProduct(product.id);
+              Scaffold.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Successfully Deleted!'),
+                  action: SnackBarAction(
+                    label: 'UNDO',
+                    onPressed: () => productOf.undoRemove(removeProduct),
+                  ),
+                ),
+              );
+            },
           ),
         ],
       ),
