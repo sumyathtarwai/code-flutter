@@ -7,3 +7,4 @@ export 'floating_modal.dart';
 export 'image_widget.dart';
 export 'product_content_widget.dart';
 export 'drawer_widget.dart';
+export 'util.dart';

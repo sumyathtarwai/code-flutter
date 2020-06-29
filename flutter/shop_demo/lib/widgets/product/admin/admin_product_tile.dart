@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_demo/widgets/common/common_part_export.dart';
 import '../../../provider/modal.dart';
+import 'product_update.dart';
 
 class AdminProductItem extends StatelessWidget {
   const AdminProductItem({Key key}) : super(key: key);
@@ -25,7 +27,16 @@ class AdminProductItem extends StatelessWidget {
         // fix 'hasSize' by setting min
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          IconButton(icon: Icon(Icons.edit), onPressed: () => {}),
+          IconButton(
+            icon: Icon(Icons.edit),
+            onPressed: () => showFloatingModalBottomSheet(
+              context: context,
+              builder: (context, scrollController) => ProductUpdate(
+                scrollController: scrollController,
+                product: product,
+              ),
+            ),
+          ),
           IconButton(icon: Icon(Icons.delete), onPressed: () => {})
         ],
       ),

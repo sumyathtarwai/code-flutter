@@ -35,8 +35,7 @@ class _CartEditModalState extends State<CartEditModal> {
     return Material(
       child: WillPopScope(
         onWillPop: () async {
-          bool shouldClose = await showExitDialog(context);
-          return shouldClose;
+          return await Util.showExitDialog(context);
         },
         child: SafeArea(
           top: false,
@@ -54,36 +53,6 @@ class _CartEditModalState extends State<CartEditModal> {
         ),
       ),
     );
-  }
-
-  Future<bool> showExitDialog(BuildContext context) async {
-    bool shouldClose = true;
-    await showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(
-          'Would you like to exit?',
-          style: Theme.of(context).textTheme.subtitle1,
-        ),
-        actions: <Widget>[
-          FlatButton(
-            child: Text('Yes'),
-            onPressed: () {
-              shouldClose = true;
-              Navigator.of(context).pop();
-            },
-          ),
-          FlatButton(
-            child: Text('No'),
-            onPressed: () {
-              shouldClose = false;
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      ),
-    );
-    return shouldClose;
   }
 
   Widget rowTitle({Widget leading, Widget trailig}) {

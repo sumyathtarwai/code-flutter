@@ -61,9 +61,9 @@ class ProductItem extends Equatable with ChangeNotifier {
       this.imageUrl,
       this.categoryId,
       this.flag = false,
-      this.size = Size.non,
+      this.size = Size.free,
       this.color,
-      this.displayQty = 10,
+      this.displayQty = 1,
       this.gender = Gender.non,
       this.isFavorite = false});
 

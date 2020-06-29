@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_demo/provider/product_item.dart';
+import 'package:shop_demo/widgets/product/admin/product_update.dart';
 import '../provider/product_list.dart';
 import '../widgets/product/admin/admin_product_tile.dart';
 import '../widgets/common/common_part_export.dart';
@@ -14,7 +15,7 @@ class AdminProductHome extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'KAIMONO',
+          'PRODUCT',
           style: Theme.of(context).textTheme.headline6,
         ),
         backgroundColor: Colors.transparent,
@@ -23,7 +24,11 @@ class AdminProductHome extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.library_add),
-            onPressed: () => {},
+            onPressed: () => showFloatingModalBottomSheet(
+              context: context,
+              builder: (context, scrollController) =>
+                  ProductUpdate(scrollController: scrollController),
+            ),
           )
         ],
       ),
@@ -31,7 +36,8 @@ class AdminProductHome extends StatelessWidget {
       body: SafeArea(
         child: Consumer<ProductList>(
           builder: (context, value, child) => ListView.builder(
-            itemBuilder: (context, i) => ChangeNotifierProvider<ProductItem>.value(
+            itemBuilder: (context, i) =>
+                ChangeNotifierProvider<ProductItem>.value(
               value: productOf.products[i],
               builder: (context, child) => AdminProductItem(),
             ),
