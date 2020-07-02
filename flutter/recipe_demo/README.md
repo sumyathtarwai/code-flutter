@@ -8,8 +8,8 @@
 
 ## TODO
 
-- Cache Image
-- State Management
+- [ ] Cache Image
+- [ ] State Management
 
 <div>
 <img src='screenshots/recipe.gif' width="30%" alt='main'> 

@@ -13,6 +13,7 @@ class CategoriesPage extends StatelessWidget {
           .map((e) => CategoryItem(
                 id: e.id,
                 title: e.title,
+                imageUrl: e.imageUrl,
                 color: e.color,
               ))
           .toList(),
