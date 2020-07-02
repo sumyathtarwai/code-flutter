@@ -7,3 +7,7 @@
 - [ ] Selectable Color
 - [ ] Selectable Size
 - [ ] Selectable QTY
+
+- loading
+- pull to refresh
+- error handling 

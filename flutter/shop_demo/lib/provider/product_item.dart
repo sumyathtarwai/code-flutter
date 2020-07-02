@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'product_item.g.dart';
 
 enum Size {
   oversize,
@@ -36,6 +38,7 @@ enum Gender {
   non,
 }
 
+@JsonSerializable()
 class ProductItem extends Equatable with ChangeNotifier {
   final String sku;
   final String id;
@@ -66,6 +69,10 @@ class ProductItem extends Equatable with ChangeNotifier {
       this.displayQty = 1,
       this.gender = Gender.non,
       this.isFavorite = false});
+
+  factory ProductItem.fromJson(Map<String, dynamic> json) =>
+      _$ProductItemFromJson(json);
+  Map<String, dynamic> toJson() => _$ProductItemToJson(this);
 
   static Map<String, Object> getProductColor(ColorCode color) {
     var map;

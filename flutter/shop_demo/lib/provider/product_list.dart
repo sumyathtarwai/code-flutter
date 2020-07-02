@@ -1,5 +1,7 @@
-import 'package:flutter/foundation.dart';
+import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
 import 'modal.dart';
 
 class ProductList with ChangeNotifier {
@@ -22,21 +24,34 @@ class ProductList with ChangeNotifier {
     return _products.where((el) => el.isFavorite).toList();
   }
 
-  void addProduct(ProductItem product) {
-    _products.add(
-      ProductItem(
-        id: DateTime.now().toString(),
-        title: product.title,
-        desc: product.desc,
-        price: product.price,
-        imageUrl: product.imageUrl,
-        displayQty: product.displayQty,
-        color: product.color,
-        size: product.size,
-        isFavorite: false,
+  Future<void> addProduct(ProductItem product) {
+    const url = 'https://shop-demo-f1.firebaseio.com/products.json';
+    return http
+        .post(
+      url,
+      body: json.encode(
+        product.toJson(),
       ),
+    )
+        .then(
+      (response) {
+        _products.add(
+          ProductItem(
+            id: DateTime.now().toString(),
+            title: product.title,
+            desc: product.desc,
+            price: product.price,
+            imageUrl: product.imageUrl,
+            displayQty: product.displayQty,
+            color: product.color,
+            size: product.size,
+            isFavorite: false,
+          ),
+        );
+        print(response.body);
+        notifyListeners();
+      },
     );
-    notifyListeners();
   }
 
   void updateProduct(ProductItem product) {
@@ -44,7 +59,7 @@ class ProductList with ChangeNotifier {
       var i = _products.indexWhere((element) => element.id == product.id);
       if (i >= 0) {
         _products[i] = ProductItem(
-          id: product.id,
+          // id: product.id,
           title: product.title,
           desc: product.desc,
           price: product.price,
@@ -54,6 +69,7 @@ class ProductList with ChangeNotifier {
           size: product.size,
           isFavorite: product.isFavorite,
         );
+
         notifyListeners();
       }
     }

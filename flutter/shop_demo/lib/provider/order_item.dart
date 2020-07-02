@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:json_annotation/json_annotation.dart';
 import '../provider/modal.dart';
+part 'order_item.g.dart';
 
 enum OrderStatus {
   waiting,
@@ -12,6 +14,7 @@ enum OrderStatus {
   close,
 }
 
+@JsonSerializable()
 class OrderItem extends Equatable with ChangeNotifier {
   final String id;
   final List<CartItem> cart;
@@ -26,6 +29,10 @@ class OrderItem extends Equatable with ChangeNotifier {
     this.createdDate,
     this.orderStatus = OrderStatus.waiting,
   });
+
+  factory OrderItem.fromJson(Map<String, dynamic> json) =>
+      _$OrderItemFromJson(json);
+  Map<String, dynamic> toJson() => _$OrderItemToJson(this);
 
   void removeOrderItem(String cartId) {
     if (cart.isEmpty) return;

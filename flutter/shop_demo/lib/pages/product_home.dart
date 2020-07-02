@@ -15,9 +15,13 @@ class ProductHome extends StatefulWidget {
 class _ProductHomeState extends State<ProductHome> {
   var _showOnlyFavorite = false;
 
+  bool _isInit = true;
   @override
   void didChangeDependencies() {
-    _showOnlyFavorite = widget.showOnlyFavorite;
+    if (_isInit) {
+      _showOnlyFavorite = widget.showOnlyFavorite;
+    }
+    _isInit = false;
     super.didChangeDependencies();
   }
 
