@@ -34,4 +34,24 @@ abstract class RestClient {
 
   @DELETE("/products/{id}.json")
   Future<void> deleteProduct(@Path() String id);
+
+// ORDER
+  @GET("/orders.json")
+  Future<Map<String, OrderItem>> getOrders();
+
+  @GET("/orders/{id}.json")
+  Future<OrderItem> getOrderById(@Path("id") String id);
+
+  @POST("/orders.json")
+  Future<HttpResponse> addOrder(@Body() OrderItem order);
+
+  @PUT("/orders/{id}.json")
+  Future<OrderItem> updateOrder(@Path() String id, @Body() OrderItem order);
+
+  @PATCH("/orders/{id}.json")
+  Future<OrderItem> updateOrderPart(
+      @Path() String id, @Body() Map<String, dynamic> map);
+
+  @DELETE("/orders/{id}.json")
+  Future<void> deleteOrder(@Path() String id);
 }

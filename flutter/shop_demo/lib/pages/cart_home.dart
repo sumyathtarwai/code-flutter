@@ -5,8 +5,15 @@ import '../widgets/common/common_part_export.dart';
 
 import '../provider/modal.dart';
 
-class CartHome extends StatelessWidget {
+class CartHome extends StatefulWidget {
   const CartHome({Key key}) : super(key: key);
+
+  @override
+  _CartHomeState createState() => _CartHomeState();
+}
+
+class _CartHomeState extends State<CartHome> {
+  var _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +60,7 @@ class CartHome extends StatelessWidget {
             : Column(
                 children: <Widget>[
                   Expanded(
-                    child: OrderSummary(cart: carts),
+                    child: OrderSummary(cart: carts, callback: _loading),
                   ),
                   Expanded(
                     flex: 4,
@@ -76,5 +83,13 @@ class CartHome extends StatelessWidget {
               ),
       ),
     );
+  }
+
+  _loading(bool val) {
+    if (mounted) {
+      setState(() {
+        _isLoading = val;
+      });
+    }
   }
 }
