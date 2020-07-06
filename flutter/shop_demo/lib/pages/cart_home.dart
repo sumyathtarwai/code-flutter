@@ -13,8 +13,6 @@ class CartHome extends StatefulWidget {
 }
 
 class _CartHomeState extends State<CartHome> {
-  var _isLoading = false;
-
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -83,13 +81,5 @@ class _CartHomeState extends State<CartHome> {
               ),
       ),
     );
-  }
-
-  _loading(bool val) {
-    if (mounted) {
-      setState(() {
-        _isLoading = val;
-      });
-    }
   }
 }
