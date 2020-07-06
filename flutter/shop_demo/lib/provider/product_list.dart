@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:retrofit/dio.dart';
@@ -37,17 +38,22 @@ class ProductList with ChangeNotifier {
   Future<List<ProductItem>> fetchProducts() async {
     try {
       Map<String, ProductItem> response = await _api.getProducts();
-
       final data =
-          response.entries.map((e) => e.value.mapWithId(e.key)).toList();
+          response?.entries?.map((e) => e.value.mapWithId(e.key))?.toList();
 
       _products.clear();
       _products.addAll(data);
       notifyListeners();
       return data;
     } catch (e) {
-      throw NetworkException(e);
+      switch (e.runtimeType) {
+        case DioError:
+          throw NetworkException(e);
+          break;
+        default:
+      }
     }
+    return null;
   }
 
   Future<void> addProduct(ProductItem product) async {
@@ -58,7 +64,12 @@ class ProductList with ChangeNotifier {
       notifyListeners();
       return res;
     } catch (e) {
-      throw NetworkException(e);
+      switch (e.runtimeType) {
+        case DioError:
+          throw NetworkException(e);
+          break;
+        default:
+      }
     }
   }
 
@@ -66,16 +77,27 @@ class ProductList with ChangeNotifier {
     if (product.id.isNotEmpty) {
       var i = _products.indexWhere((element) => element.id == product.id);
       if (i >= 0) {
+        // check value is updated or not [equaltable]
+        if (product == _products[i]) {
+          return;
+        }
+        var temp = _products[i];
+        _products[i] = product;
+
         try {
-          // check value is updated or not [equaltable]
-          if (product == _products[i]) {
-            return;
-          }
           await _api.updateProductPart(product.id, product.toJson());
-          _products[i] = product;
           notifyListeners();
         } catch (e) {
-          throw NetworkException(e);
+          // rollback
+          _products[i] = temp;
+          temp = null;
+          notifyListeners();
+          switch (e.runtimeType) {
+            case DioError:
+              throw NetworkException(e);
+              break;
+            default:
+          }
         }
       }
     }
@@ -83,17 +105,26 @@ class ProductList with ChangeNotifier {
 
   Future<Map<String, Object>> removeProduct(String id) async {
     var i = _products.indexWhere((el) => el.id == id);
-    var product;
+
     if (i >= 0) {
+      var product = _products.removeAt(i);
+
       try {
         await _api.deleteProduct(id);
-        product = _products.removeAt(i);
+        notifyListeners();
       } catch (e) {
+        // rollback
         await _api.addProduct(product);
         _products.insert(i, product);
-        throw NetworkException(e);
+        product = null;
+        notifyListeners();
+        switch (e.runtimeType) {
+          case DioError:
+            throw NetworkException(e);
+            break;
+          default:
+        }
       }
-      notifyListeners();
       return {'index': i, 'product': product};
     }
     return {};
@@ -103,10 +134,15 @@ class ProductList with ChangeNotifier {
     if (map != null) {
       try {
         _products.insert(map['index'], map['product']);
-        notifyListeners();
         await _api.addProduct(map['product']);
+        notifyListeners();
       } catch (e) {
-        throw NetworkException(e);
+        switch (e.runtimeType) {
+          case DioError:
+            throw NetworkException(e);
+            break;
+          default:
+        }
       }
     }
   }

@@ -1,6 +1,11 @@
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:shop_demo/exception/network_exception.dart';
+import '../network/rest_client.dart';
+
+import '../service_locator.dart';
 part 'product_item.g.dart';
 
 enum Size {
@@ -184,9 +189,25 @@ class ProductItem extends Equatable with ChangeNotifier {
   @override
   bool get stringify => true;
 
-  void toggleFavorite() {
+  Future<void> toggleFavorite() async {
+    // Inject  Api
+    final RestClient _api = locator<RestClient>();
+    var temp = isFavorite;
     isFavorite = !isFavorite;
     notifyListeners();
+    try {
+      await _api.updateProductPart(this.id, {'isFavorite': isFavorite});
+    } catch (e) {
+      isFavorite = temp;
+      notifyListeners();
+      temp = null;
+      switch (e.runtimeType) {
+        case DioError:
+          throw NetworkException(e);
+          break;
+        default:
+      }
+    }
   }
 
   ProductItem copyWith({

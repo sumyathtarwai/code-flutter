@@ -63,7 +63,7 @@ final dummyProduct = [
     title: 'DRESS',
     desc: 'Style and cozy - for summer',
     color: [ColorCode.red, ColorCode.blue],
-    price: 9.99,
+    price: 89.99,
     size: Size.free,
     imageUrl:
         'https://images.unsplash.com/photo-1572804013427-4d7ca7268217?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
