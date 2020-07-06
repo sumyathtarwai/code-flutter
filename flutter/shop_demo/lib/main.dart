@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+
 import 'package:provider/provider.dart';
+
 import './provider/modal.dart';
 import 'package:shop_demo/route.dart';
 
+import 'service_locator.dart';
+
 void main() {
+  setupLocator();
   runApp(MyApp());
 }
 
@@ -14,6 +19,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        // Provider(
+        //   create: (_) => RestClient(Dio()),
+        // ),
         ChangeNotifierProvider.value(
           value: ProductList(),
         ),

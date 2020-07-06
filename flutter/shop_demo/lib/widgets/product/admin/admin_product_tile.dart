@@ -9,7 +9,7 @@ class AdminProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var product = Provider.of<ProductItem>(context);
+    var product = Provider.of<ProductItem>(context, listen: false);
     return ListTile(
       isThreeLine: true,
       leading: CircleAvatar(
@@ -39,9 +39,9 @@ class AdminProductItem extends StatelessWidget {
           ),
           IconButton(
             icon: Icon(Icons.delete),
-            onPressed: () {
+            onPressed: () async {
               var productOf = Provider.of<ProductList>(context, listen: false);
-              var removeProduct = productOf.removeProduct(product.id);
+              var removeProduct = await productOf.removeProduct(product.id);
               Scaffold.of(context).showSnackBar(
                 SnackBar(
                   content: Text('Successfully Deleted!'),

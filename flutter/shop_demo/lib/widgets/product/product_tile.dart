@@ -38,8 +38,6 @@ class ProductTile extends StatelessWidget {
                 context,
                 RouteName.productDetail,
                 arguments: product.id,
-                // arguments:
-                //     ChangeNotifierProvider<Product>.value(value: product),
               ),
             ),
           ),

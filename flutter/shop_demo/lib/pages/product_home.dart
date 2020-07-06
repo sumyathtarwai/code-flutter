@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_demo/provider/modal.dart';
 import '../widgets/common/common_part_export.dart';
 import '../widgets/product/product_part_export.dart';
 
@@ -26,6 +28,17 @@ class _ProductHomeState extends State<ProductHome> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _refreshData();
+  }
+
+  Future<List<ProductItem>> _refreshData() async {
+    final of = Provider.of<ProductList>(context, listen: false);
+    return await of.fetchProducts();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
 
@@ -46,7 +59,10 @@ class _ProductHomeState extends State<ProductHome> {
       ),
       drawer: const DrawerWidget(),
       body: SafeArea(
-        child: ProductGridView(showOnlyFavorite: _showOnlyFavorite),
+        child: RefreshIndicator(
+            onRefresh: _refreshData,
+            backgroundColor: Theme.of(context).primaryColorDark,
+            child: ProductGridView(showOnlyFavorite: _showOnlyFavorite)),
       ),
     );
   }

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_demo/provider/modal.dart';
 
-import '../../../route.dart';
-
 class ProductEditForm extends StatefulWidget {
+  final Function loadingCallback;
   const ProductEditForm({
     Key key,
     @required this.product,
+    @required this.loadingCallback,
   }) : super(key: key);
 
   final ProductItem product;
@@ -17,39 +17,42 @@ class ProductEditForm extends StatefulWidget {
 }
 
 class _ProductEditFormState extends State<ProductEditForm> {
-  // TextEditingController _titleCtrl;
-  // TextEditingController _descCtrl;
-  // TextEditingController _priceCtrl;
-  var _newProduct = ProductItem(
-    id: null,
-    title: null,
-    desc: null,
-    price: null,
-    imageUrl: null,
-    displayQty: 1,
-    size: Size.free,
-    color: [ColorCode.non],
-  );
+  ProductItem _newProduct;
   TextEditingController _imageCtrl;
   final _formKey = GlobalKey<FormState>();
   final _descFocusNode = FocusNode();
   final _imageFocusNode = FocusNode();
+
   //Color _currentColor = Colors.limeAccent;
   // void _changeColor(Color color) => setState(() => _currentColor = color);
 
   @override
   void initState() {
-    // _titleCtrl = TextEditingController(text: widget.product?.title);
+    super.initState();
     _imageCtrl = TextEditingController(text: widget.product?.imageUrl);
     _imageFocusNode.addListener(_updatePreviewImage);
-    super.initState();
+
+    //
+    var existingProduct = widget.product;
+    if (existingProduct != null) {
+      _newProduct = widget.product;
+    } else {
+      _newProduct = ProductItem(
+        id: null,
+        title: null,
+        desc: null,
+        price: null,
+        imageUrl: null,
+        displayQty: 10,
+        size: Size.free,
+        color: [ColorCode.white],
+        isFavorite: false,
+      );
+    }
   }
 
   @override
   void dispose() {
-    // _titleCtrl.dispose();
-    // _descCtrl.dispose();
-    // _priceCtrl.dispose();
     _imageCtrl.dispose();
 
     _descFocusNode.dispose();
@@ -64,37 +67,41 @@ class _ProductEditFormState extends State<ProductEditForm> {
     }
   }
 
-  void _saveForm() {
+  Future<void> _saveForm() async {
     if (_formKey.currentState.validate()) {
-      var isEdit = widget.product?.id != null;
+      final existingProduct = widget.product;
+      var isEdit = existingProduct?.id != null;
 
-      _formKey.currentState.save();
+      try {
+        _formKey.currentState.save();
+        var productOf = Provider.of<ProductList>(context, listen: false);
+        widget.loadingCallback(loading: true);
+        if (isEdit) {
+          // TODO as color unchangeable always update as is
+          await productOf.updateProduct(_newProduct);
+        } else {
+          await productOf.addProduct(_newProduct);
+        }
 
-      var productOf = Provider.of<ProductList>(context, listen: false);
-      if (isEdit) {
-        productOf.updateProduct(
-          _copyProductWith(
-              id: widget.product.id, isFavorite: widget.product.isFavorite),
-        );
-      } else {
-        productOf.addProduct(_newProduct);
+        widget.loadingCallback(loading: false, pop: true);
+      } catch (e) {
+        widget.loadingCallback(loading: false, pop: false);
+        // showDialog(
+        //   context: context,
+        //   builder: (context) => AlertDialog(
+        //     content: Text('Something went wrong'),
+        //     actions: <Widget>[
+        //       FlatButton(
+        //         onPressed: () => Navigator.of(context).popUntil(
+        //           ModalRoute.withName(RouteName.adminProduct),
+        //         ),
+        //         child: Text('OK'),
+        //       ),
+        //     ],
+        //   ),
+        // );
       }
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          content: Text('Successfully ${isEdit ? "Updated" : "Added"}!'),
-          actions: <Widget>[
-            FlatButton(
-              onPressed: () => Navigator.of(context).popUntil(
-                ModalRoute.withName(RouteName.adminProduct),
-              ),
-              child: Text('OK'),
-            ),
-          ],
-        ),
-      );
     }
-    print(_newProduct);
   }
 
   ProductItem _copyProductWith({
@@ -103,21 +110,21 @@ class _ProductEditFormState extends State<ProductEditForm> {
     String desc,
     double price,
     String imageUrl,
-    Size size = Size.free,
-    List<ColorCode> color = const [ColorCode.non],
-    int displayQty = 1,
-    bool isFavorite = false,
+    Size size,
+    List<ColorCode> color,
+    int displayQty,
+    bool isFavorite,
   }) {
     return ProductItem(
-      id: id,
+      id: _newProduct.id,
       title: title ?? _newProduct.title,
       desc: desc ?? _newProduct.desc,
       price: price ?? _newProduct.price,
       imageUrl: imageUrl ?? _newProduct.imageUrl,
-      size: size,
-      color: color,
-      displayQty: displayQty,
-      isFavorite: isFavorite,
+      size: size ?? _newProduct.size,
+      color: color ?? _newProduct.color,
+      displayQty: displayQty ?? _newProduct.displayQty,
+      isFavorite: _newProduct.isFavorite,
     );
   }
 
@@ -149,7 +156,7 @@ class _ProductEditFormState extends State<ProductEditForm> {
                 onFieldSubmitted: (value) =>
                     FocusScope.of(context).requestFocus(_descFocusNode),
                 onSaved: (newValue) =>
-                    _newProduct = _copyProductWith(title: newValue),
+                    _newProduct = _copyProductWith(title: newValue.trim()),
               ),
             ),
             Padding(
@@ -167,7 +174,7 @@ class _ProductEditFormState extends State<ProductEditForm> {
                 keyboardType: TextInputType.multiline,
                 maxLines: 3,
                 onSaved: (newValue) =>
-                    _newProduct = _copyProductWith(desc: newValue),
+                    _newProduct = _copyProductWith(desc: newValue.trim()),
               ),
             ),
             Padding(
@@ -179,6 +186,13 @@ class _ProductEditFormState extends State<ProductEditForm> {
                 ),
                 // controller: _descCtrl,
                 initialValue: product?.price?.toString(),
+                onSaved: (newValue) {
+                  var val = newValue.trim();
+                  if (val.endsWith('.')) {
+                    val = val.replaceFirst(RegExp(r'.'), '');
+                  }
+                  _newProduct = _copyProductWith(price: double.parse(val));
+                },
                 validator: (value) {
                   if (value.isEmpty) {
                     return 'Please enter price.';
@@ -193,8 +207,6 @@ class _ProductEditFormState extends State<ProductEditForm> {
                 },
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
-                onSaved: (newValue) => _newProduct =
-                    _copyProductWith(price: double.parse(newValue)),
               ),
             ),
             Padding(
@@ -204,7 +216,7 @@ class _ProductEditFormState extends State<ProductEditForm> {
                   labelText: 'Qty',
                   border: OutlineInputBorder(),
                 ),
-                initialValue: '1',
+                initialValue: '10',
                 textInputAction: TextInputAction.next,
                 enabled: false,
               ),
@@ -278,9 +290,9 @@ class _ProductEditFormState extends State<ProductEditForm> {
                         keyboardType: TextInputType.url,
                         textInputAction: TextInputAction.done,
                         focusNode: _imageFocusNode,
-                        onSaved: (newValue) =>
-                            _newProduct = _copyProductWith(imageUrl: newValue),
-                        onFieldSubmitted: (_) => _saveForm(),
+                        onSaved: (newValue) => _newProduct =
+                            _copyProductWith(imageUrl: newValue.trim()),
+                        onFieldSubmitted: (_) async => await _saveForm(),
                       ),
                     ),
                   ],
@@ -290,7 +302,9 @@ class _ProductEditFormState extends State<ProductEditForm> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: RaisedButton.icon(
-                onPressed: _saveForm,
+                onPressed: () async {
+                  await _saveForm();
+                },
                 icon: Icon(Icons.done_all),
                 label: Text(_isEdit ? 'Update' : 'Add'),
               ),

@@ -21,7 +21,8 @@ class _RestClient implements RestClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final Response<List<dynamic>> _result = await _dio.request('/products.json',
+    final Response<Map<String, dynamic>> _result = await _dio.request(
+        '/products.json',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -29,9 +30,9 @@ class _RestClient implements RestClient {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    var value = _result.data
-        .map((dynamic i) => ProductItem.fromJson(i as Map<String, dynamic>))
-        .toList();
+    var value = _result.data.map((k, dynamic v) =>
+        MapEntry(k, ProductItem.fromJson(v as Map<String, dynamic>)));
+
     return value;
   }
 
@@ -61,8 +62,7 @@ class _RestClient implements RestClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(product?.toJson() ?? <String, dynamic>{});
-    final Response<Map<String, dynamic>> _result = await _dio.request(
-        '/products.json',
+    final Response _result = await _dio.request('/products.json',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -70,8 +70,9 @@ class _RestClient implements RestClient {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = ProductItem.fromJson(_result.data);
-    return value;
+    final value = _result.data;
+    final httpResponse = HttpResponse(value, _result);
+    return httpResponse;
   }
 
   @override
@@ -114,5 +115,22 @@ class _RestClient implements RestClient {
         data: _data);
     final value = ProductItem.fromJson(_result.data);
     return value;
+  }
+
+  @override
+  deleteProduct(id) async {
+    ArgumentError.checkNotNull(id, 'id');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    await _dio.request<void>('/products/$id.json',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'DELETE',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    return null;
   }
 }

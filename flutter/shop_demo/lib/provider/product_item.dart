@@ -66,9 +66,23 @@ class ProductItem extends Equatable with ChangeNotifier {
       this.flag = false,
       this.size = Size.free,
       this.color,
-      this.displayQty = 1,
+      this.displayQty = 10,
       this.gender = Gender.non,
       this.isFavorite = false});
+
+  ProductItem mapWithId(String id) => ProductItem(
+        id: id,
+        title: title,
+        desc: desc,
+        price: price,
+        imageUrl: imageUrl,
+        color: color,
+        size: size,
+        displayQty: displayQty,
+        gender: gender,
+        isFavorite: isFavorite,
+        categoryId: categoryId,
+      );
 
   factory ProductItem.fromJson(Map<String, dynamic> json) =>
       _$ProductItemFromJson(json);
@@ -151,7 +165,21 @@ class ProductItem extends Equatable with ChangeNotifier {
   }
 
   @override
-  List<Object> get props => [id];
+  List<Object> get props => [
+        id,
+        sku,
+        title,
+        desc,
+        price,
+        imageUrl,
+        categoryId,
+        flag,
+        size,
+        color,
+        gender,
+        isFavorite,
+        displayQty
+      ];
 
   @override
   bool get stringify => true;
@@ -159,5 +187,29 @@ class ProductItem extends Equatable with ChangeNotifier {
   void toggleFavorite() {
     isFavorite = !isFavorite;
     notifyListeners();
+  }
+
+  ProductItem copyWith({
+    String id,
+    String title,
+    String desc,
+    double price,
+    String imageUrl,
+    Size size,
+    List<ColorCode> color,
+    int displayQty,
+    bool isFavorite,
+  }) {
+    return ProductItem(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      desc: desc ?? this.desc,
+      price: price ?? this.price,
+      imageUrl: imageUrl ?? this.imageUrl,
+      size: size ?? this.size,
+      color: color ?? this.color,
+      displayQty: displayQty ?? this.displayQty,
+      isFavorite: isFavorite ?? this.isFavorite,
+    );
   }
 }
