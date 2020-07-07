@@ -31,7 +31,7 @@ class OrderList with ChangeNotifier {
       })?.toList();
 
       _order.clear();
-      _order.addAll(data);
+      _order.addAll(data.reversed);
       notifyListeners();
       return data;
     } catch (e) {
@@ -94,7 +94,7 @@ class OrderList with ChangeNotifier {
           // remove only cart
           _order[i].removeOrderItem(cartId);
           // if no cart left remove all order id
-          if (_order[i].orderItems.isEmpty ) {
+          if (_order[i].orderItems.isEmpty) {
             _order.removeAt(i);
             await _api.deleteOrderById(orderId);
           }
