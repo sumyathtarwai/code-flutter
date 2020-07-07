@@ -3,12 +3,10 @@ import 'package:provider/provider.dart';
 import '../../provider/modal.dart';
 
 class OrderSummary extends StatefulWidget {
-  final Function callback;
   final CartList cart;
   const OrderSummary({
     Key key,
     this.cart,
-    this.callback,
   }) : super(key: key);
 
   @override

@@ -37,25 +37,6 @@ class _RestClient implements RestClient {
   }
 
   @override
-  getProductById(id) async {
-    ArgumentError.checkNotNull(id, 'id');
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final Response<Map<String, dynamic>> _result = await _dio.request(
-        '/products/$id.json',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
-    final value = ProductItem.fromJson(_result.data);
-    return value;
-  }
-
-  @override
   addProduct(product) async {
     ArgumentError.checkNotNull(product, 'product');
     const _extra = <String, dynamic>{};
@@ -155,7 +136,7 @@ class _RestClient implements RestClient {
   }
 
   @override
-  getOrderById(id) async {
+  getAllOrderById(id) async {
     ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -170,6 +151,27 @@ class _RestClient implements RestClient {
             baseUrl: baseUrl),
         data: _data);
     final value = OrderItem.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  getOrderItemsById(orderId) async {
+    ArgumentError.checkNotNull(orderId, 'orderId');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final Response<List<dynamic>> _result = await _dio.request(
+        '/orders/$orderId/orderItems.json',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    var value = _result.data
+        .map((dynamic i) => OrderItem.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 
@@ -236,12 +238,30 @@ class _RestClient implements RestClient {
   }
 
   @override
-  deleteOrder(id) async {
-    ArgumentError.checkNotNull(id, 'id');
+  deleteOrderById(orderId) async {
+    ArgumentError.checkNotNull(orderId, 'orderId');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    await _dio.request<void>('/orders/$id.json',
+    await _dio.request<void>('/orders/$orderId.json',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'DELETE',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    return null;
+  }
+
+  @override
+  deleteOrderByItemId(orderId, index) async {
+    ArgumentError.checkNotNull(orderId, 'orderId');
+    ArgumentError.checkNotNull(index, 'index');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    await _dio.request<void>('/orders/$orderId/orderItems/$index.json',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'DELETE',

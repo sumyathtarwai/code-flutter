@@ -19,14 +19,14 @@ enum OrderStatus {
 @JsonSerializable()
 class OrderItem extends Equatable with ChangeNotifier {
   final String id;
-  final List<CartItem> cart;
+  final List<CartItem> orderItems;
   final DateTime createdDate;
   final double total;
   OrderStatus orderStatus;
 
   OrderItem({
     this.id,
-    this.cart,
+    this.orderItems,
     this.total,
     this.createdDate,
     this.orderStatus = OrderStatus.waiting,
@@ -41,7 +41,7 @@ class OrderItem extends Equatable with ChangeNotifier {
   }) {
     return OrderItem(
       id: id ?? this.id,
-      cart: cart ?? this.cart,
+      orderItems: cart ?? this.orderItems,
       total: total ?? this.total,
       createdDate: createdDate ?? this.createdDate,
       orderStatus: orderStatus ?? this.orderStatus,
@@ -53,17 +53,17 @@ class OrderItem extends Equatable with ChangeNotifier {
   Map<String, dynamic> toJson() => _$OrderItemToJson(this);
 
   void removeOrderItem(String cartId) {
-    if (cart.isEmpty) return;
+    if (orderItems.isEmpty) return;
 
-    var i = cart.indexWhere((el) => el.id == cartId);
+    var i = orderItems.indexWhere((el) => el.id == cartId);
     if (i >= 0) {
-      cart.removeAt(i);
+      orderItems.removeAt(i);
       notifyListeners();
     }
   }
 
   @override
-  List<Object> get props => [id, cart, total, createdDate, orderStatus];
+  List<Object> get props => [id, orderItems, total, createdDate, orderStatus];
 
   String get statusName {
     var status;

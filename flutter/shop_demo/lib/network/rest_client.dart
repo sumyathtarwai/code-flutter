@@ -16,8 +16,8 @@ abstract class RestClient {
   @GET("/products.json")
   Future<Map<String, ProductItem>> getProducts();
 
-  @GET("/products/{id}.json")
-  Future<ProductItem> getProductById(@Path("id") String id);
+  // @GET("/products/{id}.json")
+  // Future<ProductItem> getProductById(@Path("id") String id);
 
   @POST("/products.json")
   //Future<ProductItem> addProduct(@Body() ProductItem product);
@@ -33,25 +33,32 @@ abstract class RestClient {
       @Path() String id, @Body() Map<String, dynamic> map);
 
   @DELETE("/products/{id}.json")
-  Future<void> deleteProduct(@Path() String id);
+  Future<void> deleteProduct(@Path("id") String id);
 
 // ORDER
   @GET("/orders.json")
   Future<Map<String, OrderItem>> getOrders();
 
   @GET("/orders/{id}.json")
-  Future<OrderItem> getOrderById(@Path("id") String id);
+  Future<OrderItem> getAllOrderById(@Path("id") String id);
+
+  @GET("/orders/{id}/orderItems.json")
+  Future<List<OrderItem>> getOrderItemsById(@Path("id") String orderId);
 
   @POST("/orders.json")
   Future<HttpResponse> addOrder(@Body() OrderItem order);
 
   @PUT("/orders/{id}.json")
-  Future<OrderItem> updateOrder(@Path() String id, @Body() OrderItem order);
+  Future<OrderItem> updateOrder(@Path('id') String id, @Body() OrderItem order);
 
   @PATCH("/orders/{id}.json")
   Future<OrderItem> updateOrderPart(
-      @Path() String id, @Body() Map<String, dynamic> map);
+      @Path('id') String id, @Body() Map<String, dynamic> map);
 
   @DELETE("/orders/{id}.json")
-  Future<void> deleteOrder(@Path() String id);
+  Future<void> deleteOrderById(@Path('id') String orderId);
+
+  @DELETE("/orders/{id}/orderItems/{index}.json")
+  Future<void> deleteOrderByItemId(
+      @Path('id') String orderId, @Path('index') int index);
 }

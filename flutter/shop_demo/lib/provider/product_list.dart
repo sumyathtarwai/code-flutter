@@ -39,7 +39,7 @@ class ProductList with ChangeNotifier {
     try {
       Map<String, ProductItem> response = await _api.getProducts();
       final data =
-          response?.entries?.map((e) => e.value.mapWithId(e.key))?.toList();
+          response?.entries?.map((e) => e.value.copyWith(id: e.key))?.toList();
 
       _products.clear();
       _products.addAll(data);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 import '../common/common_part_export.dart';
 import '../../route.dart';
 
@@ -74,7 +75,7 @@ class ProductTile extends StatelessWidget {
                 onPressed: () {
                   cart.addToCart(
                     CartItem(
-                        id: DateTime.now().toString(),
+                        id: Uuid().v1(),
                         productId: product.id,
                         title: product.title,
                         price: product.price,

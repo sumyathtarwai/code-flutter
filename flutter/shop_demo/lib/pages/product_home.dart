@@ -15,9 +15,10 @@ class ProductHome extends StatefulWidget {
 }
 
 class _ProductHomeState extends State<ProductHome> {
+  var _isloading = false;
   var _showOnlyFavorite = false;
-
   bool _isInit = true;
+
   @override
   void didChangeDependencies() {
     if (_isInit) {
@@ -30,7 +31,16 @@ class _ProductHomeState extends State<ProductHome> {
   @override
   void initState() {
     super.initState();
-    _refreshData();
+    _loading(true);
+    _refreshData().then((value) => _loading(false));
+  }
+
+  void _loading(bool val) {
+    if (mounted) {
+      setState(() {
+        _isloading = val;
+      });
+    }
   }
 
   Future<List<ProductItem>> _refreshData() async {
@@ -59,10 +69,12 @@ class _ProductHomeState extends State<ProductHome> {
       ),
       drawer: const DrawerWidget(),
       body: SafeArea(
-        child: RefreshIndicator(
-            onRefresh: _refreshData,
-            backgroundColor: Theme.of(context).primaryColorDark,
-            child: ProductGridView(showOnlyFavorite: _showOnlyFavorite)),
+        child: _isloading
+            ? Center(child: CircularProgressIndicator())
+            : RefreshIndicator(
+                onRefresh: _refreshData,
+                backgroundColor: Theme.of(context).primaryColorDark,
+                child: ProductGridView(showOnlyFavorite: _showOnlyFavorite)),
       ),
     );
   }

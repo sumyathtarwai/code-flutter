@@ -18,11 +18,38 @@ class OrderList with ChangeNotifier {
     return [..._order];
   }
 
+  Future<List<OrderItem>> fetchOrders() async {
+    try {
+      Map<String, OrderItem> response = await _api.getOrders();
+
+      final data = response?.entries?.map((e) {
+        // firebase return [x] = null, when sub child is deleted
+        if (e.value.orderItems != null) {
+          e.value.orderItems.removeWhere((el) => el == null);
+        }
+        return e.value.copyWith(id: e.key);
+      })?.toList();
+
+      _order.clear();
+      _order.addAll(data);
+      notifyListeners();
+      return data;
+    } catch (e) {
+      switch (e.runtimeType) {
+        case DioError:
+          throw NetworkException(e);
+          break;
+        default:
+      }
+    }
+    return null;
+  }
+
   Future<void> addOrder(List<CartItem> carts, double total) async {
     final date = DateTime.now();
     try {
       final orders = OrderItem(
-        cart: carts,
+        orderItems: carts,
         total: total,
         createdDate: date,
       );
@@ -40,16 +67,47 @@ class OrderList with ChangeNotifier {
     }
   }
 
-  void removeOrder({@required String orderId, @required String cartId}) {
+  Future<void> removeOrder(
+      {@required String orderId, @required String cartId}) async {
     var i = _order.indexWhere((el) => el.id == orderId);
 
     if (i >= 0) {
-      _order[i].removeOrderItem(cartId);
+      // get all order items
 
-      if (_order[i].cart.isEmpty) {
-        _order.removeAt(i);
+      // [/orders/{id}/orderItems.json] has null
+      // var orderItems = await _api.getOrderItemsById(orderId);
+
+      var orders = await _api.getAllOrderById(orderId);
+      var orderItems = orders.orderItems;
+
+      // search id of index
+      var index = orderItems.indexWhere((el) {
+        if (el != null) {
+          return el.id == cartId;
+        }
+        return false;
+      });
+      try {
+        if (index >= 0) {
+          await _api.deleteOrderByItemId(orderId, index);
+
+          // remove only cart
+          _order[i].removeOrderItem(cartId);
+          // if no cart left remove all order id
+          if (_order[i].orderItems.isEmpty ) {
+            _order.removeAt(i);
+            await _api.deleteOrderById(orderId);
+          }
+          notifyListeners();
+        }
+      } catch (e) {
+        switch (e.runtimeType) {
+          case DioError:
+            throw NetworkException(e);
+            break;
+          default:
+        }
       }
-      notifyListeners();
     }
   }
 }

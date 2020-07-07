@@ -9,7 +9,7 @@ part of 'order_item.dart';
 OrderItem _$OrderItemFromJson(Map<String, dynamic> json) {
   return OrderItem(
     id: json['id'] as String,
-    cart: (json['cart'] as List)
+    orderItems: (json['orderItems'] as List)
         ?.map((e) =>
             e == null ? null : CartItem.fromJson(e as Map<String, dynamic>))
         ?.toList(),
@@ -24,7 +24,7 @@ OrderItem _$OrderItemFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$OrderItemToJson(OrderItem instance) => <String, dynamic>{
       'id': instance.id,
-      'cart': instance.cart,
+      'orderItems': instance.orderItems,
       'createdDate': instance.createdDate?.toIso8601String(),
       'total': instance.total,
       'orderStatus': _$OrderStatusEnumMap[instance.orderStatus],

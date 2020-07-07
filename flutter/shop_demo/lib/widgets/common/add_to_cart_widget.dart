@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 import '../../provider/modal.dart';
 
 class AddToCartButton extends StatelessWidget {
@@ -18,7 +19,7 @@ class AddToCartButton extends StatelessWidget {
       onPressed: () {
         cart.addToCart(
           CartItem(
-              id: DateTime.now().toString(),
+              id: Uuid().v1(),
               productId: product.id,
               title: product.title,
               price: product.price,

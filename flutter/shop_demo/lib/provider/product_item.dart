@@ -75,20 +75,6 @@ class ProductItem extends Equatable with ChangeNotifier {
       this.gender = Gender.non,
       this.isFavorite = false});
 
-  ProductItem mapWithId(String id) => ProductItem(
-        id: id,
-        title: title,
-        desc: desc,
-        price: price,
-        imageUrl: imageUrl,
-        color: color,
-        size: size,
-        displayQty: displayQty,
-        gender: gender,
-        isFavorite: isFavorite,
-        categoryId: categoryId,
-      );
-
   factory ProductItem.fromJson(Map<String, dynamic> json) =>
       _$ProductItemFromJson(json);
   Map<String, dynamic> toJson() => _$ProductItemToJson(this);

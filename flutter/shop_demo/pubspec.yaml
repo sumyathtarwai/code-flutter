@@ -32,6 +32,7 @@ dependencies:
   logger: ^0.9.1
   # dependency injection
   get_it: ^4.0.2
+  uuid: ^2.2.0
 
 dev_dependencies:
   flutter_test:

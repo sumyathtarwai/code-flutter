@@ -58,7 +58,7 @@ class _CartHomeState extends State<CartHome> {
             : Column(
                 children: <Widget>[
                   Expanded(
-                    child: OrderSummary(cart: carts, callback: _loading),
+                    child: OrderSummary(cart: carts),
                   ),
                   Expanded(
                     flex: 4,

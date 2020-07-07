@@ -1,0 +1,52 @@
+{
+  "products" : {
+    "-MB_jSsFeLHRBqZ7p9iw" : {
+      "color" : [ "white", "black", "red", "blue", "yellow", "brown" ],
+      "desc" : "A cotton tee inspired by retro style.",
+      "displayQty" : 10,
+      "flag" : false,
+      "gender" : "non",
+      "imageUrl" : "https://images.unsplash.com/photo-1511746315387-c4a76990fdce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+      "isFavorite" : true,
+      "price" : 29.99,
+      "size" : "free",
+      "title" : "ORIGINALS 3-STRIPES TEE"
+    },
+    "-MBa0qt6FTBlQA-1-ATN" : {
+      "color" : [ "white", "red", "black" ],
+      "desc" : "Free style cotton shirt.",
+      "displayQty" : 10,
+      "flag" : false,
+      "gender" : "non",
+      "imageUrl" : "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+      "isFavorite" : false,
+      "price" : 29.99,
+      "size" : "free",
+      "title" : "SHIRT"
+    },
+    "-MBcjzhU8BA_lA7mJEnp" : {
+      "color" : [ "white", "red" ],
+      "desc" : "Style and cozy - for summer",
+      "displayQty" : 10,
+      "flag" : false,
+      "gender" : "non",
+      "imageUrl" : "https://images.unsplash.com/photo-1572804013427-4d7ca7268217?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+      "isFavorite" : false,
+      "price" : 89.99,
+      "size" : "free",
+      "title" : "DRESS"
+    },
+    "-MBckV6SeCek-una8_TI" : {
+      "color" : [ "blue" ],
+      "desc" : "Casual Ware",
+      "displayQty" : 10,
+      "flag" : false,
+      "gender" : "non",
+      "imageUrl" : "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80",
+      "isFavorite" : true,
+      "price" : 19.99,
+      "size" : "free",
+      "title" : "SHORT PANTS"
+    }
+  }
+}

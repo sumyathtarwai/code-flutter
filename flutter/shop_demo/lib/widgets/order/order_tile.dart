@@ -20,7 +20,7 @@ class _OrderTileState extends State<OrderTile> {
     var date = DateFormat('dd/MM/yyyy').format(widget.order.createdDate);
     return Column(
       children: <Widget>[
-        if (widget.order.cart.isNotEmpty)
+        if (widget.order.orderItems.isNotEmpty)
           Card(
             color: Theme.of(context).primaryColorLight,
             child: ListTile(
@@ -40,7 +40,7 @@ class _OrderTileState extends State<OrderTile> {
         if (_expand)
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10),
-            height: min(widget.order.cart.length * 20.0 + 60, 220.0),
+            height: min(widget.order.orderItems.length * 20.0 + 60, 220.0),
             child: ChangeNotifierProvider<OrderItem>.value(
               value: widget.order,
               builder: (context, child) => Consumer<OrderItem>(
@@ -54,19 +54,25 @@ class _OrderTileState extends State<OrderTile> {
   }
 }
 
-class OrderDetailDrawer extends StatelessWidget {
+class OrderDetailDrawer extends StatefulWidget {
   const OrderDetailDrawer({Key key, @required this.order}) : super(key: key);
 
   final OrderItem order;
 
   @override
+  _OrderDetailDrawerState createState() => _OrderDetailDrawerState();
+}
+
+class _OrderDetailDrawerState extends State<OrderDetailDrawer> {
+  var _isloading = false;
+  @override
   Widget build(BuildContext context) {
-    var date = DateFormat('dd/MM/yyyy').format(order.createdDate);
+    var date = DateFormat('dd/MM/yyyy').format(widget.order.createdDate);
     var orderOf = Provider.of<OrderList>(context, listen: false);
 
     return ListView.builder(
       itemBuilder: (context, i) {
-        var cart = order.cart[i];
+        var cart = widget.order.orderItems[i];
         return Card(
           color: Theme.of(context).secondaryHeaderColor,
           child: ListTile(
@@ -80,17 +86,28 @@ class OrderDetailDrawer extends StatelessWidget {
               '\$ ${cart.price} * ${cart.qty}x \n$date',
             ),
             trailing: IconButton(
-              icon: Icon(
-                Icons.delete,
-                color: Theme.of(context).errorColor,
-              ),
-              onPressed: () =>
-                  orderOf.removeOrder(orderId: order.id, cartId: cart.id),
-            ),
+                icon: Icon(
+                  Icons.delete,
+                  color: Theme.of(context).errorColor,
+                ),
+                onPressed: _isloading
+                    ? null
+                    : () async {
+                        _loading(true);
+                        await orderOf.removeOrder(
+                            orderId: widget.order.id, cartId: cart.id);
+                        _loading(false);
+                      }),
           ),
         );
       },
-      itemCount: order.cart.length,
+      itemCount: widget.order.orderItems.length,
     );
+  }
+
+  void _loading(bool val) {
+    setState(() {
+      _isloading = val;
+    });
   }
 }

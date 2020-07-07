@@ -4,8 +4,34 @@ import '../widgets/common/common_part_export.dart';
 import '../widgets/order/order_part_export.dart';
 import '../provider/modal.dart';
 
-class OrderHome extends StatelessWidget {
+class OrderHome extends StatefulWidget {
   const OrderHome({Key key}) : super(key: key);
+
+  @override
+  _OrderHomeState createState() => _OrderHomeState();
+}
+
+class _OrderHomeState extends State<OrderHome> {
+  var _isloading = false;
+  @override
+  void initState() {
+    super.initState();
+    _loading(true);
+    _refreshData().then((value) => _loading(false));
+  }
+
+  void _loading(bool val) {
+    if (mounted) {
+      setState(() {
+        _isloading = val;
+      });
+    }
+  }
+
+  Future<List<OrderItem>> _refreshData() async {
+    final of = Provider.of<OrderList>(context, listen: false);
+    return await of.fetchOrders();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +48,22 @@ class OrderHome extends StatelessWidget {
         elevation: 0,
       ),
       drawer: const DrawerWidget(),
-      body: orderOf.order.isEmpty
-          ? Center(
-              child: Text(
-              'No order history yet',
-              style: theme.textTheme.headline4,
-            ))
-          : ListView.builder(
-              itemBuilder: (context, i) => OrderTile(order: orderOf.order[i]),
-              itemCount: orderOf.order.length,
+      body: _isloading
+          ? Center(child: CircularProgressIndicator())
+          : RefreshIndicator(
+              onRefresh: _refreshData,
+              child: orderOf.order.isEmpty
+                  ? Center(
+                      child: Text(
+                        'No order history yet',
+                        style: theme.textTheme.headline4,
+                      ),
+                    )
+                  : ListView.builder(
+                      itemBuilder: (context, i) =>
+                          OrderTile(order: orderOf.order[i]),
+                      itemCount: orderOf.order.length,
+                    ),
             ),
     );
   }
